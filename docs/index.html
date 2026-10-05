@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monte Carlo Pi</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #111; color: #eee; margin: 0; padding: 16px; text-align: center; }
+  canvas { background: #1b1b1b; border: 1px solid #444; max-width: 100%; height: auto; }
+  .stats { font-family: ui-monospace, monospace; font-size: 1.4rem; margin: 12px 0; }
+  .stats span { color: #6cf; }
+  button { font-size: 1rem; padding: 6px 14px; margin: 0 4px; }
+  label { margin-left: 12px; }
+</style>
+</head>
+<body>
+<h1>Estimating &pi; with Monte Carlo</h1>
+<canvas id="c" width="500" height="500"></canvas>
+<div class="stats">
+  Iteration: <span id="iter">0</span><br>
+  &pi; &approx; <span id="pi">-</span>
+</div>
+<div>
+  <button id="toggle">Pause</button>
+  <button id="reset">Reset</button>
+  <label>Points/frame <input id="speed" type="range" min="1" max="2000" value="50"></label>
+</div>
+<script>
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const S = cv.width;
+const iterEl = document.getElementById('iter'), piEl = document.getElementById('pi');
+let n, inside, running = true;
+
+function drawBase() {
+  ctx.clearRect(0, 0, S, S);
+  ctx.strokeStyle = '#888';
+  ctx.beginPath();
+  ctx.arc(0, S, S, -Math.PI / 2, 0);
+  ctx.stroke();
+}
+
+function reset() {
+  n = 0; inside = 0;
+  drawBase();
+  iterEl.textContent = '0';
+  piEl.textContent = '-';
+}
+
+function step() {
+  if (running) {
+    const k = +document.getElementById('speed').value;
+    for (let j = 0; j < k; j++) {
+      const x = Math.random(), y = Math.random();
+      n++;
+      const hit = x * x + y * y <= 1;
+      if (hit) inside++;
+      ctx.fillStyle = hit ? '#4caf50' : '#e5534b';
+      ctx.fillRect(x * S, S - y * S, 2, 2);
+    }
+    iterEl.textContent = n.toLocaleString();
+    piEl.textContent = (4 * inside / n).toFixed(10);
+  }
+  requestAnimationFrame(step);
+}
+
+document.getElementById('toggle').onclick = e => {
+  running = !running;
+  e.target.textContent = running ? 'Pause' : 'Resume';
+};
+document.getElementById('reset').onclick = reset;
+reset();
+step();
+</script>
+</body>
+</html>
