@@ -2,7 +2,7 @@
 # Send a push notification through ntfy.
 #   notify.sh new <message-file>   new games found (does nothing if the file is missing)
 #   notify.sh failure <run-url>    the daily run failed
-# Needs NTFY_TOPIC (set by the workflow: on the public server the topic name is
+# Needs NTFY_TOPIC (a GitHub Actions secret: on the public server the topic name is
 # the only thing keeping others out). Skips quietly if it is not set.
 set -euo pipefail
 
