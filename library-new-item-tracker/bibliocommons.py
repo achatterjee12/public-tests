@@ -58,10 +58,14 @@ def title_of(bib):
     return f"{info['title'].strip()}: {sub}" if sub else info["title"].strip()
 
 
-def search_bibs(slug, query):
-    """Every video-game record matching query, newest acquired first."""
+def search_bibs(slug, query, sort="title"):
+    """Every video-game record matching query.
+
+    Sorted by title: many records share one acquisition time, and paging through
+    sort=newly_acquired then skips and repeats records between runs.
+    """
     base = GATEWAY.format(slug=slug) + "/bibs/search?" + urllib.parse.urlencode({
-        "query": query, "searchType": "smart", "sort": "newly_acquired",
+        "query": query, "searchType": "smart", "sort": sort,
         "f_FORMAT": "VIDEO_GAME", "locale": "en-US"})
     seen, page = set(), 1
     while True:

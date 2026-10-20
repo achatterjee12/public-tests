@@ -15,6 +15,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Search stability (three repeats per sort order)
+        working-directory: library-new-item-tracker
+        shell: bash
+        run: python stability.py
       - name: Tracker dry run, twice in a row (first run, then a quick follow-up)
         working-directory: library-new-item-tracker
         shell: bash
