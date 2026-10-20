@@ -14,7 +14,9 @@ import re
 import time
 import urllib.parse
 import urllib.request
+import zlib
 from concurrent.futures import ThreadPoolExecutor
+from datetime import date
 
 from tracker import Item
 
@@ -22,7 +24,12 @@ GATEWAY = "https://gateway.bibliocommons.com/v2/libraries/{slug}"
 QUERIES = ("playstation 5", "ps5")  # their results overlap; the union is more complete
 PS5 = re.compile(r"playstation ?5|\bps ?5\b", re.I)
 BRANCH_SUFFIX = re.compile(r"\s+(Branch\s+)?Library$", re.I)
-WORKERS = 6
+WORKERS = 4
+# Branch lookups are one request per game and the gateway answers HTTP 403 to bursts
+# of a few hundred. So each run looks up branches only for games that have none stored
+# yet (newest first) plus a rolling slice of the rest, up to MAX_BRANCH_LOOKUPS.
+MAX_BRANCH_LOOKUPS = 150
+REFRESH_DAYS = 14  # every stored branch list is re-checked about this often
 HEADERS = {"accept": "application/json",
            "user-agent": "Mozilla/5.0 (X11; Linux x86_64) ps5-tracker"}
 
@@ -84,16 +91,33 @@ def branches_of(slug, bib_id):
     return sorted(n for n in names if n)
 
 
-def fetch(slug, library=None):
-    """All PS5 games at one BiblioCommons library, as Items."""
-    library = library or slug
+def lookups_needed(ids, known, today=None, cap=MAX_BRANCH_LOOKUPS):
+    """Which record ids to look branches up for this run (ids are newest first).
+
+    known: {id: stored branch list}. Ids with nothing stored come first; then ids
+    whose turn in the REFRESH_DAYS-day rotation it is today.
+    """
+    day = (today or date.today()).toordinal()
+    missing = [i for i in ids if not known.get(i)]
+    due = [i for i in ids if known.get(i) and (zlib.crc32(i.encode()) + day) % REFRESH_DAYS == 0]
+    return (missing + due)[:cap]
+
+
+def fetch(slug, library=None, known=None, today=None):
+    """All PS5 games at one BiblioCommons library, as Items.
+
+    known: {record id: branches stored by earlier runs}, used to limit branch lookups.
+    """
+    library, known = library or slug, known or {}
     bibs = {}
     for query in QUERIES:
         for bib in search_bibs(slug, query):
             if is_ps5_game(bib):
                 bibs.setdefault(bib["id"], bib)
+    todo = lookups_needed(list(bibs), known, today)
+    print(f"{slug}: {len(bibs)} PS5 games, looking up branches for {len(todo)}", flush=True)
     with ThreadPoolExecutor(WORKERS) as pool:
-        branches = list(pool.map(lambda i: branches_of(slug, i), bibs))
+        looked_up = dict(zip(todo, pool.map(lambda i: branches_of(slug, i), todo)))
     return [Item(bid, title_of(bib), f"https://{slug}.bibliocommons.com/v2/record/{bid}",
-                 library=library, branches=br)
-            for (bid, bib), br in zip(bibs.items(), branches)]
+                 library=library, branches=looked_up.get(bid) or known.get(bid) or [])
+            for bid, bib in bibs.items()]

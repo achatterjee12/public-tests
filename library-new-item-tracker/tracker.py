@@ -113,6 +113,14 @@ def check(items, db, now=None, libraries=None):
     return new, total
 
 
+def known_branches(db):
+    """{library: {record id: stored branch list}}, so fetchers can skip repeat lookups."""
+    known = {}
+    for lib, id_, branches in db.execute("SELECT library, id, branches FROM items"):
+        known.setdefault(lib, {})[id_] = json.loads(branches or "[]")
+    return known
+
+
 def export_json(db, path=JSON_PATH, now=None):
     """Write everything index.html needs; it works out the 24h / 7d windows."""
     now = now or datetime.now(timezone.utc)
@@ -168,8 +176,8 @@ def empty_results(results, db):
 
 def main():
     from catalog import fetch_all  # site-specific; see catalog.py
-    results, errors = fetch_all()
     db = open_db()
+    results, errors = fetch_all(known_branches(db))
     for lib in empty_results(results, db):
         errors[lib] = "returned no games although it had many before"
         del results[lib]

@@ -7,20 +7,25 @@ tracker.LIBRARY_NAMES.
 import bibliocommons
 import vega
 
+# Each fetcher takes `known`: {record id: branches stored by earlier runs} for its library.
 FETCHERS = {
-    "mvpl": vega.fetch,
-    "sunnyvale": lambda: bibliocommons.fetch("sunnyvale"),
-    "sclibrary": lambda: bibliocommons.fetch("sclibrary"),
-    "sccl": lambda: bibliocommons.fetch("sccl"),
+    "mvpl": lambda known: vega.fetch(),
+    "sunnyvale": lambda known: bibliocommons.fetch("sunnyvale", known=known),
+    "sclibrary": lambda known: bibliocommons.fetch("sclibrary", known=known),
+    "sccl": lambda known: bibliocommons.fetch("sccl", known=known),
 }
 
 
-def fetch_all():
-    """Returns ({library: [Item]}, {library: error text}); one failure doesn't stop the rest."""
+def fetch_all(known=None):
+    """Returns ({library: [Item]}, {library: error text}); one failure doesn't stop the rest.
+
+    known: {library: {record id: stored branches}}, see tracker.known_branches().
+    """
+    known = known or {}
     results, errors = {}, {}
     for key, fetch in FETCHERS.items():
         try:
-            results[key] = fetch()
+            results[key] = fetch(known.get(key, {}))
         except Exception as e:
             errors[key] = f"{type(e).__name__}: {e}"
     return results, errors

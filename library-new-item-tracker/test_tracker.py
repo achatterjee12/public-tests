@@ -3,7 +3,7 @@ import json
 import sqlite3
 
 from tracker import (Item, check, empty_results, export_json, format_notification,
-                     open_db, where)
+                     known_branches, open_db, where)
 
 NOW = datetime(2026, 10, 20, 12, tzinfo=timezone.utc)
 
@@ -153,3 +153,11 @@ def test_where_formatting():
         "Santa Clara County: Cupertino, Los Altos"
     assert where(Item("1", "A", library="sccl", branches=list("DCBA"))) == \
         "Santa Clara County: A, B, C +1"
+
+
+def test_known_branches_feeds_the_fetchers():
+    db = open_db(":memory:")
+    check([Item("1", "A", library="sccl", branches=["Cupertino", "Los Altos"]),
+           Item("2", "B", library="sccl"), Item("3", "C", library="mvpl")], db, NOW)
+    assert known_branches(db) == {"sccl": {"1": ["Cupertino", "Los Altos"], "2": []},
+                                  "mvpl": {"3": []}}

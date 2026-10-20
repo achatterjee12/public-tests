@@ -1,3 +1,5 @@
+from datetime import date
+
 import bibliocommons as bc
 import vega
 
@@ -70,7 +72,7 @@ def test_fetch_unions_queries_and_filters(monkeypatch):
     by_query = {"playstation 5": ["1", "2"], "ps5": ["1", "3"]}
     monkeypatch.setattr(bc, "search_bibs", lambda slug, q: (games[i] for i in by_query[q]))
     monkeypatch.setattr(bc, "branches_of", lambda slug, i: ["Cupertino"] if i == "1" else [])
-    got = bc.fetch("sccl")
+    got = bc.fetch("sccl", known={})
     assert [(i.id, i.title, i.library, i.branches) for i in got] == [
         ("1", "Ghost", "sccl", ["Cupertino"]), ("3", "Dune", "sccl", [])]
     assert got[0].url == "https://sccl.bibliocommons.com/v2/record/1"
@@ -84,3 +86,39 @@ def test_vega_ps5_detection():
     ebook = {"materialTabs": [{"materialTypes": ["1"], "callNumber": "", "editions": [
         {"edition": "PlayStation 5 guide", "callNumber": ""}]}]}
     assert vega.is_ps5_game(ps5) and not vega.is_ps5_game(switch) and not vega.is_ps5_game(ebook)
+
+
+def test_lookups_prioritise_missing_and_respect_cap():
+    ids = [str(n) for n in range(10)]
+    known = {i: ["Cupertino"] for i in ids[:6]}              # 4..9 have nothing stored
+    got = bc.lookups_needed(ids, known, today=date(2026, 10, 20), cap=100)
+    assert got[:4] == ["6", "7", "8", "9"]                    # missing ones first, in order
+    assert bc.lookups_needed(ids, known, today=date(2026, 10, 20), cap=2) == ["6", "7"]
+
+
+def test_lookups_rotate_through_stored_items():
+    ids = [f"S{n}" for n in range(300)]
+    known = {i: ["Cupertino"] for i in ids}                   # everything already stored
+    seen = set()
+    for d in range(bc.REFRESH_DAYS):
+        day = date.fromordinal(date(2026, 10, 20).toordinal() + d)
+        todo = bc.lookups_needed(ids, known, today=day, cap=10_000)
+        assert 0 < len(todo) < 60                              # a slice, never everything
+        seen.update(todo)
+    assert seen == set(ids)                                    # all refreshed within the cycle
+    assert bc.lookups_needed(ids, known, today=date(2026, 10, 20)) == \
+        bc.lookups_needed(ids, known, today=date(2026, 10, 20))  # deterministic
+
+
+def test_fetch_only_looks_up_what_is_needed(monkeypatch):
+    games = {str(n): bib(str(n), f"G{n}") for n in range(3)}
+    monkeypatch.setattr(bc, "search_bibs", lambda slug, q: iter(games.values()) if q == "ps5" else iter([]))
+    asked = []
+    monkeypatch.setattr(bc, "branches_of", lambda slug, i: asked.append(i) or ["Los Altos"])
+    known = {"0": ["Cupertino"]}                               # 0 already stored; 1 and 2 are not
+    # pick a day on which 0 is not due for its periodic refresh
+    today = next(d for d in (date.fromordinal(739000 + n) for n in range(bc.REFRESH_DAYS))
+                 if "0" not in bc.lookups_needed(["0", "1", "2"], known, today=d))
+    by = {i.id: i.branches for i in bc.fetch("sccl", known=known, today=today)}
+    assert sorted(asked) == ["1", "2"]
+    assert by == {"0": ["Cupertino"], "1": ["Los Altos"], "2": ["Los Altos"]}
