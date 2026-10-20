@@ -1,21 +1,19 @@
-"""One-off probe of three BiblioCommons catalogs; delete after the adapter is written."""
+"""One-off probe (round 3); delete after the adapter is written."""
 import json
 import sys
 from urllib.parse import quote
 
 from playwright.sync_api import sync_playwright
 
-LIBS = ["sccl", "sunnyvale", "sclibrary"]
-GW = "https://gateway.bibliocommons.com/v2/libraries/{slug}/bibs/search"
+GW = "https://gateway.bibliocommons.com/v2/libraries/{slug}"
 
 
-def short(o, n=3000):
+def short(o, n=2500):
     s = o if isinstance(o, str) else json.dumps(o)
     return s[:n]
 
 
 def gw(page, url):
-    """fetch() from inside the page, like the site's own scripts do."""
     return page.evaluate("""async (u) => {
         const r = await fetch(u, {headers: {accept: 'application/json'}});
         const t = await r.text();
@@ -23,63 +21,85 @@ def gw(page, url):
     }""", url)
 
 
-def describe(label, res):
-    print(f"\n-- {label}: HTTP {res['status']}")
+def js(res):
     try:
-        j = json.loads(res["body"])
+        return json.loads(res["body"])
     except Exception:
-        print(short(res["body"], 600)); return None
-    if not isinstance(j, dict):
-        print("non-dict:", short(j, 600)); return None
-    print("top keys:", list(j)[:12])
-    cs = j.get("catalogSearch") or {}
-    print("catalogSearch keys:", list(cs)[:15])
-    print("pagination:", short(cs.get("pagination"), 400))
-    res_list = cs.get("results") or []
-    print("n results:", len(res_list), "first:", short(res_list[:2], 400))
-    ents = (j.get("entities") or {})
-    print("entity types:", {k: len(v) for k, v in ents.items() if isinstance(v, dict)})
-    return j
+        return None
+
+
+def titles(j):
+    ents = (j.get("entities") or {}).get("bibs") or {}
+    out = []
+    for r in (j.get("catalogSearch") or {}).get("results", []):
+        b = ents.get(r.get("representative"), {}).get("briefInfo", {})
+        out.append(f"{b.get('title')} [{b.get('format')}|{b.get('edition')}|{b.get('callNumber')}]")
+    return out
+
+
+def search(page, slug, **params):
+    qs = "&".join(f"{k}={quote(str(v))}" for k, v in params.items())
+    res = gw(page, f"{GW.format(slug=slug)}/bibs/search?{qs}&locale=en-US")
+    j = js(res)
+    if not j or "catalogSearch" not in j:
+        return res["status"], None, short(res["body"], 300)
+    return res["status"], j, (j["catalogSearch"].get("pagination") or {})
 
 
 def main():
     with sync_playwright() as p:
         b = p.chromium.launch()
-        for slug in LIBS:
+        for slug in ["sunnyvale", "sccl"]:
             print(f"\n\n################ {slug}")
-            page = b.new_page(viewport={"width": 1280, "height": 1600})
-            seen = []
-            page.on("response", lambda r, s=seen: s.append((r.request.method, r.status, r.url)))
-            q = quote("playstation 5")
-            page.goto(f"https://{slug}.bibliocommons.com/v2/search?query={q}&searchType=smart",
-                      wait_until="networkidle", timeout=60000)
-            page.wait_for_timeout(2500)
-            print("title:", page.title())
-            print("-- XHR to gateway/api:")
-            for m, st, u in seen:
-                if "gateway.bibliocommons.com" in u or "/api/" in u:
-                    print(" ", m, st, u[:230])
-            print("-- window state keys:", page.evaluate(
-                "Object.keys(window).filter(k => /STATE|state|BIBLIO|initial/i.test(k)).slice(0,15)"))
+            page = b.new_page()
+            page.goto(f"https://{slug}.bibliocommons.com/", wait_until="networkidle", timeout=60000)
 
-            base = GW.format(slug=slug)
-            j = describe("search smart", gw(page, f"{base}?query={q}&searchType=smart&limit=20&locale=en-US"))
-            if j:
-                ents = (j.get("entities") or {}).get("bibs") or {}
-                for k, v in list(ents.items())[:2]:
-                    print("BIB", k, short(v, 3500))
-                facets = (j.get("catalogSearch") or {}).get("facets")
-                print("FACETS:", short(facets, 3500))
-            for srt in ("newly_acquired", "newly_acquired_desc", "acquired_desc", "pubdate_desc"):
-                jj = describe(f"sort={srt}", gw(page,
-                    f"{base}?query={q}&searchType=smart&limit=5&locale=en-US&sort={srt}"))
-                if jj:
-                    ents = (jj.get("entities") or {}).get("bibs") or {}
-                    print("titles in order:", [
-                        (ents.get(r.get("representative") or r.get("id"), {}).get("briefInfo", {}) or {}).get("title")
-                        for r in (jj.get("catalogSearch") or {}).get("results", [])])
-            print("-- page text (first 1800 chars):")
-            print(page.inner_text("body")[:1800])
+            if slug == "sunnyvale":
+                for q in ["ps5", "playstation", "playstation 5", "video game", "video games",
+                          "nintendo switch", "xbox", "PS5 game", "game"]:
+                    st, j, info = search(page, slug, query=q, searchType="smart", limit=10)
+                    print(f"query={q!r}: HTTP {st} pagination={info if j else info}")
+                    if j:
+                        for t in titles(j)[:6]:
+                            print("    ", t)
+                st, j, info = search(page, slug, query="*", searchType="smart", limit=5,
+                                     **{"f_FORMAT": "VIDEO_GAME"})
+                print("format filter VIDEO_GAME ->", st, info)
+                if j:
+                    for t in titles(j)[:5]:
+                        print("    ", t)
+            else:
+                # page size and format filter
+                for lim in (25, 50, 100):
+                    st, j, info = search(page, slug, query="playstation 5", searchType="smart", limit=lim)
+                    print(f"limit={lim}: HTTP {st} {info if j else info} n={len((j or {}).get('catalogSearch',{}).get('results',[]))}")
+                for key in ("f_FORMAT", "f_format", "formats"):
+                    st, j, info = search(page, slug, query="playstation 5", searchType="smart",
+                                         limit=5, **{key: "VIDEO_GAME"})
+                    print(f"filter {key}=VIDEO_GAME: HTTP {st} {info}")
+                    if j:
+                        print("   ", titles(j)[:5])
+                # how many pages of PS5 video games in total via plain scan
+                st, j, info = search(page, slug, query="ps5", searchType="smart", limit=100,
+                                     sort="newly_acquired")
+                print("query=ps5 newly_acquired limit=100:", st, info)
+                if j:
+                    ts = titles(j)
+                    print("   n", len(ts), "first 12:", ts[:12])
+                    print("   non-VIDEO_GAME in page:", [t for t in ts if "VIDEO_GAME" not in t][:6])
+                # branch-level availability for the first PS5 result
+                st, j, info = search(page, slug, query="playstation 5", searchType="smart", limit=3)
+                first = (j["catalogSearch"]["results"][0]["representative"]) if j else None
+                print("first bib id:", first)
+                for path in (f"/bibs/{first}/availability", f"/bibs/{first}/availability?locale=en-US",
+                             f"/availability/{first}", f"/bibs/{first}"):
+                    res = gw(page, GW.format(slug=slug) + path)
+                    print(f"\n-- GET {path}: HTTP {res['status']}")
+                    print(short(res["body"], 3500))
+                # sortBys list
+                res = gw(page, f"{GW.format(slug=slug)}/bibs/search?query=ps5&searchType=smart&limit=1&locale=en-US")
+                jj = js(res) or {}
+                print("\nsortBys:", short((jj.get("catalogSearch") or {}).get("sortBys"), 1500))
             page.close()
         b.close()
     return 0
