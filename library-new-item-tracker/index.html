@@ -181,6 +181,7 @@ fetch("games.json", { cache: "no-store" })
   .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
   .then(data => {
     const now = Date.now();
+    data.libraries = data.libraries || [];   // older games.json had no library list
     for (const l of data.libraries) LIBS[l.key] = l.name;
     const names = data.libraries.map(l => l.name);
     el("sub").textContent = names.length
