@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 import json
 import sqlite3
 
-from tracker import Item, check, export_json, open_db
+from tracker import Item, check, export_json, format_notification, open_db
 
 NOW = datetime(2026, 10, 20, 12, tzinfo=timezone.utc)
 
@@ -48,3 +48,10 @@ def test_old_database_is_migrated(tmp_path):
     db = open_db(path)
     got = dict(db.execute("SELECT id, baseline FROM items"))
     assert got == {"1": 1, "2": 1, "3": 0}
+
+
+def test_format_notification():
+    items = [Item(str(n), f"Game {n}") for n in range(12)]
+    assert format_notification(items[:2]) == "- Game 0\n- Game 1"
+    lines = format_notification(items).split("\n")
+    assert len(lines) == 11 and lines[-1] == "...and 2 more"

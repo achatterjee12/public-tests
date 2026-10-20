@@ -21,6 +21,7 @@ from typing import Optional
 
 DB_PATH = os.environ.get("PS5_DB", "ps5_games.db")
 JSON_PATH = os.environ.get("PS5_JSON", "games.json")
+NEW_FILE = os.environ.get("PS5_NEW_FILE")  # if set, new-game message is written here
 WINDOW = timedelta(hours=24)
 
 
@@ -80,6 +81,14 @@ def export_json(db, path=JSON_PATH, now=None):
         }, f, indent=1)
 
 
+def format_notification(new, limit=10):
+    """Message body for the push notification: one title per line."""
+    lines = [f"- {it.title}" for it in new[:limit]]
+    if len(new) > limit:
+        lines.append(f"...and {len(new) - limit} more")
+    return "\n".join(lines)
+
+
 def main():
     from catalog import fetch_ps5_items  # site-specific; see catalog.py
     db = open_db()
@@ -88,6 +97,9 @@ def main():
     print(f"{total} PS5 games tracked; {len(new)} new in the last day")
     for it in new:
         print(f"  - {it.title} {it.url}")
+    if NEW_FILE and new:  # no file on quiet days, so notify.sh sends nothing
+        with open(NEW_FILE, "w") as f:
+            f.write(format_notification(new))
     return 0
 
 
