@@ -17,11 +17,11 @@ jobs:
         with:
           python-version: "3.12"
       - name: Check catalog
-        working-directory: ps5_tracker
+        working-directory: library-new-item-tracker
         run: python tracker.py | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Save database
         run: |
           git config user.name "ps5-tracker"
           git config user.email "ps5-tracker@users.noreply.github.com"
-          git add -f ps5_tracker/ps5_games.db
+          git add -f library-new-item-tracker/ps5_games.db
           git diff --cached --quiet || (git commit -m "Update PS5 game database" && git push)
