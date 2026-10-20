@@ -2,8 +2,12 @@
 
 Each catalog site is backed by an anonymous JSON gateway. Findings from probing it:
   * GET /v2/libraries/<slug>/bibs/search returns 25 records per page (the limit
-    parameter is ignored; use page=N). f_FORMAT=VIDEO_GAME filters to games and
-    sort=newly_acquired lists the newest first;
+    parameter is ignored; use page=N). f_FORMAT=VIDEO_GAME filters to games. Sort by
+    title: paging through sort=newly_acquired drops and repeats records between
+    requests (the county's count varied 689 to 692 for one search; by title it was a
+    steady 693);
+  * the gateway answers HTTP 403 once a client sends roughly 700+ requests within a
+    few minutes, so requests are spaced out and kept to a few hundred per run;
   * records carry no "date added"; a game's platform is in briefInfo.edition and
     callNumber (e.g. "PlayStation 5", "PS5, PlayStation 5", "793.932 GHOST PS5");
   * GET /v2/libraries/<slug>/bibs/<id>/availability lists every copy with its
@@ -12,6 +16,7 @@ Each catalog site is backed by an anonymous JSON gateway. Findings from probing 
 import json
 import re
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import zlib
@@ -24,7 +29,9 @@ GATEWAY = "https://gateway.bibliocommons.com/v2/libraries/{slug}"
 QUERIES = ("playstation 5", "ps5")  # their results overlap; the union is more complete
 PS5 = re.compile(r"playstation ?5|\bps ?5\b", re.I)
 BRANCH_SUFFIX = re.compile(r"\s+(Branch\s+)?Library$", re.I)
-WORKERS = 4
+WORKERS = 3
+REQUEST_DELAY = 0.2   # seconds after every request: the gateway throttles bursts
+THROTTLE_WAIT = 20    # seconds to back off after HTTP 403/429 (doubles each retry)
 # Branch lookups are one request per game and the gateway answers HTTP 403 to bursts
 # of a few hundred. So each run looks up branches only for games that have none stored
 # yet (newest first) plus a rolling slice of the rest, up to MAX_BRANCH_LOOKUPS.
@@ -39,11 +46,14 @@ def _get(url, tries=3):
         try:
             req = urllib.request.Request(url, headers=HEADERS)
             with urllib.request.urlopen(req, timeout=30) as r:
-                return json.load(r)
-        except Exception:
+                data = json.load(r)
+            time.sleep(REQUEST_DELAY)
+            return data
+        except Exception as e:
             if attempt == tries - 1:
                 raise
-            time.sleep(2 ** attempt)
+            throttled = isinstance(e, urllib.error.HTTPError) and e.code in (403, 429)
+            time.sleep(THROTTLE_WAIT * 2 ** attempt if throttled else 2 ** attempt)
 
 
 def is_ps5_game(bib):

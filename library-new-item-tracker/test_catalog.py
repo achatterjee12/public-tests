@@ -1,3 +1,5 @@
+import io
+import urllib.error
 from datetime import date
 
 import bibliocommons as bc
@@ -122,3 +124,38 @@ def test_fetch_only_looks_up_what_is_needed(monkeypatch):
     by = {i.id: i.branches for i in bc.fetch("sccl", known=known, today=today)}
     assert sorted(asked) == ["1", "2"]
     assert by == {"0": ["Cupertino"], "1": ["Los Altos"], "2": ["Los Altos"]}
+
+
+class _Resp(io.BytesIO):
+    def __enter__(self): return self
+    def __exit__(self, *a): return False
+
+
+def test_get_backs_off_when_throttled(monkeypatch):
+    waits, calls = [], []
+
+    def fake_urlopen(req, timeout=0):
+        calls.append(1)
+        if len(calls) < 3:
+            raise urllib.error.HTTPError(req.full_url, 403, "Forbidden", {}, None)
+        return _Resp(b'{"ok": true}')
+
+    monkeypatch.setattr(bc.urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr(bc.time, "sleep", waits.append)
+    assert bc._get("https://example.test/x") == {"ok": True}
+    assert waits[:2] == [bc.THROTTLE_WAIT, bc.THROTTLE_WAIT * 2]  # long, doubling waits for 403
+    assert waits[-1] == bc.REQUEST_DELAY                           # then the normal spacing
+
+
+def test_get_gives_up_after_three_tries(monkeypatch):
+    monkeypatch.setattr(bc.time, "sleep", lambda s: None)
+
+    def always_403(req, timeout=0):
+        raise urllib.error.HTTPError(req.full_url, 403, "Forbidden", {}, None)
+
+    monkeypatch.setattr(bc.urllib.request, "urlopen", always_403)
+    try:
+        bc._get("https://example.test/x")
+        assert False, "should have raised"
+    except urllib.error.HTTPError as e:
+        assert e.code == 403
