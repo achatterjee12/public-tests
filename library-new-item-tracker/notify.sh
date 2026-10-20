@@ -25,7 +25,7 @@ case "${1:-}" in
     [ -s "$file" ] || { echo "No new games; nothing to send"; exit 0; }
     count=$(grep -c '^- ' "$file" || true)
     curl -fsS --retry 3 \
-      -H "Title: New PS5 games at Mountain View Library" \
+      -H "Title: New PS5 games at your libraries" \
       -H "Tags: video_game" \
       -H "Click: $PAGE_URL" \
       --data-binary @"$file" "$SERVER/$NTFY_TOPIC" > /dev/null
@@ -37,7 +37,7 @@ case "${1:-}" in
       -H "Tags: warning" \
       -H "Priority: high" \
       -H "Click: ${2:-$PAGE_URL}" \
-      -d "The daily check did not complete. Tap to see the run." \
+      -d "The daily check hit an error. Tap to see which library failed." \
       "$SERVER/$NTFY_TOPIC" > /dev/null
     ;;
   test)

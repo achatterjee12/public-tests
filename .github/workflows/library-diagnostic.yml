@@ -1,0 +1,35 @@
+name: Library diagnostic
+# Temporary: runs the real fetchers and a dry-run of the tracker on GitHub's network.
+# Deleted before merge.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/library-diagnostic.yml
+      - library-new-item-tracker/**
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch every library
+        working-directory: library-new-item-tracker
+        shell: bash
+        run: time python catalog.py
+      - name: Dry run of the tracker against a copy of the real database
+        working-directory: library-new-item-tracker
+        shell: bash
+        env:
+          PS5_DB: ${{ runner.temp }}/dry.db
+          PS5_JSON: ${{ runner.temp }}/dry.json
+          PS5_NEW_FILE: ${{ runner.temp }}/dry_new.txt
+        run: |
+          cp ps5_games.db "$PS5_DB"
+          python tracker.py
+          echo "--- libraries in the exported JSON:"
+          python -c "import json,os;d=json.load(open(os.environ['PS5_JSON']));print(json.dumps(d['libraries'],indent=1));print('items with branches:',sum(1 for i in d['items'] if i['branches']))"
+          echo "--- notification message that would be sent:"
+          cat "$PS5_NEW_FILE" 2>/dev/null || echo "(none: baselines are silent)"

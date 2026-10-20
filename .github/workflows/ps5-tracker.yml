@@ -28,6 +28,8 @@ jobs:
           NTFY_TOPIC: ${{ secrets.LIBRARY_NEW_ITEM_TRACKER_NTFY_TOPIC }}
         run: ./notify.sh test
       - name: Check catalog
+        id: check
+        continue-on-error: true   # still save what worked (and notify) if one library fails
         working-directory: library-new-item-tracker
         shell: bash   # explicit shell turns on pipefail, so a tracker.py crash fails the step
         env:
@@ -46,6 +48,9 @@ jobs:
         env:
           NTFY_TOPIC: ${{ secrets.LIBRARY_NEW_ITEM_TRACKER_NTFY_TOPIC }}
         run: ./notify.sh new "${{ runner.temp }}/new_games.txt"
+      - name: Fail the run if any library failed
+        if: steps.check.outcome == 'failure'
+        run: exit 1
       - name: Notify on failure
         if: failure()
         working-directory: library-new-item-tracker

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>New PS5 Games · Mountain View Library</title>
+<title>New PS5 games · Local libraries</title>
 <style>
   :root {
     --bg: #f6f7f9; --card: #ffffff; --text: #1b1f27; --muted: #667085;
@@ -41,10 +41,13 @@
   .badge { background: var(--badge-bg); color: var(--badge-fg); font-size: .7rem;
            font-weight: 600; padding: 1px 7px; border-radius: 999px; margin-left: 8px;
            vertical-align: 1px; }
-  #filter { width: 100%; font: inherit; padding: 9px 12px; margin-bottom: 10px;
-            color: var(--text); background: var(--card);
+  .tools { display: flex; gap: 10px; margin-bottom: 10px; }
+  #filter, #library { font: inherit; padding: 9px 12px; color: var(--text); background: var(--card);
             border: 1px solid var(--line); border-radius: 10px; }
-  #filter:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  #filter { flex: 1; min-width: 0; }
+  #filter:focus, #library:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .meta { display: block; color: var(--muted); font-size: .82rem; margin-top: 1px; }
+  .lib { font-weight: 600; color: var(--text); }
   .empty { background: var(--card); border: 1px dashed var(--line); border-radius: 10px;
            padding: 18px 16px; color: var(--muted); }
   footer { color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line);
@@ -58,7 +61,7 @@
 <main>
   <a class="home" href="../">← Home</a>
   <h1>New PS5 games</h1>
-  <p class="sub">Mountain View Public Library catalog</p>
+  <p class="sub" id="sub">Local library catalogs</p>
 
   <p id="error" hidden></p>
 
@@ -74,21 +77,25 @@
 
   <section>
     <h2>All tracked games <span class="count" id="count-all"></span></h2>
-    <input id="filter" type="search" placeholder="Filter by title" aria-label="Filter tracked games by title">
+    <div class="tools">
+      <input id="filter" type="search" placeholder="Filter by title" aria-label="Filter tracked games by title">
+      <select id="library" aria-label="Filter by library"><option value="">All libraries</option></select>
+    </div>
     <div id="all"></div>
   </section>
 
   <footer>
     <p id="status">Loading…</p>
-    <p>The catalog does not publish when an item was added, so a game's "added" time is
+    <p>The catalogs do not publish when an item was added, so a game's "added" time is
        when this tracker first saw it. The tracker checks once a day, so times are accurate
-       to within about a day.</p>
+       to within about a day. The same game at two libraries is listed once for each library.</p>
   </footer>
 </main>
 
 <script>
 const DAY = 24 * 60 * 60 * 1000;
 const el = id => document.getElementById(id);
+let LIBS = {};   // library key -> display name
 
 function ago(ms) {
   const h = Math.floor(ms / 3600000);
@@ -98,102 +105,119 @@ function ago(ms) {
   return d + (d === 1 ? " day ago" : " days ago");
 }
 
-function renderAll(items, query) {
-  const q = query.trim().toLowerCase();
-  const shown = q ? items.filter(i => i.title.toLowerCase().includes(q)) : items;
-  const box = el("all");
-  box.replaceChildren();
-  el("count-all").textContent = q
-    ? shown.length + " of " + items.length + " games"
-    : items.length + (items.length === 1 ? " game" : " games");
-  if (!shown.length) {
-    const p = document.createElement("div");
-    p.className = "empty";
-    p.textContent = q ? "No tracked games match that filter." : "No games tracked yet.";
-    box.append(p);
-    return;
+const plural = (n, word) => n + " " + word + (n === 1 ? "" : "s");
+const fmtDate = t => t.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+
+// One game at one library: title (+ optional NEW badge), where it is, and a right-hand time label.
+function row(it, whenText, badge) {
+  const li = document.createElement("li");
+  const left = document.createElement("span");
+  const a = document.createElement("a");
+  a.textContent = it.title;
+  a.href = it.url;
+  a.target = "_blank";
+  a.rel = "noopener";
+  left.append(a);
+  if (badge) {
+    const b = document.createElement("span");
+    b.className = "badge";
+    b.textContent = "NEW";
+    left.append(b);
   }
-  const ul = document.createElement("ul");
-  for (const it of shown) {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.textContent = it.title;
-    a.href = it.url;
-    a.target = "_blank";
-    a.rel = "noopener";
-    const when = document.createElement("span");
-    when.className = "when";
-    // baseline games were already in the catalog when tracking began
-    when.textContent = (it.baseline ? "Tracked since " : "Added ") +
-      new Date(it.added).toLocaleDateString(undefined,
-        { year: "numeric", month: "short", day: "numeric" });
-    li.append(a, when);
-    ul.append(li);
-  }
-  box.append(ul);
+  const meta = document.createElement("span");
+  meta.className = "meta";
+  const lib = document.createElement("span");
+  lib.className = "lib";
+  lib.textContent = LIBS[it.library] || it.library;
+  meta.append(lib);
+  if (it.branches && it.branches.length) meta.append(" · " + it.branches.join(", "));
+  left.append(meta);
+  const when = document.createElement("span");
+  when.className = "when";
+  when.textContent = whenText;
+  li.append(left, when);
+  return li;
 }
 
-function render(target, items, now, showBadge) {
+function fill(target, items, emptyText, makeRow) {
   const box = el(target);
   box.replaceChildren();
   if (!items.length) {
     const p = document.createElement("div");
     p.className = "empty";
-    p.textContent = "No new PS5 games in this period.";
+    p.textContent = emptyText;
     box.append(p);
     return;
   }
   const ul = document.createElement("ul");
-  for (const it of items) {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.textContent = it.title;
-    a.href = it.url;
-    a.target = "_blank";
-    a.rel = "noopener";
-    const left = document.createElement("span");
-    left.append(a);
-    const age = now - new Date(it.added).getTime();
-    if (showBadge && age <= DAY) {
-      const b = document.createElement("span");
-      b.className = "badge";
-      b.textContent = "NEW";
-      left.append(b);
-    }
-    const when = document.createElement("span");
-    when.className = "when";
-    const t = new Date(it.added);
-    when.textContent = ago(age) + " · " + t.toLocaleString(undefined,
-      { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
-    li.append(left, when);
-    ul.append(li);
-  }
+  items.forEach(it => ul.append(makeRow(it)));
   box.append(ul);
+}
+
+function renderNew(target, items, now, showBadge) {
+  fill(target, items, "No new PS5 games in this period.", it => {
+    const t = new Date(it.added);
+    const age = now - t.getTime();
+    return row(it, ago(age) + " · " + t.toLocaleString(undefined,
+      { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }),
+      showBadge && age <= DAY);
+  });
+}
+
+function renderAll(items) {
+  const q = el("filter").value.trim().toLowerCase();
+  const lib = el("library").value;
+  const shown = items.filter(i => (!lib || i.library === lib) &&
+                                  (!q || i.title.toLowerCase().includes(q)));
+  el("count-all").textContent = shown.length === items.length
+    ? plural(items.length, "game")
+    : shown.length + " of " + plural(items.length, "game");
+  fill("all", shown, q || lib ? "No tracked games match that filter." : "No games tracked yet.",
+    it => row(it, // baseline games were already in the catalog when tracking began
+      (it.baseline ? "Tracked since " : "Added ") + fmtDate(new Date(it.added)), false));
 }
 
 fetch("games.json", { cache: "no-store" })
   .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
   .then(data => {
     const now = Date.now();
-    // baseline = the catalog snapshot from the first run, not genuinely new
+    for (const l of data.libraries) LIBS[l.key] = l.name;
+    const names = data.libraries.map(l => l.name);
+    el("sub").textContent = names.length
+      ? names.join(", ").replace(/, ([^,]*)$/, names.length > 1 ? " and $1" : ", $1") + " libraries"
+      : "Local library catalogs";
+    for (const l of data.libraries) {
+      const o = document.createElement("option");
+      o.value = l.key;
+      o.textContent = l.name + " (" + l.total + ")";
+      el("library").append(o);
+    }
+
+    // baseline = a library's first snapshot of its catalog, not genuinely new
     const fresh = data.items.filter(i => !i.baseline)
       .map(i => ({ ...i, t: new Date(i.added).getTime() }))
       .sort((a, b) => b.t - a.t);
     const day = fresh.filter(i => now - i.t <= DAY);
     const week = fresh.filter(i => now - i.t <= 7 * DAY);
-    render("day", day, now, false);
-    render("week", week, now, true);
+    renderNew("day", day, now, false);
+    renderNew("week", week, now, true);
+    el("count-day").textContent = plural(day.length, "game");
+    el("count-week").textContent = plural(week.length, "game");
+
     const all = [...data.items].sort((a, b) =>
-      a.title.localeCompare(b.title, undefined, { sensitivity: "base" }));
-    renderAll(all, "");
-    el("filter").addEventListener("input", e => renderAll(all, e.target.value));
-    el("count-day").textContent = day.length + (day.length === 1 ? " game" : " games");
-    el("count-week").textContent = week.length + (week.length === 1 ? " game" : " games");
-    const base = data.items.find(i => i.baseline);
+      a.title.localeCompare(b.title, undefined, { sensitivity: "base" }) ||
+      (LIBS[a.library] || "").localeCompare(LIBS[b.library] || ""));
+    renderAll(all);
+    el("filter").addEventListener("input", () => renderAll(all));
+    el("library").addEventListener("change", () => renderAll(all));
+
+    const since = data.libraries.map(l => new Date(l.since).getTime());
     el("status").textContent =
-      "Tracking " + data.total + " PS5 games. Last checked " +
+      "Tracking " + plural(data.total, "PS5 game") + " across " + plural(data.libraries.length, "library")
+      .replace("librarys", "libraries") + " (" +
+      data.libraries.map(l => l.name + " " + l.total).join(", ") + "). Last checked " +
       new Date(data.generated_at).toLocaleString() +
-      (base ? "; tracking since " + new Date(base.added).toLocaleDateString() + "." : ".");
+      (since.length ? "; tracking since " + fmtDate(new Date(Math.min(...since))) + "." : ".");
   })
   .catch(err => {
     el("error").hidden = false;
