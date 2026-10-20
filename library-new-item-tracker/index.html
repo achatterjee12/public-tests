@@ -41,6 +41,10 @@
   .badge { background: var(--badge-bg); color: var(--badge-fg); font-size: .7rem;
            font-weight: 600; padding: 1px 7px; border-radius: 999px; margin-left: 8px;
            vertical-align: 1px; }
+  #filter { width: 100%; font: inherit; padding: 9px 12px; margin-bottom: 10px;
+            color: var(--text); background: var(--card);
+            border: 1px solid var(--line); border-radius: 10px; }
+  #filter:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
   .empty { background: var(--card); border: 1px dashed var(--line); border-radius: 10px;
            padding: 18px 16px; color: var(--muted); }
   footer { color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line);
@@ -68,6 +72,12 @@
     <div id="week"></div>
   </section>
 
+  <section>
+    <h2>All tracked games <span class="count" id="count-all"></span></h2>
+    <input id="filter" type="search" placeholder="Filter by title" aria-label="Filter tracked games by title">
+    <div id="all"></div>
+  </section>
+
   <footer>
     <p id="status">Loading…</p>
     <p>The catalog does not publish when an item was added, so a game's "added" time is
@@ -86,6 +96,41 @@ function ago(ms) {
   if (h < 24) return h + (h === 1 ? " hour ago" : " hours ago");
   const d = Math.floor(h / 24);
   return d + (d === 1 ? " day ago" : " days ago");
+}
+
+function renderAll(items, query) {
+  const q = query.trim().toLowerCase();
+  const shown = q ? items.filter(i => i.title.toLowerCase().includes(q)) : items;
+  const box = el("all");
+  box.replaceChildren();
+  el("count-all").textContent = q
+    ? shown.length + " of " + items.length + " games"
+    : items.length + (items.length === 1 ? " game" : " games");
+  if (!shown.length) {
+    const p = document.createElement("div");
+    p.className = "empty";
+    p.textContent = q ? "No tracked games match that filter." : "No games tracked yet.";
+    box.append(p);
+    return;
+  }
+  const ul = document.createElement("ul");
+  for (const it of shown) {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.textContent = it.title;
+    a.href = it.url;
+    a.target = "_blank";
+    a.rel = "noopener";
+    const when = document.createElement("span");
+    when.className = "when";
+    // baseline games were already in the catalog when tracking began
+    when.textContent = (it.baseline ? "Tracked since " : "Added ") +
+      new Date(it.added).toLocaleDateString(undefined,
+        { year: "numeric", month: "short", day: "numeric" });
+    li.append(a, when);
+    ul.append(li);
+  }
+  box.append(ul);
 }
 
 function render(target, items, now, showBadge) {
@@ -138,6 +183,10 @@ fetch("games.json", { cache: "no-store" })
     const week = fresh.filter(i => now - i.t <= 7 * DAY);
     render("day", day, now, false);
     render("week", week, now, true);
+    const all = [...data.items].sort((a, b) =>
+      a.title.localeCompare(b.title, undefined, { sensitivity: "base" }));
+    renderAll(all, "");
+    el("filter").addEventListener("input", e => renderAll(all, e.target.value));
     el("count-day").textContent = day.length + (day.length === 1 ? " game" : " games");
     el("count-week").textContent = week.length + (week.length === 1 ? " game" : " games");
     const base = data.items.find(i => i.baseline);
