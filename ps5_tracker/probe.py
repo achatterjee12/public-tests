@@ -44,6 +44,9 @@ def deep_probe(page, seen):
         except Exception:
             show(f"{label}: HTTP {r.status}", r.text()[:800])
             return None
+        if r.status >= 400:
+            show(f"{label}: HTTP {r.status}", j, 800)
+            return None
         print(f"\n##### {label}: HTTP {r.status} totalResults={j.get('totalResults')} "
               f"keys={list(j)[:8]}")
         return j
@@ -63,8 +66,9 @@ def deep_probe(page, seen):
         call(f"catalogDate={cd!r}", catalogDate=cd, pageSize=3)
 
     # drive the real UI filter and capture what it sends
+    page.evaluate("document.querySelector('#onetrust-consent-sdk')?.remove()")
     n = len(seen)
-    for label in ("Recently Added",):
+    for label in ("Recently Added", "Format"):
         try:
             page.get_by_text(label, exact=True).first.click(timeout=5000)
             page.wait_for_timeout(2500)
@@ -73,6 +77,28 @@ def deep_probe(page, seen):
             for e in seen[n:]:
                 if e.get("post_data"):
                     show(f"UI request after {label}: {e['url']}", e["post_data"], 1500)
+            n = len(seen)
+            opts = page.locator("app-facet-block, .facet-block, [class*=facet]").filter(
+                has_text=label).locator("label, li, button, a, input[type=checkbox]")
+            print(f"{label}: {opts.count()} clickable options:",
+                  [opts.nth(i).inner_text()[:40] for i in range(min(opts.count(), 12))])
+            for i in range(min(opts.count(), 12)):
+                txt = opts.nth(i).inner_text().strip()
+                if label == "Format" and not txt.startswith("Game"):
+                    continue
+                if label == "Recently Added" and i > 3:
+                    break
+                try:
+                    opts.nth(i).click(timeout=4000)
+                    page.wait_for_timeout(2500)
+                except Exception as ex:
+                    print("option click failed", txt, str(ex)[:120]); continue
+                for e in seen[n:]:
+                    if e.get("post_data") and "format-groups" in e["url"] and "search/" in e["url"]:
+                        show(f"UI search request after {label}={txt!r}", e["post_data"], 1500)
+                n = len(seen)
+                if label == "Format":
+                    break
         except Exception as ex:
             print(f"click {label} failed: {ex}")
 
