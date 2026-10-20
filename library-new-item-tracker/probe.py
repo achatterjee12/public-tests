@@ -6,11 +6,40 @@ from urllib.parse import quote
 from playwright.sync_api import sync_playwright
 
 LIBS = ["sccl", "sunnyvale", "sclibrary"]
+GW = "https://gateway.bibliocommons.com/v2/libraries/{slug}/bibs/search"
 
 
-def short(o, n=3500):
+def short(o, n=3000):
     s = o if isinstance(o, str) else json.dumps(o)
     return s[:n]
+
+
+def gw(page, url):
+    """fetch() from inside the page, like the site's own scripts do."""
+    return page.evaluate("""async (u) => {
+        const r = await fetch(u, {headers: {accept: 'application/json'}});
+        const t = await r.text();
+        return {status: r.status, body: t.slice(0, 900000)};
+    }""", url)
+
+
+def describe(label, res):
+    print(f"\n-- {label}: HTTP {res['status']}")
+    try:
+        j = json.loads(res["body"])
+    except Exception:
+        print(short(res["body"], 600)); return None
+    if not isinstance(j, dict):
+        print("non-dict:", short(j, 600)); return None
+    print("top keys:", list(j)[:12])
+    cs = j.get("catalogSearch") or {}
+    print("catalogSearch keys:", list(cs)[:15])
+    print("pagination:", short(cs.get("pagination"), 400))
+    res_list = cs.get("results") or []
+    print("n results:", len(res_list), "first:", short(res_list[:2], 400))
+    ents = (j.get("entities") or {})
+    print("entity types:", {k: len(v) for k, v in ents.items() if isinstance(v, dict)})
+    return j
 
 
 def main():
@@ -20,45 +49,37 @@ def main():
             print(f"\n\n################ {slug}")
             page = b.new_page(viewport={"width": 1280, "height": 1600})
             seen = []
+            page.on("response", lambda r, s=seen: s.append((r.request.method, r.status, r.url)))
+            q = quote("playstation 5")
+            page.goto(f"https://{slug}.bibliocommons.com/v2/search?query={q}&searchType=smart",
+                      wait_until="networkidle", timeout=60000)
+            page.wait_for_timeout(2500)
+            print("title:", page.title())
+            print("-- XHR to gateway/api:")
+            for m, st, u in seen:
+                if "gateway.bibliocommons.com" in u or "/api/" in u:
+                    print(" ", m, st, u[:230])
+            print("-- window state keys:", page.evaluate(
+                "Object.keys(window).filter(k => /STATE|state|BIBLIO|initial/i.test(k)).slice(0,15)"))
 
-            def on_resp(r, seen=seen):
-                if "gateway.bibliocommons.com" in r.url or "bibliocommons.com/api" in r.url:
-                    try:
-                        seen.append((r.request.method, r.url, r.status, r.text()[:400000]))
-                    except Exception:
-                        seen.append((r.request.method, r.url, r.status, ""))
-
-            page.on("response", on_resp)
-            url = f"https://{slug}.bibliocommons.com/v2/search?query={quote('playstation 5')}&searchType=smart"
-            try:
-                page.goto(url, wait_until="networkidle", timeout=60000)
-                page.wait_for_timeout(2500)
-            except Exception as e:
-                print("goto failed:", e)
-            print("final url:", page.url, "| title:", page.title())
-            print("-- api requests:")
-            for m, u, st, body in seen:
-                print(" ", m, st, u[:260])
-            for m, u, st, body in seen:
-                if "/bibs/search" in u or "/search" in u and "bibs" in u:
-                    print("\n-- SEARCH RESPONSE", u[:300])
-                    try:
-                        j = json.loads(body)
-                    except Exception:
-                        print(short(body)); continue
-                    print("top keys:", list(j)[:12])
-                    ents = (j.get("entities") or {}).get("bibs") or {}
-                    print("n bibs in entities:", len(ents))
-                    for k, v in list(ents.items())[:2]:
-                        print("BIB", k, short(v, 2500))
-                    print("catalogSearch keys:", short(list((j.get("catalogSearch") or {}).keys()), 600))
-                    cs = j.get("catalogSearch") or {}
-                    for key in ("facets", "pagination", "sorts", "sortOptions"):
-                        if key in cs:
-                            print(key, short(cs[key], 3000))
-                    break
-            print("-- page text (first 2500 chars):")
-            print(page.inner_text("body")[:2500])
+            base = GW.format(slug=slug)
+            j = describe("search smart", gw(page, f"{base}?query={q}&searchType=smart&limit=20&locale=en-US"))
+            if j:
+                ents = (j.get("entities") or {}).get("bibs") or {}
+                for k, v in list(ents.items())[:2]:
+                    print("BIB", k, short(v, 3500))
+                facets = (j.get("catalogSearch") or {}).get("facets")
+                print("FACETS:", short(facets, 3500))
+            for srt in ("newly_acquired", "newly_acquired_desc", "acquired_desc", "pubdate_desc"):
+                jj = describe(f"sort={srt}", gw(page,
+                    f"{base}?query={q}&searchType=smart&limit=5&locale=en-US&sort={srt}"))
+                if jj:
+                    ents = (jj.get("entities") or {}).get("bibs") or {}
+                    print("titles in order:", [
+                        (ents.get(r.get("representative") or r.get("id"), {}).get("briefInfo", {}) or {}).get("title")
+                        for r in (jj.get("catalogSearch") or {}).get("results", [])])
+            print("-- page text (first 1800 chars):")
+            print(page.inner_text("body")[:1800])
             page.close()
         b.close()
     return 0
