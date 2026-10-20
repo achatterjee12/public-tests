@@ -23,5 +23,5 @@ jobs:
         run: |
           git config user.name "ps5-tracker"
           git config user.email "ps5-tracker@users.noreply.github.com"
-          git add -f library-new-item-tracker/ps5_games.db
-          git diff --cached --quiet || (git commit -m "Update PS5 game database" && git push)
+          git add -f library-new-item-tracker/ps5_games.db library-new-item-tracker/games.json
+          git diff --cached --quiet || (git commit -m "Update PS5 game database and page data" && git push)
