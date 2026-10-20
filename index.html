@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>public-tests</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #1b1f27; --muted: #667085;
+    --line: #e4e7ec; --accent: #1d4ed8; --hover: 0 6px 18px rgba(16, 24, 40, .10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1218; --card: #181c25; --text: #e8eaef; --muted: #98a1b3;
+      --line: #2a3040; --accent: #7aa2ff; --hover: 0 6px 18px rgba(0, 0, 0, .45);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 860px; margin: 0 auto; padding: 40px 16px 56px; }
+  h1 { font-size: 1.7rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 28px; }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+  .card {
+    display: block; color: inherit; text-decoration: none;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px; transition: box-shadow .15s, transform .15s, border-color .15s;
+  }
+  .card:hover, .card:focus-visible { box-shadow: var(--hover); transform: translateY(-2px); border-color: var(--accent); outline: none; }
+  .icon { font-size: 1.8rem; line-height: 1; margin-bottom: 12px; }
+  .card h2 { font-size: 1.1rem; margin: 0 0 6px; }
+  .card p { margin: 0 0 14px; color: var(--muted); font-size: .95rem; }
+  .open { color: var(--accent); font-weight: 600; font-size: .9rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>public-tests</h1>
+  <p class="sub">Small projects and experiments.</p>
+
+  <div class="grid">
+    <!-- To add a page: copy one card, change href, icon, title and text. -->
+    <a class="card" href="pi-simulation/">
+      <div class="icon" aria-hidden="true">🎯</div>
+      <h2>Monte Carlo &pi;</h2>
+      <p>Watch &pi; get estimated live by scattering random points inside a square.</p>
+      <span class="open">Open →</span>
+    </a>
+
+    <a class="card" href="library-new-item-tracker/">
+      <div class="icon" aria-hidden="true">🎮</div>
+      <h2>Library new PS5 games</h2>
+      <p>PS5 games newly added to the Mountain View Public Library, from the last 24 hours and 7 days.</p>
+      <span class="open">Open →</span>
+    </a>
+  </div>
+</main>
+</body>
+</html>
