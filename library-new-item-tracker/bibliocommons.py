@@ -37,11 +37,13 @@ THROTTLE_WAIT = 20    # seconds to back off after HTTP 403/429 (doubles each ret
 # yet (newest first) plus a rolling slice of the rest, up to MAX_BRANCH_LOOKUPS.
 MAX_BRANCH_LOOKUPS = 150
 REFRESH_DAYS = 14  # every stored branch list is re-checked about this often
+_throttled = False  # set once a request still gets 403/429 after its retries; ends branch lookups
 HEADERS = {"accept": "application/json",
            "user-agent": "Mozilla/5.0 (X11; Linux x86_64) ps5-tracker"}
 
 
 def _get(url, tries=3):
+    global _throttled
     for attempt in range(tries):
         try:
             req = urllib.request.Request(url, headers=HEADERS)
@@ -50,9 +52,10 @@ def _get(url, tries=3):
             time.sleep(REQUEST_DELAY)
             return data
         except Exception as e:
-            if attempt == tries - 1:
-                raise
             throttled = isinstance(e, urllib.error.HTTPError) and e.code in (403, 429)
+            if attempt == tries - 1:
+                _throttled = _throttled or throttled
+                raise
             time.sleep(THROTTLE_WAIT * 2 ** attempt if throttled else 2 ** attempt)
 
 
@@ -94,7 +97,9 @@ def search_bibs(slug, query, sort="title"):
 
 
 def branches_of(slug, bib_id):
-    """Sorted branch names holding the record; [] if unknown."""
+    """Sorted branch names holding the record; [] if unknown (or if we are being throttled)."""
+    if _throttled:   # don't sit through the long back-off once per remaining game
+        return []
     try:
         data = _get(GATEWAY.format(slug=slug) + f"/bibs/{bib_id}/availability?locale=en-US")
         items = (data.get("entities") or {}).get("bibItems") or {}
@@ -122,6 +127,8 @@ def fetch(slug, library=None, known=None, today=None):
 
     known: {record id: branches stored by earlier runs}, used to limit branch lookups.
     """
+    global _throttled
+    _throttled = False   # a new library gets a fresh try
     library, known = library or slug, known or {}
     bibs = {}
     for query in QUERIES:
@@ -132,6 +139,9 @@ def fetch(slug, library=None, known=None, today=None):
     print(f"{slug}: {len(bibs)} PS5 games, looking up branches for {len(todo)}", flush=True)
     with ThreadPoolExecutor(WORKERS) as pool:
         looked_up = dict(zip(todo, pool.map(lambda i: branches_of(slug, i), todo)))
+    if _throttled:
+        print(f"::warning::{slug}: the catalog throttled us, so some branch lookups were skipped "
+              "(they are retried on the next run)", flush=True)
     return [Item(bid, title_of(bib), f"https://{slug}.bibliocommons.com/v2/record/{bid}",
                  library=library, branches=looked_up.get(bid) or known.get(bid) or [])
             for bid, bib in bibs.items()]

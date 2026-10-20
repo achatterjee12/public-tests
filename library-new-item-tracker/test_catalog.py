@@ -159,3 +159,20 @@ def test_get_gives_up_after_three_tries(monkeypatch):
         assert False, "should have raised"
     except urllib.error.HTTPError as e:
         assert e.code == 403
+
+
+def test_throttling_stops_further_branch_lookups(monkeypatch):
+    monkeypatch.setattr(bc, "_throttled", False)
+    monkeypatch.setattr(bc.time, "sleep", lambda s: None)
+    calls = []
+
+    def always_403(req, timeout=0):
+        calls.append(1)
+        raise urllib.error.HTTPError(req.full_url, 403, "Forbidden", {}, None)
+
+    monkeypatch.setattr(bc.urllib.request, "urlopen", always_403)
+    assert bc.branches_of("sccl", "A") == []
+    used = len(calls)                      # the first lookup used its retries
+    assert used == 3 and bc._throttled
+    assert bc.branches_of("sccl", "B") == [] and len(calls) == used   # no more requests
+    monkeypatch.setattr(bc, "_throttled", False)
