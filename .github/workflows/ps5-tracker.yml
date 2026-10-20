@@ -18,6 +18,9 @@ jobs:
           python-version: "3.12"
       - name: Check catalog
         working-directory: library-new-item-tracker
+        shell: bash   # explicit shell turns on pipefail, so a tracker.py crash fails the step
+        env:
+          PS5_NEW_FILE: ${{ runner.temp }}/new_games.txt
         run: python tracker.py | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Save database
         run: |
@@ -25,3 +28,14 @@ jobs:
           git config user.email "ps5-tracker@users.noreply.github.com"
           git add -f library-new-item-tracker/ps5_games.db library-new-item-tracker/games.json
           git diff --cached --quiet || (git commit -m "Update PS5 game database and page data" && git push)
+      - name: Notify about new games
+        working-directory: library-new-item-tracker
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: ./notify.sh new "${{ runner.temp }}/new_games.txt"
+      - name: Notify on failure
+        if: failure()
+        working-directory: library-new-item-tracker
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: ./notify.sh failure "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" || true
