@@ -6,13 +6,14 @@ A game counts as "new" if either:
 The first run on an empty database only builds the baseline (nothing is
 reported as new unless the catalog gave an added date within 24 hours).
 """
+import os
 import sqlite3
 import sys
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-DB_PATH = "ps5_games.db"
+DB_PATH = os.environ.get("PS5_DB", "ps5_games.db")
 WINDOW = timedelta(hours=24)
 
 

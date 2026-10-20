@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install playwright && playwright install --with-deps chromium
+      - name: Fetcher diagnostic
+        working-directory: ps5_tracker
+        run: python catalog.py && PS5_DB=$RUNNER_TEMP/dry.db python tracker.py
       - name: Probe catalog
         working-directory: ps5_tracker
         run: python probe.py
