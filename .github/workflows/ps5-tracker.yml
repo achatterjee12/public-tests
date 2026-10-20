@@ -28,16 +28,16 @@ jobs:
           git config user.email "ps5-tracker@users.noreply.github.com"
           git add -f library-new-item-tracker/ps5_games.db library-new-item-tracker/games.json
           git diff --cached --quiet || (git commit -m "Update PS5 game database and page data" && git push)
-      # ntfy topic comes from the NTFY_TOPIC repository secret (this repo is public, so the
+      # ntfy topic comes from the LIBRARY_NEW_ITEM_TRACKER_NTFY_TOPIC repository secret (this repo is public, so the
       # topic name must not be written in any file). Notifications are skipped if it is unset.
       - name: Notify about new games
         working-directory: library-new-item-tracker
         env:
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_TOPIC: ${{ secrets.LIBRARY_NEW_ITEM_TRACKER_NTFY_TOPIC }}
         run: ./notify.sh new "${{ runner.temp }}/new_games.txt"
       - name: Notify on failure
         if: failure()
         working-directory: library-new-item-tracker
         env:
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_TOPIC: ${{ secrets.LIBRARY_NEW_ITEM_TRACKER_NTFY_TOPIC }}
         run: ./notify.sh failure "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" || true
