@@ -86,6 +86,7 @@
 
   <footer>
     <p id="status">Loading…</p>
+    <p id="excluded" hidden></p>
     <p>The catalogs do not publish when an item was added, so a game's "added" time is
        when this tracker first saw it. The tracker checks once a day, so times are accurate
        to within about a day. The same game at two libraries is listed once for each library.</p>
@@ -212,6 +213,13 @@ fetch("games.json", { cache: "no-store" })
     el("filter").addEventListener("input", () => renderAll(all));
     el("library").addEventListener("change", () => renderAll(all));
 
+    const ex = (data.excluded_branches || []).filter(e => e.branches.length);
+    if (ex.length) {
+      el("excluded").hidden = false;
+      el("excluded").textContent = "Not shown: games held only at " +
+        ex.map(e => e.branches.join(", ") + " (" + e.library + ")").join("; ") +
+        ", which are outside your pickup area.";
+    }
     const since = data.libraries.map(l => new Date(l.since).getTime());
     el("status").textContent =
       "Tracking " + plural(data.total, "PS5 game") + " across " + plural(data.libraries.length, "library")

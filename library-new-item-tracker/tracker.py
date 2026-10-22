@@ -34,6 +34,23 @@ LIBRARY_NAMES = {
 }
 
 
+# Branches to leave out, by library key. A game held only at these branches is hidden
+# (not shown, not announced) and they are dropped from branch lists. Hidden games stay in
+# the database, so changing this list needs no refetch. Kept: everything within a 20-minute
+# drive of Santa Clara Central Park Library. Left out: Morgan Hill (42 min), Gilroy (51 min)
+# and the Bookmobile (not a place you can go to).
+EXCLUDED_BRANCHES = {"sccl": {"Gilroy", "Morgan Hill", "Bookmobile Department"}}
+
+
+def visible_branches(library, branches):
+    return [b for b in branches if b not in EXCLUDED_BRANCHES.get(library, ())]
+
+
+def is_visible(library, branches):
+    """Unknown branches (not looked up yet) count as visible; otherwise one kept branch is enough."""
+    return not branches or bool(visible_branches(library, branches))
+
+
 @dataclass
 class Item:
     id: str                       # catalog record id (stable within one library)
@@ -121,34 +138,54 @@ def known_branches(db):
     return known
 
 
+def visible_items(db):
+    """Stored games that are shown on the page (see EXCLUDED_BRANCHES), newest first."""
+    items = []
+    for lib, id_, title, url, added, baseline, branches in db.execute(
+            "SELECT library, id, title, url, first_seen, baseline, branches "
+            "FROM items ORDER BY first_seen DESC, title"):
+        branches = json.loads(branches or "[]")
+        if is_visible(lib, branches):
+            items.append({"library": lib, "id": id_, "title": title, "url": url, "added": added,
+                          "baseline": bool(baseline), "branches": visible_branches(lib, branches)})
+    return items
+
+
+def visible_new(new):
+    """New games worth announcing: not held only at excluded branches."""
+    return [it for it in new if is_visible(it.library, it.branches)]
+
+
 def export_json(db, path=JSON_PATH, now=None):
     """Write everything index.html needs; it works out the 24h / 7d windows."""
     now = now or datetime.now(timezone.utc)
-    rows = db.execute("SELECT library, id, title, url, first_seen, baseline, branches "
-                      "FROM items ORDER BY first_seen DESC, title").fetchall()
-    counts = dict(db.execute("SELECT library, COUNT(*) FROM items GROUP BY library"))
+    items = visible_items(db)
+    counts = {}
+    for it in items:
+        counts[it["library"]] = counts.get(it["library"], 0) + 1
     since = dict(db.execute("SELECT library, baselined_at FROM libraries"))
     order = {k: n for n, k in enumerate(LIBRARY_NAMES)}
     libs = sorted(since, key=lambda k: order.get(k, len(order)))
     with open(path, "w") as f:
         json.dump({
             "generated_at": now.isoformat(),
-            "total": len(rows),
+            "total": len(items),
             "libraries": [{"key": k, "name": LIBRARY_NAMES.get(k, k),
                            "total": counts.get(k, 0), "since": since[k]} for k in libs],
-            "items": [{"library": r[0], "id": r[1], "title": r[2], "url": r[3],
-                       "added": r[4], "baseline": bool(r[5]),
-                       "branches": json.loads(r[6] or "[]")} for r in rows],
+            "excluded_branches": [{"library": LIBRARY_NAMES.get(k, k), "branches": sorted(v)}
+                                  for k, v in EXCLUDED_BRANCHES.items() if v],
+            "items": items,
         }, f, indent=1)
 
 
 def where(it, max_branches=3):
     """'Santa Clara County: Cupertino, Los Altos' (library plus branches if known)."""
     name = LIBRARY_NAMES.get(it.library, it.library)
-    if not it.branches:
+    branches = visible_branches(it.library, it.branches)
+    if not branches:
         return name
-    shown = sorted(it.branches)[:max_branches]
-    more = len(it.branches) - len(shown)
+    shown = sorted(branches)[:max_branches]
+    more = len(branches) - len(shown)
     return f"{name}: {', '.join(shown)}" + (f" +{more}" if more > 0 else "")
 
 
@@ -183,11 +220,13 @@ def main():
         del results[lib]
     items = [it for found in results.values() for it in found]
     new, total = check(items, db, libraries=results)
+    new = visible_new(new)   # games only at excluded branches are not announced
     export_json(db)
+    total = len(visible_items(db))
     print(f"{total} PS5 games tracked across {len(results)} libraries; "
           f"{len(new)} new in the last day")
     for lib, found in results.items():
-        print(f"  {LIBRARY_NAMES.get(lib, lib)}: {len(found)} games")
+        print(f"  {LIBRARY_NAMES.get(lib, lib)}: {len(found)} games fetched")
     for it in new:
         print(f"  - {it.title} ({where(it)}) {it.url}")
     if NEW_FILE and new:  # no file on quiet days, so notify.sh sends nothing

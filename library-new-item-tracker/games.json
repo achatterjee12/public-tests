@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-20T22:19:44.759095+00:00",
+ "generated_at": "2026-10-22T01:40:51.653503+00:00",
  "total": 253,
  "libraries": [
   {
@@ -7,6 +7,16 @@
    "name": "Mountain View",
    "total": 253,
    "since": "2026-10-20T19:49:06.659805+00:00"
+  }
+ ],
+ "excluded_branches": [
+  {
+   "library": "Santa Clara County",
+   "branches": [
+    "Bookmobile Department",
+    "Gilroy",
+    "Morgan Hill"
+   ]
   }
  ],
  "items": [

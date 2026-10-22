@@ -3,7 +3,7 @@ import json
 import sqlite3
 
 from tracker import (Item, check, empty_results, export_json, format_notification,
-                     known_branches, open_db, where)
+                     known_branches, open_db, visible_items, visible_new, where)
 
 NOW = datetime(2026, 10, 20, 12, tzinfo=timezone.utc)
 
@@ -161,3 +161,54 @@ def test_known_branches_feeds_the_fetchers():
            Item("2", "B", library="sccl"), Item("3", "C", library="mvpl")], db, NOW)
     assert known_branches(db) == {"sccl": {"1": ["Cupertino", "Los Altos"], "2": []},
                                   "mvpl": {"3": []}}
+
+
+def test_games_only_at_excluded_branches_are_hidden_but_kept():
+    db = open_db(":memory:")
+    check([Item("1", "Only Gilroy", library="sccl", branches=["Gilroy", "Morgan Hill"]),
+           Item("2", "Gilroy and Cupertino", library="sccl", branches=["Cupertino", "Gilroy"]),
+           Item("3", "Branches unknown yet", library="sccl"),
+           Item("4", "Bookmobile only", library="sccl", branches=["Bookmobile Department"]),
+           Item("5", "Elsewhere", library="mvpl")], db, NOW)
+    shown = {i["id"]: i["branches"] for i in visible_items(db)}
+    assert shown == {"2": ["Cupertino"], "3": [], "5": []}
+    assert db.execute("SELECT COUNT(*) FROM items").fetchone()[0] == 5   # nothing is deleted
+
+
+def test_export_counts_only_visible_games(tmp_path):
+    db = open_db(":memory:")
+    check([Item("1", "Hidden", library="sccl", branches=["Gilroy"]),
+           Item("2", "Shown", library="sccl", branches=["Campbell"])], db, NOW)
+    out = tmp_path / "g.json"
+    export_json(db, str(out), NOW)
+    data = json.loads(out.read_text())
+    assert data["total"] == 1 and [l["total"] for l in data["libraries"]] == [1]
+    assert [i["title"] for i in data["items"]] == ["Shown"]
+
+
+def test_hidden_games_are_not_announced_and_names_leave_out_excluded_branches():
+    gilroy = Item("1", "Gilroy only", library="sccl", branches=["Gilroy"])
+    both = Item("2", "Both", library="sccl", branches=["Cupertino", "Morgan Hill"])
+    unknown = Item("3", "Unknown", library="sccl")
+    assert visible_new([gilroy, both, unknown]) == [both, unknown]
+    assert where(both) == "Santa Clara County: Cupertino"
+    assert format_notification([both]) == "- Both (Santa Clara County: Cupertino)"
+
+
+def test_changing_the_exclusions_needs_no_refetch(monkeypatch):
+    import tracker
+    db = open_db(":memory:")
+    check([Item("1", "G", library="sccl", branches=["Gilroy"])], db, NOW)
+    assert visible_items(db) == []
+    monkeypatch.setitem(tracker.EXCLUDED_BRANCHES, "sccl", set())      # now keep Gilroy too
+    assert [i["id"] for i in visible_items(db)] == ["1"]
+
+
+def test_export_lists_the_exclusions(tmp_path):
+    db = open_db(":memory:")
+    check([Item("1", "A", library="sccl", branches=["Campbell"])], db, NOW)
+    out = tmp_path / "g.json"
+    export_json(db, str(out), NOW)
+    ex = json.loads(out.read_text())["excluded_branches"]
+    assert ex == [{"library": "Santa Clara County",
+                   "branches": ["Bookmobile Department", "Gilroy", "Morgan Hill"]}]
