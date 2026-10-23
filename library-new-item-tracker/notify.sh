@@ -3,6 +3,8 @@
 #   notify.sh new <message-file>   new games found (does nothing if the file is missing)
 #   notify.sh failure <run-url>    the daily run failed
 #   notify.sh test                 sample message, to check the phone end (manual runs)
+#   notify.sh weekly <message-file>  the weekly summary; always sent. Title, priority and
+#                                  tags come from WEEKLY_TITLE, WEEKLY_PRIORITY, WEEKLY_TAGS
 # Needs NTFY_TOPIC (the workflow passes in the LIBRARY_NEW_ITEM_TRACKER_NTFY_TOPIC secret: on the public server the topic name is
 # the only thing keeping others out). Skips quietly if it is not set.
 set -euo pipefail
@@ -11,7 +13,7 @@ SERVER="${NTFY_SERVER:-https://ntfy.sh}"
 PAGE_URL="${PAGE_URL:-https://achatterjee12.github.io/public-tests/library-new-item-tracker/}"
 
 if [ -z "${NTFY_TOPIC:-}" ]; then
-  if [ "${1:-}" = "test" ]; then
+  if [ "${1:-}" = "test" ] || [ "${1:-}" = "weekly" ]; then
     echo "::error::The LIBRARY_NEW_ITEM_TRACKER_NTFY_TOPIC secret is not set (or is misspelled)"
     exit 1
   fi
@@ -49,8 +51,18 @@ case "${1:-}" in
       "$SERVER/$NTFY_TOPIC" > /dev/null
     echo "Test notification sent"
     ;;
+  weekly)
+    file="${2:?message file required}"
+    curl -fsS --retry 3 \
+      -H "Title: ${WEEKLY_TITLE:-Weekly PS5 summary}" \
+      -H "Tags: ${WEEKLY_TAGS:-calendar}" \
+      -H "Priority: ${WEEKLY_PRIORITY:-default}" \
+      -H "Click: $PAGE_URL" \
+      --data-binary @"$file" "$SERVER/$NTFY_TOPIC" > /dev/null
+    echo "Weekly summary sent"
+    ;;
   *)
-    echo "usage: notify.sh new <file> | failure <run-url> | test" >&2
+    echo "usage: notify.sh new <file> | failure <run-url> | test | weekly <file>" >&2
     exit 2
     ;;
 esac

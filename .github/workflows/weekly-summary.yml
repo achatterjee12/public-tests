@@ -1,0 +1,41 @@
+name: PS5 weekly summary
+
+# A heartbeat as well as a summary: always sends one notification a week listing the games
+# added in the last 7 days (or saying there were none). It runs on its own schedule and only
+# reads the data the daily run saves, so it still fires, and warns, if the daily run stops.
+on:
+  schedule:
+    - cron: "7 16 * * 0"   # Sundays 16:07 UTC, well after the daily run (about 14:17 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  summary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build the summary
+        id: build
+        working-directory: library-new-item-tracker
+        shell: bash
+        run: python weekly_summary.py games.json "${{ runner.temp }}/weekly.txt" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Send the summary
+        working-directory: library-new-item-tracker
+        env:
+          NTFY_TOPIC: ${{ secrets.LIBRARY_NEW_ITEM_TRACKER_NTFY_TOPIC }}
+          WEEKLY_TITLE: ${{ steps.build.outputs.title }}
+          WEEKLY_PRIORITY: ${{ steps.build.outputs.priority }}
+          WEEKLY_TAGS: ${{ steps.build.outputs.tags }}
+        run: ./notify.sh weekly "${{ runner.temp }}/weekly.txt"
+      - name: Notify on failure
+        if: failure()
+        working-directory: library-new-item-tracker
+        env:
+          NTFY_TOPIC: ${{ secrets.LIBRARY_NEW_ITEM_TRACKER_NTFY_TOPIC }}
+        run: ./notify.sh failure "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" || true
