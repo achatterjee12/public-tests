@@ -1,26 +1,55 @@
 # pattern-lock
 
-Android-style 3×3 swipe-pattern gate for single-user web apps. No dependencies, one ES module, touch and mouse via pointer events.
+Android-style 3×3 swipe-pattern login for single-user web apps. The browser sends the pattern to a server;
+the server verifies it and only then sets a session cookie. Protected content lives on the server and is
+never sent without that cookie (`401` otherwise).
 
-```html
-<template id="app"> ...your app... </template>
-<script type="module">
-  import { protect } from "./pattern-lock.js";
-  const gate = protect({ app: document.getElementById("app") });
-  // gate.changePattern()  -> Promise<boolean>, only after unlock
-  // gate.lock()           -> forget the session and reload
-</script>
+```
+pattern-lock.js              browser client (swipe grid, no dependencies)
+server/pattern-auth.js       server core: scrypt-hashed pattern, signed tokens, lockout (Node, no dependencies)
+server/server.js             example Node http server wiring it together
+index.html                   demo app
 ```
 
-Dots are numbered `0..8` (row by row). The built-in starting pattern is `[0, 1, 2, 5, 8]`; override with `defaultPattern`.
-Once the user changes it, a salted PBKDF2 hash is stored in `localStorage` and replaces the default.
+## Run the demo
 
-Behaviour: swiping across a dot selects it (0→2 also selects 1), at least 4 dots, 5 wrong tries → 30 s lockout,
-unlocked state lasts for the tab session (`remember: "none"` to always ask). Needs https or localhost (WebCrypto).
+```
+node pattern-lock/server/server.js      # http://localhost:8080
+```
 
-Options: `app`, `mount`, `title`, `defaultPattern`, `minLength`, `storageKey`, `remember`, `maxAttempts`, `lockoutSeconds`, `onUnlock`.
+Starting pattern is `0 → 1 → 2 → 5 → 8` (dots numbered 0..8 row by row: top row, then down the right side).
+It seeds the state file `server/.data/auth.json` on first start; after "Change pattern" the new one replaces it.
 
-**Limits:** this is client-side only. It keeps casual visitors out, but anyone who can read the page source or storage
-can bypass it. Keep real secrets behind a server.
+## Use in your app
 
-Tests: `node pattern-lock/test.mjs`. Demo: `pattern-lock/index.html` (serve over http, e.g. `python3 -m http.server`).
+Client:
+```js
+import { protect } from "./pattern-lock.js";
+const gate = protect({ onUnlock: async () => { /* fetch protected data, render app */ } });
+// gate.changePattern() -> Promise<boolean>;  gate.lock() -> logs out and reloads
+```
+Server (any Node handler):
+```js
+import { createAuth } from "./server/pattern-auth.js";
+const auth = createAuth({ file: "/var/lib/myapp/auth.json" });
+auth.login(pattern)        // { status: 200, token } | { status: 400|401|429, ... }
+auth.verifyToken(token)    // true/false  -> guard every protected route with this
+auth.changePattern(pattern)// call only after verifyToken; returns a fresh token, old ones die
+```
+`server.js` shows the routes: `POST /api/login`, `/api/logout`, `/api/pattern`, `GET /api/session`, `/api/content`.
+Put your real data/pages behind `verifyToken`, as `/api/content` does.
+
+## Security model
+
+- Pattern is checked **only on the server**: HMAC-keyed with a server secret, then scrypt with a per-pattern salt, constant-time compare.
+- A 3×3 grid has only ~389k valid patterns, so throttling is what protects it: 5 misses → 30 s lock, doubling per
+  strike up to 1 h, global (single user), checked before hashing. The cost: someone can lock you out by guessing;
+  the right pattern is also refused while locked.
+- Session = signed, expiring (7 d) token in an `HttpOnly; SameSite=Strict` cookie. Changing the pattern invalidates all older tokens.
+- POSTs must be `application/json` from the same origin (CSRF).
+- **Set `PATTERN_AUTH_SECRET`** in the environment in production, so a leaked state file can't be brute-forced offline.
+  Without it a random secret is stored in the state file. **Serve over HTTPS** (`COOKIE_SECURE=1`, or `TRUST_PROXY=1`
+  behind a proxy that sets `x-forwarded-proto`); a pattern is easy to shoulder-surf, so treat this as a convenient lock, not a bank vault.
+- Throttling is in the state file, so run a single server process.
+
+Tests: `node pattern-lock/test.mjs` (client grid logic) and `node --test pattern-lock/server/pattern-auth.test.mjs`.

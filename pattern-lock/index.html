@@ -18,27 +18,26 @@
 </style>
 </head>
 <body>
-<!-- The app lives in a <template>, so none of it exists in the DOM until the pattern is right. -->
-<template id="app">
-  <main>
-    <h1>You're in 🔓</h1>
-    <div class="card">
-      <p>This is the protected app. The starting pattern is the hard-coded
-        <code>0 → 1 → 2 → 5 → 8</code> (top row, then down the right side).</p>
-      <button id="change">Change pattern</button>
-      <button id="lock">Lock</button>
-      <p id="status"></p>
-    </div>
-  </main>
-</template>
+<main id="app"></main>
 
 <script type="module">
   import { protect } from "./pattern-lock.js";
 
+  // Nothing protected is in this page. After the server accepts the pattern it
+  // sets a session cookie, and only then will /api/content return anything.
   const gate = protect({
-    app: document.getElementById("app"),
-    title: "Draw your pattern",
-    onUnlock() {
+    async onUnlock() {
+      const res = await fetch("/api/content", { credentials: "same-origin" });
+      const { html } = await res.json();
+      document.getElementById("app").innerHTML = `
+        <h1>You're in 🔓</h1>
+        <div class="card">
+          ${html}
+          <p>Starting pattern: <code>0 → 1 → 2 → 5 → 8</code> (top row, then down the right side).</p>
+          <button id="change">Change pattern</button>
+          <button id="lock">Lock</button>
+          <p id="status"></p>
+        </div>`;
       document.getElementById("lock").onclick = () => gate.lock();
       document.getElementById("change").onclick = async () => {
         const changed = await gate.changePattern();

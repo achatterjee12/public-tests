@@ -1,26 +1,23 @@
-// pattern-lock: Android-style 3x3 swipe-pattern gate for single-user web apps.
+// pattern-lock (browser client): Android-style 3x3 swipe-pattern login.
+// The pattern is sent to the server, which verifies it and sets a session
+// cookie. Nothing secret lives here; see server/ for the other half.
 //
 //   import { protect } from "./pattern-lock.js";
-//   protect({ mount: document.body, app: document.querySelector("#app") });
+//   protect({ onUnlock: async () => { /* fetch protected content */ } });
 //
 // Dots are numbered 0..8, left-to-right then top-to-bottom:
 //   0 1 2
 //   3 4 5
 //   6 7 8
-//
-// NOTE: this runs entirely in the browser. It keeps a UI gate in front of the
-// app and the stored pattern is hashed, but anything shipped to the client can
-// be read by a determined visitor. Put truly secret data behind a server.
 
 export const GRID = 3;
 export const MIN_LENGTH = 4;
 const DEFAULTS = {
-  defaultPattern: [0, 1, 2, 5, 8], // used until the user changes the pattern
   minLength: MIN_LENGTH,
-  storageKey: "pattern-lock",
-  remember: "session", // "session" keeps you unlocked until the tab closes; "none" always asks
-  maxAttempts: 5,
-  lockoutSeconds: 30,
+  loginUrl: "/api/login",
+  sessionUrl: "/api/session",
+  patternUrl: "/api/pattern",
+  logoutUrl: "/api/logout",
 };
 
 // ---- pure logic (no DOM; unit-tested in test.mjs) --------------------------
@@ -50,43 +47,6 @@ export function isValidPattern(p, minLength = MIN_LENGTH) {
 }
 
 export const samePattern = (a, b) => a.length === b.length && a.every((n, i) => n === b[i]);
-
-// ---- hashing & storage ------------------------------------------------------
-
-const hex = (buf) => [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
-
-async function derive(pattern, saltHex) {
-  if (!globalThis.crypto?.subtle) throw new Error("pattern-lock needs a secure context (https or localhost).");
-  const salt = Uint8Array.from(saltHex.match(/../g).map((h) => parseInt(h, 16)));
-  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(pattern.join("-")), "PBKDF2", false, ["deriveBits"]);
-  return hex(await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt, iterations: 150000 }, key, 256));
-}
-
-function makeStore(opts) {
-  const k = opts.storageKey;
-  const read = (area, name) => { try { return JSON.parse(area.getItem(`${k}:${name}`)); } catch { return null; } };
-  const write = (area, name, v) => { try { area.setItem(`${k}:${name}`, JSON.stringify(v)); } catch { /* storage unavailable */ } };
-  const clear = (area, name) => { try { area.removeItem(`${k}:${name}`); } catch { /* ignore */ } };
-  return {
-    credential: () => read(localStorage, "credential"),
-    saveCredential: (c) => write(localStorage, "credential", c),
-    fails: () => read(localStorage, "fails") || { count: 0, until: 0 },
-    saveFails: (f) => write(localStorage, "fails", f),
-    unlocked: () => read(sessionStorage, "unlocked") === true,
-    setUnlocked: (v) => (v ? write(sessionStorage, "unlocked", true) : clear(sessionStorage, "unlocked")),
-  };
-}
-
-async function verify(pattern, opts, store) {
-  const cred = store.credential();
-  if (!cred) return samePattern(pattern, opts.defaultPattern); // still on the hard-coded pattern
-  return (await derive(pattern, cred.salt)) === cred.hash;
-}
-
-async function saveNewPattern(pattern, store) {
-  const salt = hex(crypto.getRandomValues(new Uint8Array(16)));
-  store.saveCredential({ salt, hash: await derive(pattern, salt) });
-}
 
 // ---- UI widget --------------------------------------------------------------
 
@@ -229,44 +189,33 @@ function overlay(title) {
 
 // ---- public API -------------------------------------------------------------
 
-// Shows the lock screen over `mount` until the right pattern is drawn.
-//   app:      element (or <template>) kept hidden until unlocked
-//   onUnlock: called after a successful unlock
-// Returns { changePattern(), lock(), whenUnlocked: Promise }.
+const post = (url, body) => fetch(url, {
+  method: "POST", credentials: "same-origin",
+  headers: { "content-type": "application/json" }, body: JSON.stringify(body || {}),
+});
+
+// Shows the lock screen until the server accepts the pattern, then calls onUnlock.
+// Returns { changePattern(), lock() }.
 export function protect(options = {}) {
   const opts = { ...DEFAULTS, ...options };
-  if (!isValidPattern(opts.defaultPattern, opts.minLength)) throw new Error("pattern-lock: invalid defaultPattern");
   const mount = opts.mount || document.body;
-  const store = makeStore(opts);
-  const app = opts.app;
-  let resolveUnlocked, ui = null;
-  let whenUnlocked = new Promise((r) => (resolveUnlocked = r));
   let unlocked = false;
 
-  if (app && !(app instanceof HTMLTemplateElement)) app.hidden = true;
-
-  const reveal = () => {
-    unlocked = true;
-    if (app instanceof HTMLTemplateElement) app.replaceWith(app.content);
-    else if (app) app.hidden = false;
-    resolveUnlocked();
-    opts.onUnlock?.();
-  };
+  const unlock = () => { unlocked = true; opts.onUnlock?.(); };
 
   function showLock() {
-    ui = overlay(opts.title || "Draw your pattern");
+    const ui = overlay(opts.title || "Draw your pattern");
     const grid = createGrid(ui.host, { onComplete: attempt });
     mount.append(ui.root);
     let tick = 0;
 
-    const lockoutLeft = () => Math.max(0, Math.ceil((store.fails().until - Date.now()) / 1000));
-    const refreshLockout = () => {
+    const lockFor = (seconds) => {
       clearInterval(tick);
-      if (!lockoutLeft()) { grid.disable(false); ui.say(""); return; }
+      const until = Date.now() + seconds * 1000;
       grid.disable(true);
       const update = () => {
-        const s = lockoutLeft();
-        if (!s) { clearInterval(tick); grid.disable(false); ui.say("Try again"); return; }
+        const s = Math.ceil((until - Date.now()) / 1000);
+        if (s <= 0) { clearInterval(tick); grid.disable(false); ui.say("Try again"); return; }
         ui.say(`Too many attempts. Wait ${s}s.`, true);
       };
       update();
@@ -274,34 +223,28 @@ export function protect(options = {}) {
     };
 
     async function attempt(pattern) {
-      if (lockoutLeft()) return grid.reset();
       if (pattern.length < opts.minLength) {
         grid.flash("bad");
         return ui.say(`Connect at least ${opts.minLength} dots.`, true);
       }
-      let ok = false;
-      try { ok = await verify(pattern, opts, store); }
-      catch (err) { grid.flash("bad"); return ui.say(err.message, true); }
-      if (ok) {
-        store.saveFails({ count: 0, until: 0 });
-        if (opts.remember === "session") store.setUnlocked(true);
+      let res;
+      try { res = await post(opts.loginUrl, { pattern }); }
+      catch { grid.flash("bad"); return ui.say("Can't reach the server.", true); }
+      if (res.ok) {
         grid.flash("ok", 250);
-        setTimeout(() => { clearInterval(tick); grid.destroy(); ui.root.remove(); ui = null; reveal(); }, 250);
-      } else {
-        const f = store.fails();
-        const count = f.count + 1;
-        const locked = count >= opts.maxAttempts;
-        store.saveFails({ count: locked ? 0 : count, until: locked ? Date.now() + opts.lockoutSeconds * 1000 : 0 });
-        grid.flash("bad");
-        if (locked) refreshLockout(); else ui.say("Wrong pattern.", true);
+        return setTimeout(() => { clearInterval(tick); grid.destroy(); ui.root.remove(); unlock(); }, 250);
       }
+      grid.flash("bad");
+      if (res.status === 429) {
+        const { retryAfter } = await res.json().catch(() => ({}));
+        lockFor(retryAfter || 30);
+      } else ui.say("Wrong pattern.", true);
     }
-    refreshLockout();
   }
 
   // Draw a new pattern twice to confirm. Only allowed once unlocked.
-  async function changePattern() {
-    if (!unlocked) throw new Error("pattern-lock: unlock before changing the pattern");
+  function changePattern() {
+    if (!unlocked) return Promise.reject(new Error("pattern-lock: unlock before changing the pattern"));
     return new Promise((resolve) => {
       const o = overlay("Set a new pattern");
       let first = null;
@@ -310,7 +253,10 @@ export function protect(options = {}) {
           if (p.length < opts.minLength) { grid.flash("bad"); return o.say(`Connect at least ${opts.minLength} dots.`, true); }
           if (!first) { first = p; grid.flash("ok", 400); return o.say("Draw it again to confirm."); }
           if (!samePattern(first, p)) { first = null; grid.flash("bad"); return o.say("Didn't match. Start over.", true); }
-          await saveNewPattern(p, store);
+          let res;
+          try { res = await post(opts.patternUrl, { pattern: p }); }
+          catch { first = null; grid.flash("bad"); return o.say("Can't reach the server.", true); }
+          if (!res.ok) { first = null; grid.flash("bad"); return o.say("Server refused the new pattern.", true); }
           grid.destroy(); o.root.remove(); resolve(true);
         },
       });
@@ -322,13 +268,15 @@ export function protect(options = {}) {
     });
   }
 
-  function lock() {
-    store.setUnlocked(false);
-    location.reload(); // simplest way to guarantee nothing from the app stays in memory
+  async function lock() {
+    try { await post(opts.logoutUrl); } catch { /* cookie expires on its own */ }
+    location.reload();
   }
 
-  if (opts.remember === "session" && store.unlocked()) reveal();
-  else showLock();
+  // Already have a valid session cookie? Skip the lock screen.
+  fetch(opts.sessionUrl, { credentials: "same-origin" })
+    .then((r) => (r.ok ? unlock() : showLock()))
+    .catch(showLock);
 
-  return { changePattern, lock, get whenUnlocked() { return whenUnlocked; } };
+  return { changePattern, lock };
 }
