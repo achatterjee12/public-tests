@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pattern lock demo</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --text:#1b1f27; --muted:#667085; --line:#e4e7ec; --accent:#1d4ed8; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0f1218; --card:#181c25; --text:#e8eaef; --muted:#98a1b3; --line:#2a3040; --accent:#7aa2ff; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width:640px; margin:0 auto; padding:40px 16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; }
+  button { font:inherit; color:var(--accent); background:none; border:1px solid var(--line); border-radius:8px; padding:8px 14px; margin-right:8px; cursor:pointer; }
+  p { color:var(--muted); }
+</style>
+</head>
+<body>
+<!-- The app lives in a <template>, so none of it exists in the DOM until the pattern is right. -->
+<template id="app">
+  <main>
+    <h1>You're in 🔓</h1>
+    <div class="card">
+      <p>This is the protected app. The starting pattern is the hard-coded
+        <code>0 → 1 → 2 → 5 → 8</code> (top row, then down the right side).</p>
+      <button id="change">Change pattern</button>
+      <button id="lock">Lock</button>
+      <p id="status"></p>
+    </div>
+  </main>
+</template>
+
+<script type="module">
+  import { protect } from "./pattern-lock.js";
+
+  const gate = protect({
+    app: document.getElementById("app"),
+    title: "Draw your pattern",
+    onUnlock() {
+      document.getElementById("lock").onclick = () => gate.lock();
+      document.getElementById("change").onclick = async () => {
+        const changed = await gate.changePattern();
+        document.getElementById("status").textContent = changed ? "Pattern updated." : "Cancelled.";
+      };
+    },
+  });
+</script>
+</body>
+</html>
