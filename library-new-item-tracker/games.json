@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-10-24T14:45:09.994263+00:00",
- "total": 1014,
+ "generated_at": "2026-10-25T14:45:04.720796+00:00",
+ "total": 1015,
  "libraries": [
   {
    "key": "mvpl",
    "name": "Mountain View",
-   "total": 253,
+   "total": 256,
    "since": "2026-10-20T19:49:06.659805+00:00"
   },
   {
@@ -23,7 +23,7 @@
   {
    "key": "sccl",
    "name": "Santa Clara County",
-   "total": 688,
+   "total": 686,
    "since": "2026-10-22T03:44:38.397760+00:00"
   }
  ],
@@ -38,6 +38,33 @@
   }
  ],
  "items": [
+  {
+   "library": "mvpl",
+   "id": "aedea170-4169-42d4-9ea1-704169b2d430",
+   "title": "Onimusha : way of the sword",
+   "url": "https://librarycatalog.mountainview.gov/search/card?id=aedea170-4169-42d4-9ea1-704169b2d430",
+   "added": "2026-10-25T14:45:04.695792+00:00",
+   "baseline": false,
+   "branches": []
+  },
+  {
+   "library": "mvpl",
+   "id": "d9fa3eed-d59d-4f24-ba3e-edd59dff24a8",
+   "title": "Silent hill: townfall",
+   "url": "https://librarycatalog.mountainview.gov/search/card?id=d9fa3eed-d59d-4f24-ba3e-edd59dff24a8",
+   "added": "2026-10-25T14:45:04.695792+00:00",
+   "baseline": false,
+   "branches": []
+  },
+  {
+   "library": "mvpl",
+   "id": "df3161c5-c9cd-48d6-b161-c5c9cd88d69b",
+   "title": "Wolverine",
+   "url": "https://librarycatalog.mountainview.gov/search/card?id=df3161c5-c9cd-48d6-b161-c5c9cd88d69b",
+   "added": "2026-10-25T14:45:04.695792+00:00",
+   "baseline": false,
+   "branches": []
+  },
   {
    "library": "sccl",
    "id": "S118C1351577",
@@ -111,7 +138,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1088007",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -5311,7 +5341,14 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1245424",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga",
+    "Woodland"
+   ]
   },
   {
    "library": "sccl",
@@ -5349,7 +5386,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1129033",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -5452,7 +5493,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1233569",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -5506,7 +5553,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1118747",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino"
+   ]
   },
   {
    "library": "sccl",
@@ -5515,7 +5564,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1198027",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas"
+   ]
   },
   {
    "library": "sclibrary",
@@ -5536,7 +5588,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1132256",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -5639,7 +5695,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1087531",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino"
+   ]
   },
   {
    "library": "sccl",
@@ -5648,7 +5706,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1207529",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -5670,7 +5732,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1067888",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino"
+   ]
   },
   {
    "library": "sccl",
@@ -5679,7 +5743,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1129727",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga",
+    "Woodland"
+   ]
   },
   {
    "library": "sccl",
@@ -5688,7 +5758,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1198307",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -5779,7 +5855,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1357108",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -5802,7 +5884,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1137801",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -5826,7 +5912,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1253762",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos"
+   ]
   },
   {
    "library": "sccl",
@@ -5862,7 +5951,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1088003",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -5886,7 +5978,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1079672",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -5895,7 +5990,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1136479",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Woodland"
+   ]
   },
   {
    "library": "sccl",
@@ -6122,7 +6223,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1087422",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -6160,7 +6264,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1087428",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -6169,7 +6276,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1084298",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -6178,7 +6288,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1233571",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -6217,7 +6331,12 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1204169",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -6278,21 +6397,17 @@
   },
   {
    "library": "sccl",
-   "id": "S118C1133207",
-   "title": "Payday 3",
-   "url": "https://sccl.bibliocommons.com/v2/record/S118C1133207",
-   "added": "2026-10-22T03:44:38.397760+00:00",
-   "baseline": true,
-   "branches": []
-  },
-  {
-   "library": "sccl",
    "id": "S118C1211570",
    "title": "Pepper Grinder",
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1211570",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -6315,7 +6430,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1138975",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -6324,7 +6443,12 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1137815",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -6333,7 +6457,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1231906",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -6342,7 +6470,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1233573",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -6379,7 +6509,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1136040",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell"
+   ]
   },
   {
    "library": "sccl",
@@ -6424,7 +6556,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1237821",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -6433,7 +6569,12 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1116379",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sclibrary",
@@ -6471,7 +6612,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1231738",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -6480,7 +6623,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1141593",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -6489,7 +6638,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1111304",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -6525,7 +6678,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1079675",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Los Altos",
+    "Woodland"
+   ]
   },
   {
    "library": "sccl",
@@ -6670,7 +6827,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1273787",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -6765,15 +6926,6 @@
     "Milpitas",
     "Saratoga"
    ]
-  },
-  {
-   "library": "sccl",
-   "id": "S118C1132257",
-   "title": "Remnant II",
-   "url": "https://sccl.bibliocommons.com/v2/record/S118C1132257",
-   "added": "2026-10-22T03:44:38.397760+00:00",
-   "baseline": true,
-   "branches": []
   },
   {
    "library": "sccl",
@@ -6916,7 +7068,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1118753",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sclibrary",
@@ -6951,7 +7107,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1250079",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -6960,7 +7120,12 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1162874",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Woodland"
+   ]
   },
   {
    "library": "sccl",
@@ -7030,7 +7195,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1172137",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -7108,7 +7277,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1204175",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -7174,7 +7347,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1309606",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -7183,7 +7362,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1070503",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -7218,7 +7400,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1172159",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sclibrary",
@@ -7269,7 +7457,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1097639",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -7306,7 +7496,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1163586",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -7452,7 +7646,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1137820",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -7461,7 +7657,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1079189",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino"
+   ]
   },
   {
    "library": "sccl",
@@ -7470,7 +7668,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1172151",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -7508,7 +7709,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1226793",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -7517,7 +7721,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1147951",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -7526,7 +7734,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1070504",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -7535,7 +7746,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1234489",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -7583,7 +7797,12 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1110936",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Woodland"
+   ]
   },
   {
    "library": "sccl",
@@ -7618,7 +7837,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1201232",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Woodland"
+   ]
   },
   {
    "library": "sccl",
@@ -7668,7 +7893,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1172142",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -7719,7 +7947,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1207712",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -7756,7 +7990,12 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1073663",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -7777,7 +8016,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1141585",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell"
+   ]
   },
   {
    "library": "sccl",
@@ -7953,7 +8194,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1233581",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -7962,7 +8207,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1110921",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Woodland"
+   ]
   },
   {
    "library": "sccl",
@@ -7984,7 +8233,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1076995",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas"
+   ]
   },
   {
    "library": "sclibrary",
@@ -8046,7 +8298,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1233583",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -8070,7 +8326,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1162880",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Woodland"
+   ]
   },
   {
    "library": "sccl",
@@ -8094,7 +8356,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1154486",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -8155,7 +8423,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1172140",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -8164,7 +8436,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1079833",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -8173,7 +8449,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1046062",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -8196,7 +8475,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1233576",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -8306,7 +8589,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1141596",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -8341,7 +8630,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1204183",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -8735,7 +9026,12 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1227727",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sclibrary",
@@ -8756,7 +9052,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1253756",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos"
+   ]
   },
   {
    "library": "sccl",
@@ -8765,7 +9064,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1070499",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -8881,7 +9183,12 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1154515",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -8916,7 +9223,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1159617",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino"
+   ]
   },
   {
    "library": "sccl",
@@ -8925,7 +9234,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1104198",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -9003,7 +9314,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1084007",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell"
+   ]
   },
   {
    "library": "sccl",
@@ -9036,7 +9349,13 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1195016",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -9075,7 +9394,12 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1237823",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -9182,7 +9506,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1110916",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell"
+   ]
   },
   {
    "library": "sccl",
@@ -9214,7 +9540,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1136061",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino"
+   ]
   },
   {
    "library": "sccl",
@@ -9359,7 +9687,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1172164",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Los Altos",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -9382,7 +9713,9 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1204188",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Milpitas"
+   ]
   },
   {
    "library": "sclibrary",
@@ -9403,7 +9736,12 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1154525",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -9425,7 +9763,10 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1067896",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos"
+   ]
   },
   {
    "library": "sccl",
@@ -9506,7 +9847,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1141590",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
@@ -9601,7 +9946,12 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1226448",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
   },
   {
    "library": "sccl",
@@ -9661,7 +10011,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1162864",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Woodland"
+   ]
   },
   {
    "library": "sccl",
@@ -9697,7 +10051,12 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1212152",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Milpitas",
+    "Woodland"
+   ]
   },
   {
    "library": "sccl",
@@ -9720,7 +10079,11 @@
    "url": "https://sccl.bibliocommons.com/v2/record/S118C1100379",
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
-   "branches": []
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas"
+   ]
   },
   {
    "library": "sccl",
