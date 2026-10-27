@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-10-26T15:43:50.483731+00:00",
- "total": 1015,
+ "generated_at": "2026-10-27T15:01:20.720036+00:00",
+ "total": 1018,
  "libraries": [
   {
    "key": "mvpl",
    "name": "Mountain View",
-   "total": 256,
+   "total": 259,
    "since": "2026-10-20T19:49:06.659805+00:00"
   },
   {
@@ -38,6 +38,33 @@
   }
  ],
  "items": [
+  {
+   "library": "mvpl",
+   "id": "aada3a6f-c337-4ab0-9a3a-6fc3370ab090",
+   "title": "Ace combat 8 : wings of Theve",
+   "url": "https://librarycatalog.mountainview.gov/search/card?id=aada3a6f-c337-4ab0-9a3a-6fc3370ab090",
+   "added": "2026-10-27T15:01:20.713706+00:00",
+   "baseline": false,
+   "branches": []
+  },
+  {
+   "library": "mvpl",
+   "id": "73105958-2cd7-47db-9059-582cd747db56",
+   "title": "Control: resonant",
+   "url": "https://librarycatalog.mountainview.gov/search/card?id=73105958-2cd7-47db-9059-582cd747db56",
+   "added": "2026-10-27T15:01:20.713706+00:00",
+   "baseline": false,
+   "branches": []
+  },
+  {
+   "library": "mvpl",
+   "id": "04916a1f-c56e-4ba3-916a-1fc56e8ba3f3",
+   "title": "The blood of Dawnwalker",
+   "url": "https://librarycatalog.mountainview.gov/search/card?id=04916a1f-c56e-4ba3-916a-1fc56e8ba3f3",
+   "added": "2026-10-27T15:01:20.713706+00:00",
+   "baseline": false,
+   "branches": []
+  },
   {
    "library": "mvpl",
    "id": "aedea170-4169-42d4-9ea1-704169b2d430",
