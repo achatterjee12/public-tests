@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-10-28T15:06:37.664646+00:00",
- "total": 1018,
+ "generated_at": "2026-10-29T15:08:39.166881+00:00",
+ "total": 1030,
  "libraries": [
   {
    "key": "mvpl",
@@ -17,7 +17,7 @@
   {
    "key": "sclibrary",
    "name": "Santa Clara City",
-   "total": 73,
+   "total": 85,
    "since": "2026-10-22T03:44:38.397760+00:00"
   },
   {
@@ -38,6 +38,138 @@
   }
  ],
  "items": [
+  {
+   "library": "sclibrary",
+   "id": "S146C2550270",
+   "title": "Assassin's Creed: Black Flag Resynced",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550270",
+   "added": "2026-10-29T15:08:39.158375+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
+  {
+   "library": "sclibrary",
+   "id": "S146C2550267",
+   "title": "Beast of Reincarnation",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550267",
+   "added": "2026-10-29T15:08:39.158375+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
+  {
+   "library": "sclibrary",
+   "id": "S146C2550271",
+   "title": "Beneath",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550271",
+   "added": "2026-10-29T15:08:39.158375+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
+  {
+   "library": "sclibrary",
+   "id": "S146C2550272",
+   "title": "Blood: Refreshed Supply",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550272",
+   "added": "2026-10-29T15:08:39.158375+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
+  {
+   "library": "sclibrary",
+   "id": "S146C2550273",
+   "title": "Control: Resonant",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550273",
+   "added": "2026-10-29T15:08:39.158375+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
+  {
+   "library": "sclibrary",
+   "id": "S146C2550269",
+   "title": "MOUSE: P.I. for Hire",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550269",
+   "added": "2026-10-29T15:08:39.158375+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
+  {
+   "library": "sclibrary",
+   "id": "S146C2550274",
+   "title": "Metal Gear Solid Master Collection: Vol. 2",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550274",
+   "added": "2026-10-29T15:08:39.158375+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
+  {
+   "library": "sclibrary",
+   "id": "S146C2550275",
+   "title": "Resonance: A Plague Tale Legacy",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550275",
+   "added": "2026-10-29T15:08:39.158375+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
+  {
+   "library": "sclibrary",
+   "id": "S146C2550276",
+   "title": "Silent Hill: Townfall",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550276",
+   "added": "2026-10-29T15:08:39.158375+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
+  {
+   "library": "sclibrary",
+   "id": "S146C2550266",
+   "title": "Star Wars: Galactic Racer",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550266",
+   "added": "2026-10-29T15:08:39.158375+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
+  {
+   "library": "sclibrary",
+   "id": "S146C2550268",
+   "title": "Tokon: Fighting Souls",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550268",
+   "added": "2026-10-29T15:08:39.158375+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
+  {
+   "library": "sclibrary",
+   "id": "S146C2550277",
+   "title": "Wolverine",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550277",
+   "added": "2026-10-29T15:08:39.158375+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
   {
    "library": "mvpl",
    "id": "aada3a6f-c337-4ab0-9a3a-6fc3370ab090",
@@ -3236,8 +3368,7 @@
     "Los Altos",
     "Milpitas",
     "Saratoga",
-    "Services & Support Center",
-    "Woodland"
+    "Services & Support Center"
    ]
   },
   {
