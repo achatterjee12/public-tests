@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-31T08:37:16+00:00",
+ "generated_at": "2026-10-31T08:39:42+00:00",
  "tags": [
   {
    "name": "jewelry",
@@ -59,11 +59,14 @@
     "home stuff"
    ],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-10-31T08:37:09+00:00",
+   "last_checked": "2026-10-31T08:39:31+00:00",
    "last_ok": false,
    "last_error": "blocked by the shop (bot protection)",
    "low": null,
@@ -71,7 +74,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 3,
+   "checks": 4,
    "spark": []
   },
   {
@@ -83,11 +86,14 @@
    "currency": "USD",
    "tags": [],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 8999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:09+00:00",
+   "last_checked": "2026-10-31T08:39:32+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 8999,
@@ -95,8 +101,12 @@
    "high": 8999,
    "avg": 8999,
    "price_30d_ago": null,
-   "checks": 3,
+   "checks": 4,
    "spark": [
+    [
+     "2026-10-31",
+     8999
+    ],
     [
      "2026-10-31",
      8999
@@ -120,11 +130,14 @@
    "currency": "USD",
    "tags": [],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 14999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:10+00:00",
+   "last_checked": "2026-10-31T08:39:33+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 14999,
@@ -132,8 +145,12 @@
    "high": 14999,
    "avg": 14999,
    "price_30d_ago": null,
-   "checks": 3,
+   "checks": 4,
    "spark": [
+    [
+     "2026-10-31",
+     14999
+    ],
     [
      "2026-10-31",
      14999
@@ -157,11 +174,14 @@
    "currency": "USD",
    "tags": [],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 10000,
    "availability": "out_of_stock",
-   "last_checked": "2026-10-31T08:37:10+00:00",
+   "last_checked": "2026-10-31T08:39:34+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 10000,
@@ -169,8 +189,12 @@
    "high": 10000,
    "avg": 10000,
    "price_30d_ago": null,
-   "checks": 3,
+   "checks": 4,
    "spark": [
+    [
+     "2026-10-31",
+     10000
+    ],
     [
      "2026-10-31",
      10000
@@ -196,11 +220,14 @@
     "bags"
    ],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 61500,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:11+00:00",
+   "last_checked": "2026-10-31T08:39:34+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 61500,
@@ -208,8 +235,12 @@
    "high": 61500,
    "avg": 61500,
    "price_30d_ago": null,
-   "checks": 3,
+   "checks": 4,
    "spark": [
+    [
+     "2026-10-31",
+     61500
+    ],
     [
      "2026-10-31",
      61500
@@ -235,11 +266,14 @@
     "shoes"
    ],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 10999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:11+00:00",
+   "last_checked": "2026-10-31T08:39:35+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 10999,
@@ -247,8 +281,12 @@
    "high": 10999,
    "avg": 10999,
    "price_30d_ago": null,
-   "checks": 2,
+   "checks": 3,
    "spark": [
+    [
+     "2026-10-31",
+     10999
+    ],
     [
      "2026-10-31",
      10999
@@ -265,32 +303,43 @@
    "retailer": "ateliervedantika.com",
    "title": "Ash Bag",
    "image": "http://ateliervedantika.com/cdn/shop/files/Ash_Bag_1_3b0e98c9-40af-4974-88af-45f33ef7cc4f.jpg?v=1791876728",
-   "currency": "INR",
+   "currency": "USD",
    "tags": [
     "bags"
    ],
    "note": "",
+   "local_currency": "INR",
+   "local_price": 2999000,
+   "fx": {
+    "rate": 0.010532,
+    "source": "European Central Bank",
+    "as_of": "2026-10-31T08:39:36+00:00"
+   },
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
-   "price": 2999000,
+   "price": 31585,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:12+00:00",
+   "last_checked": "2026-10-31T08:39:36+00:00",
    "last_ok": true,
    "last_error": null,
-   "low": 2999000,
+   "low": 31585,
    "low_at": "2026-10-31T08:32:21+00:00",
-   "high": 2999000,
-   "avg": 2999000,
+   "high": 31585,
+   "avg": 31585,
    "price_30d_ago": null,
-   "checks": 2,
+   "checks": 3,
    "spark": [
     [
      "2026-10-31",
-     2999000
+     31585
     ],
     [
      "2026-10-31",
-     2999000
+     31585
+    ],
+    [
+     "2026-10-31",
+     31585
     ]
    ]
   },
@@ -303,11 +352,14 @@
    "currency": "USD",
    "tags": [],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 4200,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:12+00:00",
+   "last_checked": "2026-10-31T08:39:37+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 4200,
@@ -315,8 +367,12 @@
    "high": 4200,
    "avg": 4200,
    "price_30d_ago": null,
-   "checks": 2,
+   "checks": 3,
    "spark": [
+    [
+     "2026-10-31",
+     4200
+    ],
     [
      "2026-10-31",
      4200
@@ -338,11 +394,14 @@
     "bags"
    ],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 36800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:13+00:00",
+   "last_checked": "2026-10-31T08:39:38+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 36800,
@@ -350,8 +409,12 @@
    "high": 36800,
    "avg": 36800,
    "price_30d_ago": null,
-   "checks": 2,
+   "checks": 3,
    "spark": [
+    [
+     "2026-10-31",
+     36800
+    ],
     [
      "2026-10-31",
      36800
@@ -373,11 +436,14 @@
     "bags"
    ],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 49800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:13+00:00",
+   "last_checked": "2026-10-31T08:39:38+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 49800,
@@ -385,8 +451,12 @@
    "high": 49800,
    "avg": 49800,
    "price_30d_ago": null,
-   "checks": 2,
+   "checks": 3,
    "spark": [
+    [
+     "2026-10-31",
+     49800
+    ],
     [
      "2026-10-31",
      49800
@@ -403,32 +473,43 @@
    "retailer": "flattered.com",
    "title": "Clay Clutch Leather Black",
    "image": "http://flattered.com/cdn/shop/files/FLATTERED-CLAYLEATHERBLACK-FRONT.jpg?v=1725957114",
-   "currency": "SEK",
+   "currency": "USD",
    "tags": [
     "bags"
    ],
    "note": "",
+   "local_currency": "SEK",
+   "local_price": 299500,
+   "fx": {
+    "rate": 0.10177,
+    "source": "European Central Bank",
+    "as_of": "2026-10-31T08:39:40+00:00"
+   },
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
-   "price": 299500,
+   "price": 30480,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:14+00:00",
+   "last_checked": "2026-10-31T08:39:40+00:00",
    "last_ok": true,
    "last_error": null,
-   "low": 299500,
+   "low": 30480,
    "low_at": "2026-10-31T08:32:24+00:00",
-   "high": 299500,
-   "avg": 299500,
+   "high": 30480,
+   "avg": 30480,
    "price_30d_ago": null,
-   "checks": 2,
+   "checks": 3,
    "spark": [
     [
      "2026-10-31",
-     299500
+     30480
     ],
     [
      "2026-10-31",
-     299500
+     30480
+    ],
+    [
+     "2026-10-31",
+     30480
     ]
    ]
   },
@@ -443,11 +524,14 @@
     "perfumes"
    ],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 7800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:15+00:00",
+   "last_checked": "2026-10-31T08:39:41+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 7800,
@@ -455,8 +539,12 @@
    "high": 7800,
    "avg": 7800,
    "price_30d_ago": null,
-   "checks": 2,
+   "checks": 3,
    "spark": [
+    [
+     "2026-10-31",
+     7800
+    ],
     [
      "2026-10-31",
      7800
@@ -478,11 +566,14 @@
     "perfumes"
    ],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 19800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:16+00:00",
+   "last_checked": "2026-10-31T08:39:41+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 19800,
@@ -490,8 +581,12 @@
    "high": 19800,
    "avg": 19800,
    "price_30d_ago": null,
-   "checks": 2,
+   "checks": 3,
    "spark": [
+    [
+     "2026-10-31",
+     19800
+    ],
     [
      "2026-10-31",
      19800
@@ -513,11 +608,14 @@
     "bags"
    ],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 6999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:16+00:00",
+   "last_checked": "2026-10-31T08:39:42+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 6999,
@@ -525,8 +623,12 @@
    "high": 6999,
    "avg": 6999,
    "price_30d_ago": null,
-   "checks": 2,
+   "checks": 3,
    "spark": [
+    [
+     "2026-10-31",
+     6999
+    ],
     [
      "2026-10-31",
      6999
@@ -548,11 +650,14 @@
     "jewelry"
    ],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 2999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:37:16+00:00",
+   "last_checked": "2026-10-31T08:39:42+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 2999,
@@ -560,8 +665,12 @@
    "high": 2999,
    "avg": 2999,
    "price_30d_ago": null,
-   "checks": 2,
+   "checks": 3,
    "spark": [
+    [
+     "2026-10-31",
+     2999
+    ],
     [
      "2026-10-31",
      2999
@@ -583,11 +692,14 @@
     "bags"
    ],
    "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-10-31T08:37:16+00:00",
+   "last_checked": "2026-10-31T08:39:42+00:00",
    "last_ok": false,
    "last_error": "no price found on the page",
    "low": null,
@@ -595,7 +707,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 2,
+   "checks": 3,
    "spark": []
   }
  ]
