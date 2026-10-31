@@ -200,9 +200,11 @@ function render() {
     const untagged = items.filter(it => !it.tags.length);
     if (untagged.length) groups.push(["untagged", "", untagged]);
     html = groups.map(([name, color, list]) => {
-      const total = list.reduce((s, it) => s + (it.price || 0), 0);
+      const totals = {};  // one total per currency: never add rupees to dollars
+      list.forEach(it => { if (it.price != null) totals[it.currency] = (totals[it.currency] || 0) + it.price; });
+      const sum = Object.entries(totals).map(([cur, v]) => money(v, cur)).join(" + ") || "—";
       return `<h2 class="group" style="--c:${esc(color)}"><span class="dot"></span>${esc(name)}
-        <span class="n">${list.length} item${list.length > 1 ? "s" : ""} · ${money(total, list[0].currency)}</span></h2>${grid(list)}`;
+        <span class="n">${list.length} item${list.length > 1 ? "s" : ""} · ${sum}</span></h2>${grid(list)}`;
     }).join("");
   } else html = grid(items);
   $("list").innerHTML = html;
