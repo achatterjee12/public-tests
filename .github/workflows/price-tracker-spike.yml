@@ -9,6 +9,7 @@ on:
     paths:
       - "shopping-price-tracker/items.txt"
       - "shopping-price-tracker/spike.py"
+      - "shopping-price-tracker/fx.py"
       - ".github/workflows/price-tracker-spike.yml"
   workflow_dispatch:
 
@@ -30,6 +31,8 @@ jobs:
       - run: pip install curl_cffi==0.7.4
       - name: Unit tests
         run: python -m unittest test_spike -v
+      - name: Exchange-rate sources
+        run: python fx.py INR SEK
       - name: Run spike
         run: python spike.py
       - uses: actions/upload-artifact@v4

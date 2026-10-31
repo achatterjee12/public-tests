@@ -7,6 +7,7 @@ frankfurter.app API) are used instead. Each rate used is saved in the fx_rates t
 its source and time, and if both sources fail, the latest saved rate (up to 7 days old) is used.
 """
 import re
+import sys
 from datetime import datetime, timedelta, timezone
 
 import spike
@@ -39,8 +40,14 @@ def parse_google(html):
 
 
 def from_google(cur):
-    status, _, text, err = spike.fetch(GOOGLE_URL.format(cur=cur))
-    return parse_google(text) if status == 200 and not err else None
+    url = GOOGLE_URL.format(cur=cur)
+    status, final_url, text, err = spike.fetch(url)
+    rate = parse_google(text) if status == 200 and not err else None
+    if rate is None:  # say why in the run log, so a Google page change is easy to spot
+        title = re.search(r"<title>(.*?)</title>", text or "", re.S)
+        print(f"Google Finance gave no {cur} rate: status={status} error={err} final={final_url} "
+              f"bytes={len(text or '')} title={title.group(1).strip()[:80] if title else None!r}", file=sys.stderr)
+    return rate
 
 
 def from_ecb(cur):
@@ -95,3 +102,8 @@ def latest(db, cur, max_age=None):
     if max_age and datetime.fromisoformat(row["fetched_at"]) < datetime.now(timezone.utc) - max_age:
         return None
     return {"rate": row["rate_to_usd"], "source": row["source"] + " (saved)", "as_of": row["fetched_at"]}
+
+
+if __name__ == "__main__":  # diagnostics: python fx.py INR SEK
+    for c in sys.argv[1:] or ["INR"]:
+        print(c, "google:", from_google(c), "ecb:", from_ecb(c))
