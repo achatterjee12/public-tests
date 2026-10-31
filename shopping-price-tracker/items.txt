@@ -9,6 +9,17 @@ https://luckyfours.com/products/kera
 https://luckyfours.com/products/humir
 https://www.us.maguireshoes.com/products/alpi-bordeaux-gloves
 https://demellierlondon.com/products/the-midi-stockholm-black-fine-grain | tags: bags
+https://terrahouseco.com/products/camille-genuine-leather-heels | tags: shoes
+https://ateliervedantika.com/products/ash-bag | tags: bags
+https://us.smnovella.com/products/3469900
+https://verafiedny.com/products/noir-eclair-bag | tags: bags
+https://verafiedny.com/products/chocolate-club-bag | tags: bags
+https://flattered.com/products/clay-clutch-leather | tags: bags
+https://livecostabrazil.com/products/aroma-in-oil | tags: perfumes
+https://livecostabrazil.com/products/aroma-fragrance | tags: perfumes
+https://www.madewell.com/p/womens/accessories/bags/crossbody-bags/handwoven-fish-crossbody-bag/OA699/ | tags: bags
+https://www.madewell.com/p/womens/accessories/jewelry/bracelets/shell-wire-bangle/OA677/ | tags: jewelry
+https://www.zara.com/us/en/metallic-chain-crossbody-bag-p16085710.html | tags: bags
 
 # Not trackable yet: Instagram reels are videos, not shop pages, so they have no price or
 # stock to read (and Instagram blocks automated access). Replace each with the link to the
