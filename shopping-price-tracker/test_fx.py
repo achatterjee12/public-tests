@@ -9,6 +9,17 @@ import tracker
 
 
 class TestParseGoogle(unittest.TestCase):
+    # Markup as served to GitHub Actions on 2026-10-31.
+    def test_embedded_data(self):
+        html = ('<span jsname="Pdsbrc" class=""><span>0.0105</span></span>...'
+                'AF_initDataCallback({key: \'ds:2\', hash: \'7\', data:[[[["/g/11bvvzslq9",null,"INR / USD",3,null,'
+                '[0.01053602,5.0E-7,0.00474585,4,4,4],null,0.01053552')
+        self.assertEqual(fx.parse_google(html, "INR"), 0.01053602)
+        self.assertIsNone(fx.parse_google(html.replace("INR / USD", "SEK / USD").replace("Pdsbrc", "x"), "INR"))
+
+    def test_on_screen_number(self):
+        self.assertEqual(fx.parse_google('<div class="N6SYTe"><span jsname="Pdsbrc" class=""><span>0.1018</span></span>', "SEK"), 0.1018)
+
     def test_attribute(self):
         html = '<div jsname="ip75Cb" data-source="INR" data-target="USD" data-last-price="0.011853" data-tz="">'
         self.assertEqual(fx.parse_google(html), 0.011853)
