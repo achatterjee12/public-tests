@@ -1,0 +1,13 @@
+# Starting tags for the shopping price tracker.
+# One tag per line: name | color (color is optional, used for the badge on the page).
+# Names are case-insensitive and may contain spaces. Tags used in items.txt that are
+# not listed here are created automatically.
+jewelry           | #b45309
+bags              | #7c3aed
+hats              | #0e7490
+books             | #1d4ed8
+baby stuff        | #db2777
+perfumes          | #c026d3
+home stuff        | #15803d
+shoes             | #b91c1c
+knitting patterns | #a16207

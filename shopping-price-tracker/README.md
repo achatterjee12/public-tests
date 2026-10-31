@@ -12,8 +12,8 @@ Status: **design / proposal**. Nothing is built yet; this document is the plan t
 4. A web page (GitHub Pages, like the other projects here) shows every tracked item:
    current price, lowest seen, availability, a small price-history chart, and when it was last checked.
    Clicking an item opens a **full price-history graph** (section 6).
-5. **Categories / tags:** you can create tags (e.g. `electronics`, `gifts`, `kitchen`,
-   `wishlist`) and give each item any number of them; the page filters and groups by tag (section 5).
+5. **Categories / tags:** you can create tags (starting set: jewelry, bags, hats, books,
+   baby stuff, perfumes, home stuff, shoes, knitting patterns) and give each item any number of them; the page filters and groups by tag (section 5).
 6. Later: push notifications (ntfy, same as `library-new-item-tracker`) on a price drop,
    back in stock, or when a target price is reached.
 
@@ -115,7 +115,7 @@ items
 
 tags
   id               INTEGER PK
-  name             TEXT UNIQUE      -- stored lowercase, e.g. "electronics"
+  name             TEXT UNIQUE      -- stored lowercase, e.g. "baby stuff"
   color            TEXT NULL        -- optional, for the badge on the page
   created_at
 
@@ -157,7 +157,7 @@ keep in the repo indefinitely.
 Recommended, in the order we'd build them:
 
 1. **`items.txt` in the repo** — one line per item:
-   `URL | tags: electronics, gifts | target: 99.99 | note: for Dad`
+   `URL | tags: bags, baby stuff | target: 99.99 | note: for the baby shower`
    (everything after the URL is optional). Simplest; good for the spike and MVP. Tags named
    here are created automatically if they don't exist yet.
 2. **GitHub issue form "Track an item"** — open an issue from the GitHub phone app, paste
@@ -170,8 +170,8 @@ Recommended, in the order we'd build them:
 
 ## 5. Categories / tags
 
-- **Tags, not fixed categories:** an item can have several tags (a TV can be both
-  `electronics` and `black-friday`). A single "category" is just using one tag per item.
+- **Tags, not fixed categories:** an item can have several tags (a diaper bag can be both
+  `bags` and `baby stuff`). A single "category" is just using one tag per item.
 - **Creating tags:** any tag used on an item is created automatically. Tags can also be
   created ahead of time, renamed, recoloured, merged or deleted, via a `tags.txt` file
   (`name | color`) or a "Manage tags" issue form. Deleting a tag removes it from items but
@@ -180,8 +180,8 @@ Recommended, in the order we'd build them:
 - **On the page:** tag chips at the top filter the list (pick several to combine);
   an optional "group by tag" view shows one section per tag with a per-tag count and
   total current value; untagged items get their own group.
-- Tags are also sent with notifications (e.g. "[gifts] Lego set dropped to $79"), and in
-  a later phase notification rules can be set per tag (e.g. only notify for `wishlist`).
+- Tags are also sent with notifications (e.g. "[books] Knitting book dropped to $19"), and in
+  a later phase notification rules can be set per tag (e.g. only notify for `perfumes`).
 
 Why not edit tags directly on the web page? GitHub Pages is static and can't write to the
 database. If editing from the page matters to you, the page can open a pre-filled
@@ -230,7 +230,7 @@ shopping-price-tracker/
     selectors.py       manual per-item CSS selectors
   validate.py          sanity rules from 2.3
   notify.sh            ntfy (phase 4)
-  tags.txt             optional: predefined tags and colours
+  tags.txt             tag list and badge colours
   spike.py             phase 0 experiment runner
   index.html           web page: item list, tag filters, price-history graph
   items.json, history/, prices.db  generated, committed by the workflow
@@ -288,8 +288,9 @@ Decided:
   markup) is the primary method.
 - **Public repo** is fine (tracked links and prices are visible on GitHub and the page).
 - **No paid scraping service.**
+- **Starting tags** (in `tags.txt`): jewelry, bags, hats, books, baby stuff, perfumes,
+  home stuff, shoes, knitting patterns. More can be added any time.
 
 Still open:
 1. **Your links** (10–20 real product links) for the phase 0 spike — on their way.
 2. **Intake:** start with `items.txt` + issue form, or do you want the phone share-sheet from the start?
-3. **Tags:** any starting set of tags you already know you want (e.g. electronics, home, gifts, wishlist)?
