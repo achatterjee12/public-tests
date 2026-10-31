@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-10-31T08:29:41+00:00",
+ "generated_at": "2026-10-31T08:32:26+00:00",
  "tags": [
   {
    "name": "jewelry",
    "color": "#b45309",
-   "count": 0
+   "count": 1
   },
   {
    "name": "bags",
    "color": "#7c3aed",
-   "count": 1
+   "count": 7
   },
   {
    "name": "hats",
@@ -29,7 +29,7 @@
   {
    "name": "perfumes",
    "color": "#c026d3",
-   "count": 0
+   "count": 2
   },
   {
    "name": "home stuff",
@@ -39,7 +39,7 @@
   {
    "name": "shoes",
    "color": "#b91c1c",
-   "count": 0
+   "count": 1
   },
   {
    "name": "knitting patterns",
@@ -63,7 +63,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-10-31T08:29:39+00:00",
+   "last_checked": "2026-10-31T08:32:18+00:00",
    "last_ok": false,
    "last_error": "blocked by the shop (bot protection)",
    "low": null,
@@ -71,7 +71,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": []
   },
   {
@@ -87,7 +87,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 8999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:29:39+00:00",
+   "last_checked": "2026-10-31T08:32:18+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 8999,
@@ -95,8 +95,12 @@
    "high": 8999,
    "avg": 8999,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": [
+    [
+     "2026-10-31",
+     8999
+    ],
     [
      "2026-10-31",
      8999
@@ -116,7 +120,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 14999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:29:40+00:00",
+   "last_checked": "2026-10-31T08:32:19+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 14999,
@@ -124,8 +128,12 @@
    "high": 14999,
    "avg": 14999,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": [
+    [
+     "2026-10-31",
+     14999
+    ],
     [
      "2026-10-31",
      14999
@@ -145,7 +153,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 10000,
    "availability": "out_of_stock",
-   "last_checked": "2026-10-31T08:29:40+00:00",
+   "last_checked": "2026-10-31T08:32:19+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 10000,
@@ -153,8 +161,12 @@
    "high": 10000,
    "avg": 10000,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": [
+    [
+     "2026-10-31",
+     10000
+    ],
     [
      "2026-10-31",
      10000
@@ -176,7 +188,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 61500,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:29:41+00:00",
+   "last_checked": "2026-10-31T08:32:20+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 61500,
@@ -184,13 +196,351 @@
    "high": 61500,
    "avg": 61500,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": [
+    [
+     "2026-10-31",
+     61500
+    ],
     [
      "2026-10-31",
      61500
     ]
    ]
+  },
+  {
+   "id": 6,
+   "url": "https://terrahouseco.com/products/camille-genuine-leather-heels",
+   "retailer": "terrahouseco.com",
+   "title": "Camille Genuine Leather Heels",
+   "image": "http://terrahouseco.com/cdn/shop/files/S3128ee2b987d4f219545209080c938e0s.webp?v=1759192444",
+   "currency": "USD",
+   "tags": [
+    "shoes"
+   ],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:32:17+00:00",
+   "price": 10999,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:32:21+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 10999,
+   "low_at": "2026-10-31T08:32:21+00:00",
+   "high": 10999,
+   "avg": 10999,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     10999
+    ]
+   ]
+  },
+  {
+   "id": 7,
+   "url": "https://ateliervedantika.com/products/ash-bag",
+   "retailer": "ateliervedantika.com",
+   "title": "Ash Bag",
+   "image": "http://ateliervedantika.com/cdn/shop/files/Ash_Bag_1_3b0e98c9-40af-4974-88af-45f33ef7cc4f.jpg?v=1791876728",
+   "currency": "INR",
+   "tags": [
+    "bags"
+   ],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:32:17+00:00",
+   "price": 2999000,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:32:21+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 2999000,
+   "low_at": "2026-10-31T08:32:21+00:00",
+   "high": 2999000,
+   "avg": 2999000,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     2999000
+    ]
+   ]
+  },
+  {
+   "id": 8,
+   "url": "https://us.smnovella.com/products/3469900",
+   "retailer": "us.smnovella.com",
+   "title": "Rosa Novella Scented Wax Tablets",
+   "image": "http://us.smnovella.com/cdn/shop/files/3469900_P1_8056209888583_TAV_CERA_PROFUMATE_ROSA_NOVELLA_2PZ.jpg?v=1792724016",
+   "currency": "USD",
+   "tags": [],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:32:17+00:00",
+   "price": 4200,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:32:22+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 4200,
+   "low_at": "2026-10-31T08:32:22+00:00",
+   "high": 4200,
+   "avg": 4200,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     4200
+    ]
+   ]
+  },
+  {
+   "id": 9,
+   "url": "https://verafiedny.com/products/noir-eclair-bag",
+   "retailer": "verafiedny.com",
+   "title": "Silver Noir \u00c9clair Bag",
+   "image": "http://verafiedny.com/cdn/shop/files/1_2baf62f3-830c-4453-b8b3-ba7676953181.png?v=1748969693",
+   "currency": "USD",
+   "tags": [
+    "bags"
+   ],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:32:17+00:00",
+   "price": 36800,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:32:22+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 36800,
+   "low_at": "2026-10-31T08:32:22+00:00",
+   "high": 36800,
+   "avg": 36800,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     36800
+    ]
+   ]
+  },
+  {
+   "id": 10,
+   "url": "https://verafiedny.com/products/chocolate-club-bag",
+   "retailer": "verafiedny.com",
+   "title": "Chocolate Club Bag",
+   "image": "http://verafiedny.com/cdn/shop/files/2025.10.30verafied3932.png?v=1762451780",
+   "currency": "USD",
+   "tags": [
+    "bags"
+   ],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:32:17+00:00",
+   "price": 49800,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:32:23+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 49800,
+   "low_at": "2026-10-31T08:32:23+00:00",
+   "high": 49800,
+   "avg": 49800,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     49800
+    ]
+   ]
+  },
+  {
+   "id": 11,
+   "url": "https://flattered.com/products/clay-clutch-leather",
+   "retailer": "flattered.com",
+   "title": "Clay Clutch Leather Black",
+   "image": "http://flattered.com/cdn/shop/files/FLATTERED-CLAYLEATHERBLACK-FRONT.jpg?v=1725957114",
+   "currency": "SEK",
+   "tags": [
+    "bags"
+   ],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:32:17+00:00",
+   "price": 299500,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:32:24+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 299500,
+   "low_at": "2026-10-31T08:32:24+00:00",
+   "high": 299500,
+   "avg": 299500,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     299500
+    ]
+   ]
+  },
+  {
+   "id": 12,
+   "url": "https://livecostabrazil.com/products/aroma-in-oil",
+   "retailer": "livecostabrazil.com",
+   "title": "AROMA IN OIL",
+   "image": "http://livecostabrazil.com/cdn/shop/files/aroma-em-oleo-costa-brazil-1_2500x2500_edited.jpg?v=1785444201",
+   "currency": "USD",
+   "tags": [
+    "perfumes"
+   ],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:32:17+00:00",
+   "price": 7800,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:32:24+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 7800,
+   "low_at": "2026-10-31T08:32:24+00:00",
+   "high": 7800,
+   "avg": 7800,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     7800
+    ]
+   ]
+  },
+  {
+   "id": 13,
+   "url": "https://livecostabrazil.com/products/aroma-fragrance",
+   "retailer": "livecostabrazil.com",
+   "title": "AROMA",
+   "image": "http://livecostabrazil.com/cdn/shop/files/CB_Web_PDP_AromaEDP_A01_2500x2500_edited.jpg?v=1785444037",
+   "currency": "USD",
+   "tags": [
+    "perfumes"
+   ],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:32:17+00:00",
+   "price": 19800,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:32:25+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 19800,
+   "low_at": "2026-10-31T08:32:25+00:00",
+   "high": 19800,
+   "avg": 19800,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     19800
+    ]
+   ]
+  },
+  {
+   "id": 14,
+   "url": "https://www.madewell.com/p/womens/accessories/bags/crossbody-bags/handwoven-fish-crossbody-bag/OA699/",
+   "retailer": "madewell.com",
+   "title": "Handwoven Fish Crossbody Bag",
+   "image": "https://www.madewell.com/images/OA699_EE7575_ld?wid=700&hei=889&fmt=jpeg&fit=crop&qlt=75",
+   "currency": "USD",
+   "tags": [
+    "bags"
+   ],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:32:17+00:00",
+   "price": 6999,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:32:25+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 6999,
+   "low_at": "2026-10-31T08:32:25+00:00",
+   "high": 6999,
+   "avg": 6999,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     6999
+    ]
+   ]
+  },
+  {
+   "id": 15,
+   "url": "https://www.madewell.com/p/womens/accessories/jewelry/bracelets/shell-wire-bangle/OA677/",
+   "retailer": "madewell.com",
+   "title": "Shell Wire Bangle",
+   "image": "https://www.madewell.com/images/OA677_EE7744_ld?wid=700&hei=889&fmt=jpeg&fit=crop&qlt=75",
+   "currency": "USD",
+   "tags": [
+    "jewelry"
+   ],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:32:17+00:00",
+   "price": 2999,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:32:25+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 2999,
+   "low_at": "2026-10-31T08:32:25+00:00",
+   "high": 2999,
+   "avg": 2999,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     2999
+    ]
+   ]
+  },
+  {
+   "id": 16,
+   "url": "https://www.zara.com/us/en/metallic-chain-crossbody-bag-p16085710.html",
+   "retailer": "zara.com",
+   "title": "Metallic chain crossbody bag p16085710.html",
+   "image": null,
+   "currency": "USD",
+   "tags": [
+    "bags"
+   ],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:32:17+00:00",
+   "price": null,
+   "availability": null,
+   "last_checked": "2026-10-31T08:32:26+00:00",
+   "last_ok": false,
+   "last_error": "no price found on the page",
+   "low": null,
+   "low_at": null,
+   "high": null,
+   "avg": null,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": []
   }
  ]
 }
