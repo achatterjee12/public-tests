@@ -65,6 +65,21 @@ class TestTracker(unittest.TestCase):
         self.assertEqual(tracker.title_from_url("https://x.com/products/the-midi-stockholm"), "The midi stockholm")
         self.assertEqual(tracker.title_from_url("https://www.shop.com/"), "shop.com")
 
+    def test_pick_keeps_price_and_currency_together(self):
+        R = lambda m, p, c, a: {"method": m, "price": p, "currency": c, "availability": a, "title": "T", "ok": p is not None}
+        # Ayesha's US storefront: page data says 88.00 USD, Shopify's endpoint says 8800 (INR, no code)
+        got = tracker.pick([R("shopify", 8800.0, None, "in_stock"), R("jsonld", 88.0, "USD", "in_stock"),
+                            R("meta", 88.0, "USD", None), R("microdata", None, None, None)])
+        self.assertEqual((got["price"], got["currency"], got["method"]), (88.0, "USD", "jsonld"))
+        # Maguire: no JSON-LD, meta has the price, only Shopify knows it's sold out
+        got = tracker.pick([R("jsonld", None, None, None), R("meta", 100.0, "USD", None),
+                            R("shopify", 100.0, None, "out_of_stock")])
+        self.assertEqual((got["price"], got["currency"], got["availability"]), (100.0, "USD", "out_of_stock"))
+        # Shopify only: price kept, currency unknown
+        got = tracker.pick([R("jsonld", None, None, None), R("shopify", 50.0, None, "in_stock")])
+        self.assertEqual((got["price"], got["currency"], got["method"]), (50.0, None, "shopify"))
+        self.assertFalse(tracker.pick([R("jsonld", None, None, None)])["ok"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -24,7 +24,11 @@ ITEMS_PATH = os.path.join(HERE, "items.txt")
 TAGS_PATH = os.path.join(HERE, "tags.txt")
 JSON_PATH = os.path.join(HERE, "items.json")
 HISTORY_DIR = os.path.join(HERE, "history")
-METHOD_ORDER = ["shopify", "jsonld", "meta", "microdata"]
+# Price order. The page's own data (jsonld/meta/microdata) comes first because it states the
+# currency the shopper sees; Shopify's /products/<x>.js gives prices in the shop's *base*
+# currency with no currency code (e.g. INR on an Indian shop's US storefront), so it is used
+# for the price only when nothing else has one. It is still the best source for stock status.
+METHOD_ORDER = ["jsonld", "meta", "microdata", "shopify"]
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS items (
@@ -136,18 +140,27 @@ def check_item(url):
     shop = spike.extract_shopify(url)
     if shop:
         results.append(shop)
-    results.sort(key=lambda r: METHOD_ORDER.index(r["method"]))
-    best = next((r for r in results if r["ok"]), None)
-    out["title"] = next((r["title"] for r in results if r.get("title")), None)
-    out["currency"] = next((r["currency"] for r in results if r.get("currency")), None)
     out["image"] = image_from(out, sc.meta)
-    if not best:
+    out.update(pick(results))
+    if not out["ok"]:
         out["error"] = out["error"] or "no price found on the page"
-        return out
-    out.update(ok=True, price=best["price"], method=best["method"],
-               availability=best["availability"]
-               or next((r["availability"] for r in results if r.get("availability")), "unknown"))
     return out
+
+
+def pick(results):
+    """Combines the extraction results into one answer. Price and currency always come from
+    the same method; stock status prefers Shopify's variant data when present."""
+    results = sorted(results, key=lambda r: METHOD_ORDER.index(r["method"]))
+    title = next((r["title"] for r in results if r.get("title")), None)
+    best = next((r for r in results if r["ok"]), None)
+    if not best:
+        return {"ok": False, "title": title, "price": None, "currency": None,
+                "availability": None, "method": None}
+    shop = next((r for r in results if r["method"] == "shopify" and r.get("availability")), None)
+    avail = (shop["availability"] if shop else None) or best["availability"] \
+        or next((r["availability"] for r in results if r.get("availability")), None) or "unknown"
+    return {"ok": True, "title": title, "price": best["price"], "currency": best["currency"],
+            "availability": avail, "method": best["method"]}
 
 
 def record(db, iid, res, rate=None):
