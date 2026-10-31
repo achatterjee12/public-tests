@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-10-31T08:42:20+00:00",
+ "generated_at": "2026-10-31T08:48:05+00:00",
  "tags": [
   {
    "name": "jewelry",
    "color": "#b45309",
-   "count": 1
+   "count": 2
   },
   {
    "name": "bags",
    "color": "#7c3aed",
-   "count": 7
+   "count": 9
   },
   {
    "name": "hats",
@@ -29,17 +29,17 @@
   {
    "name": "perfumes",
    "color": "#c026d3",
-   "count": 2
+   "count": 3
   },
   {
    "name": "home stuff",
    "color": "#15803d",
-   "count": 1
+   "count": 2
   },
   {
    "name": "shoes",
    "color": "#b91c1c",
-   "count": 1
+   "count": 4
   },
   {
    "name": "knitting patterns",
@@ -66,7 +66,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-10-31T08:42:12+00:00",
+   "last_checked": "2026-10-31T08:47:51+00:00",
    "last_ok": false,
    "last_error": "blocked by the shop (bot protection)",
    "low": null,
@@ -74,7 +74,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": []
   },
   {
@@ -93,7 +93,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 8999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:12+00:00",
+   "last_checked": "2026-10-31T08:47:52+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 8999,
@@ -101,8 +101,12 @@
    "high": 8999,
    "avg": 8999,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     8999
+    ],
     [
      "2026-10-31",
      8999
@@ -141,7 +145,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 14999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:13+00:00",
+   "last_checked": "2026-10-31T08:47:52+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 14999,
@@ -149,8 +153,12 @@
    "high": 14999,
    "avg": 14999,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     14999
+    ],
     [
      "2026-10-31",
      14999
@@ -189,7 +197,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 10000,
    "availability": "out_of_stock",
-   "last_checked": "2026-10-31T08:42:13+00:00",
+   "last_checked": "2026-10-31T08:47:53+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 10000,
@@ -197,8 +205,12 @@
    "high": 10000,
    "avg": 10000,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     10000
+    ],
     [
      "2026-10-31",
      10000
@@ -239,7 +251,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 61500,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:14+00:00",
+   "last_checked": "2026-10-31T08:47:53+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 61500,
@@ -247,8 +259,12 @@
    "high": 61500,
    "avg": 61500,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     61500
+    ],
     [
      "2026-10-31",
      61500
@@ -289,7 +305,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 10999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:14+00:00",
+   "last_checked": "2026-10-31T08:47:53+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 10999,
@@ -297,8 +313,12 @@
    "high": 10999,
    "avg": 10999,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
+    [
+     "2026-10-31",
+     10999
+    ],
     [
      "2026-10-31",
      10999
@@ -333,21 +353,21 @@
    "fx": {
     "rate": 0.01053602,
     "source": "Google Finance",
-    "as_of": "2026-10-31T08:42:15+00:00"
+    "as_of": "2026-10-31T08:47:54+00:00"
    },
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 31598,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:15+00:00",
+   "last_checked": "2026-10-31T08:47:54+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 31585,
    "low_at": "2026-10-31T08:32:21+00:00",
    "high": 31598,
-   "avg": 31588,
+   "avg": 31590,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
     [
      "2026-10-31",
@@ -360,6 +380,10 @@
     [
      "2026-10-31",
      31585
+    ],
+    [
+     "2026-10-31",
+     31598
     ],
     [
      "2026-10-31",
@@ -383,7 +407,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 4200,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:15+00:00",
+   "last_checked": "2026-10-31T08:47:54+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 4200,
@@ -391,8 +415,12 @@
    "high": 4200,
    "avg": 4200,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
+    [
+     "2026-10-31",
+     4200
+    ],
     [
      "2026-10-31",
      4200
@@ -429,7 +457,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 36800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:16+00:00",
+   "last_checked": "2026-10-31T08:47:55+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 36800,
@@ -437,8 +465,12 @@
    "high": 36800,
    "avg": 36800,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
+    [
+     "2026-10-31",
+     36800
+    ],
     [
      "2026-10-31",
      36800
@@ -475,7 +507,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 49800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:16+00:00",
+   "last_checked": "2026-10-31T08:47:55+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 49800,
@@ -483,8 +515,12 @@
    "high": 49800,
    "avg": 49800,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
+    [
+     "2026-10-31",
+     49800
+    ],
     [
      "2026-10-31",
      49800
@@ -519,13 +555,13 @@
    "fx": {
     "rate": 0.101768741,
     "source": "Google Finance",
-    "as_of": "2026-10-31T08:42:17+00:00"
+    "as_of": "2026-10-31T08:47:56+00:00"
    },
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 30480,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:17+00:00",
+   "last_checked": "2026-10-31T08:47:56+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 30480,
@@ -533,8 +569,12 @@
    "high": 30480,
    "avg": 30480,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
+    [
+     "2026-10-31",
+     30480
+    ],
     [
      "2026-10-31",
      30480
@@ -571,7 +611,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 7800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:18+00:00",
+   "last_checked": "2026-10-31T08:47:57+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 7800,
@@ -579,8 +619,12 @@
    "high": 7800,
    "avg": 7800,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
+    [
+     "2026-10-31",
+     7800
+    ],
     [
      "2026-10-31",
      7800
@@ -617,7 +661,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 19800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:19+00:00",
+   "last_checked": "2026-10-31T08:47:57+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 19800,
@@ -625,8 +669,12 @@
    "high": 19800,
    "avg": 19800,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
+    [
+     "2026-10-31",
+     19800
+    ],
     [
      "2026-10-31",
      19800
@@ -663,7 +711,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 6999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:19+00:00",
+   "last_checked": "2026-10-31T08:47:57+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 6999,
@@ -671,8 +719,12 @@
    "high": 6999,
    "avg": 6999,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
+    [
+     "2026-10-31",
+     6999
+    ],
     [
      "2026-10-31",
      6999
@@ -709,7 +761,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 2999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:42:19+00:00",
+   "last_checked": "2026-10-31T08:47:58+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 2999,
@@ -717,8 +769,12 @@
    "high": 2999,
    "avg": 2999,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
+    [
+     "2026-10-31",
+     2999
+    ],
     [
      "2026-10-31",
      2999
@@ -755,7 +811,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-10-31T08:42:20+00:00",
+   "last_checked": "2026-10-31T08:47:58+00:00",
    "last_ok": false,
    "last_error": "no price found on the page",
    "low": null,
@@ -763,7 +819,355 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
+   "spark": []
+  },
+  {
+   "id": 17,
+   "url": "https://www.dior.com/en_us/beauty/products/jasmin-des-anges-Y0742427.html",
+   "retailer": "dior.com",
+   "title": "Jasmin des Anges",
+   "image": "https://www.dior.com/on/demandware.static/-/Sites-master_dior/default/dwd04d6a19/Y0742427/Y0742427_C099700394_E01_GHC.jpg",
+   "currency": "USD",
+   "tags": [
+    "perfumes"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:47:51+00:00",
+   "price": 35000,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:47:59+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 35000,
+   "low_at": "2026-10-31T08:47:59+00:00",
+   "high": 35000,
+   "avg": 35000,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     35000
+    ]
+   ]
+  },
+  {
+   "id": 18,
+   "url": "https://www.massimodutti.com/us/soft-leather-mule-l11574850",
+   "retailer": "massimodutti.com",
+   "title": "Soft leather mule l11574850",
+   "image": null,
+   "currency": "USD",
+   "tags": [
+    "shoes"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:47:51+00:00",
+   "price": null,
+   "availability": null,
+   "last_checked": "2026-10-31T08:47:59+00:00",
+   "last_ok": false,
+   "last_error": "no price found on the page",
+   "low": null,
+   "low_at": null,
+   "high": null,
+   "avg": null,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": []
+  },
+  {
+   "id": 19,
+   "url": "https://www.thereformation.com/products/clara-cashmere-crew-cardigan/1312652.html",
+   "retailer": "thereformation.com",
+   "title": "Clara cashmere crew cardigan",
+   "image": null,
+   "currency": "USD",
+   "tags": [],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:47:51+00:00",
+   "price": null,
+   "availability": null,
+   "last_checked": "2026-10-31T08:48:00+00:00",
+   "last_ok": false,
+   "last_error": "blocked by the shop (bot protection)",
+   "low": null,
+   "low_at": null,
+   "high": null,
+   "avg": null,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": []
+  },
+  {
+   "id": 20,
+   "url": "https://lonzashoes.com/products/gloss-block",
+   "retailer": "lonzashoes.com",
+   "title": "Gloss Block",
+   "image": "https://cdn.shopify.com/s/files/1/0533/9270/3639/products/IMG_9366.jpg?v=1745951683",
+   "currency": "USD",
+   "tags": [
+    "shoes"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:47:51+00:00",
+   "price": 14800,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:48:00+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 14800,
+   "low_at": "2026-10-31T08:48:00+00:00",
+   "high": 14800,
+   "avg": 14800,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     14800
+    ]
+   ]
+  },
+  {
+   "id": 21,
+   "url": "https://www.dolcevita.com/products/nekki-flats-bone-leather",
+   "retailer": "dolcevita.com",
+   "title": "NEKKI FLATS BONE LEATHER",
+   "image": "http://www.dolcevita.com/cdn/shop/files/DOLCEVITA-FLAT_NEKKI_BONELEATHER-02.jpg?v=1771344183",
+   "currency": "USD",
+   "tags": [
+    "shoes"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:47:51+00:00",
+   "price": 7990,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:48:01+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 7990,
+   "low_at": "2026-10-31T08:48:01+00:00",
+   "high": 7990,
+   "avg": 7990,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     7990
+    ]
+   ]
+  },
+  {
+   "id": 22,
+   "url": "https://manuatelier.com/products/the-mini-fold-bag-black-soft",
+   "retailer": "manuatelier.com",
+   "title": "The Mini Fold Bag Black Soft",
+   "image": "http://manuatelier.com/cdn/shop/files/2026185THEMINIFOLDBAGSOFTCALFLEATHERBLACK.jpg?v=1789137331",
+   "currency": "USD",
+   "tags": [
+    "bags"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:47:51+00:00",
+   "price": 61500,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:48:02+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 61500,
+   "low_at": "2026-10-31T08:48:02+00:00",
+   "high": 61500,
+   "avg": 61500,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     61500
+    ]
+   ]
+  },
+  {
+   "id": 23,
+   "url": "https://hunting-season.com/products/the-small-soft-clutch-in-suede",
+   "retailer": "hunting-season.com",
+   "title": "The Small Soft Clutch in Suede",
+   "image": "http://hunting-season.com/cdn/shop/files/hunting-season-the-small-soft-clutch-in-suede-burgundy-8763970.jpg?v=1781936274",
+   "currency": "USD",
+   "tags": [
+    "bags"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:47:51+00:00",
+   "price": 39500,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:48:03+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 39500,
+   "low_at": "2026-10-31T08:48:03+00:00",
+   "high": 39500,
+   "avg": 39500,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     39500
+    ]
+   ]
+  },
+  {
+   "id": 24,
+   "url": "https://www.westelm.com/products/rue-rounded-tabletop-frames-t8088/",
+   "retailer": "westelm.com",
+   "title": "Rue rounded tabletop frames t8088",
+   "image": null,
+   "currency": "USD",
+   "tags": [
+    "home stuff"
+   ],
+   "note": "Rounded Tabletop Frame, Dark Ash, 10x10",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:47:51+00:00",
+   "price": null,
+   "availability": null,
+   "last_checked": "2026-10-31T08:48:03+00:00",
+   "last_ok": false,
+   "last_error": "blocked by the shop (bot protection)",
+   "low": null,
+   "low_at": null,
+   "high": null,
+   "avg": null,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": []
+  },
+  {
+   "id": 25,
+   "url": "https://shopakira.com/products/lets-talk-about-it-cowl-neck",
+   "retailer": "shopakira.com",
+   "title": "LETS TALK ABOUT IT COWL NECK",
+   "image": "http://shopakira.com/cdn/shop/files/JLM4100902-FLORALBEIGE-MULTI1.jpg?v=1779287671",
+   "currency": "USD",
+   "tags": [],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:47:51+00:00",
+   "price": 4193,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:48:04+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 4193,
+   "low_at": "2026-10-31T08:48:04+00:00",
+   "high": 4193,
+   "avg": 4193,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     4193
+    ]
+   ]
+  },
+  {
+   "id": 26,
+   "url": "https://shopakira.com/products/lets-talk-about-it-balloon-pant",
+   "retailer": "shopakira.com",
+   "title": "LETS TALK ABOUT IT BALLOON PANT",
+   "image": "http://shopakira.com/cdn/shop/files/JDN5092401BEIGE-MULTI1.jpg?v=1779287569",
+   "currency": "USD",
+   "tags": [],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:47:51+00:00",
+   "price": 11990,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:48:04+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 11990,
+   "low_at": "2026-10-31T08:48:04+00:00",
+   "high": 11990,
+   "avg": 11990,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     11990
+    ]
+   ]
+  },
+  {
+   "id": 27,
+   "url": "https://www.ogaan.com/green-chandrama-jhumka",
+   "retailer": "ogaan.com",
+   "title": "Buy Green Chandrama Jhumka by AADIKARA at Ogaan Online Shopping Site",
+   "image": "https://img2.ogaanindia.com/pub/media/catalog/product/cache/70fdb22216a43835b5ce5fc582b2e527/1/_/1_22256.jpg",
+   "currency": "USD",
+   "tags": [
+    "jewelry"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:47:51+00:00",
+   "price": null,
+   "availability": null,
+   "last_checked": "2026-10-31T08:48:05+00:00",
+   "last_ok": false,
+   "last_error": "no price found on the page",
+   "low": null,
+   "low_at": null,
+   "high": null,
+   "avg": null,
+   "price_30d_ago": null,
+   "checks": 1,
    "spark": []
   }
  ]
