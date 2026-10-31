@@ -1,10 +1,10 @@
 {
- "generated_at": "2026-10-31T08:48:05+00:00",
+ "generated_at": "2026-10-31T08:58:33+00:00",
  "tags": [
   {
    "name": "jewelry",
    "color": "#b45309",
-   "count": 2
+   "count": 5
   },
   {
    "name": "bags",
@@ -29,7 +29,7 @@
   {
    "name": "perfumes",
    "color": "#c026d3",
-   "count": 3
+   "count": 7
   },
   {
    "name": "home stuff",
@@ -66,7 +66,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-10-31T08:47:51+00:00",
+   "last_checked": "2026-10-31T08:58:09+00:00",
    "last_ok": false,
    "last_error": "blocked by the shop (bot protection)",
    "low": null,
@@ -74,7 +74,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 6,
+   "checks": 7,
    "spark": []
   },
   {
@@ -93,7 +93,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 8999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:52+00:00",
+   "last_checked": "2026-10-31T08:58:10+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 8999,
@@ -101,8 +101,12 @@
    "high": 8999,
    "avg": 8999,
    "price_30d_ago": null,
-   "checks": 6,
+   "checks": 7,
    "spark": [
+    [
+     "2026-10-31",
+     8999
+    ],
     [
      "2026-10-31",
      8999
@@ -145,7 +149,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 14999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:52+00:00",
+   "last_checked": "2026-10-31T08:58:11+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 14999,
@@ -153,8 +157,12 @@
    "high": 14999,
    "avg": 14999,
    "price_30d_ago": null,
-   "checks": 6,
+   "checks": 7,
    "spark": [
+    [
+     "2026-10-31",
+     14999
+    ],
     [
      "2026-10-31",
      14999
@@ -197,7 +205,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 10000,
    "availability": "out_of_stock",
-   "last_checked": "2026-10-31T08:47:53+00:00",
+   "last_checked": "2026-10-31T08:58:11+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 10000,
@@ -205,8 +213,12 @@
    "high": 10000,
    "avg": 10000,
    "price_30d_ago": null,
-   "checks": 6,
+   "checks": 7,
    "spark": [
+    [
+     "2026-10-31",
+     10000
+    ],
     [
      "2026-10-31",
      10000
@@ -251,7 +263,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 61500,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:53+00:00",
+   "last_checked": "2026-10-31T08:58:12+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 61500,
@@ -259,8 +271,12 @@
    "high": 61500,
    "avg": 61500,
    "price_30d_ago": null,
-   "checks": 6,
+   "checks": 7,
    "spark": [
+    [
+     "2026-10-31",
+     61500
+    ],
     [
      "2026-10-31",
      61500
@@ -305,7 +321,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 10999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:53+00:00",
+   "last_checked": "2026-10-31T08:58:13+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 10999,
@@ -313,8 +329,12 @@
    "high": 10999,
    "avg": 10999,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     10999
+    ],
     [
      "2026-10-31",
      10999
@@ -353,21 +373,21 @@
    "fx": {
     "rate": 0.01053602,
     "source": "Google Finance",
-    "as_of": "2026-10-31T08:47:54+00:00"
+    "as_of": "2026-10-31T08:58:14+00:00"
    },
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 31598,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:54+00:00",
+   "last_checked": "2026-10-31T08:58:14+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 31585,
    "low_at": "2026-10-31T08:32:21+00:00",
    "high": 31598,
-   "avg": 31590,
+   "avg": 31592,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
     [
      "2026-10-31",
@@ -380,6 +400,10 @@
     [
      "2026-10-31",
      31585
+    ],
+    [
+     "2026-10-31",
+     31598
     ],
     [
      "2026-10-31",
@@ -407,7 +431,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 4200,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:54+00:00",
+   "last_checked": "2026-10-31T08:58:14+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 4200,
@@ -415,8 +439,12 @@
    "high": 4200,
    "avg": 4200,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     4200
+    ],
     [
      "2026-10-31",
      4200
@@ -457,7 +485,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 36800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:55+00:00",
+   "last_checked": "2026-10-31T08:58:15+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 36800,
@@ -465,8 +493,12 @@
    "high": 36800,
    "avg": 36800,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     36800
+    ],
     [
      "2026-10-31",
      36800
@@ -507,7 +539,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 49800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:55+00:00",
+   "last_checked": "2026-10-31T08:58:16+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 49800,
@@ -515,8 +547,12 @@
    "high": 49800,
    "avg": 49800,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     49800
+    ],
     [
      "2026-10-31",
      49800
@@ -555,13 +591,13 @@
    "fx": {
     "rate": 0.101768741,
     "source": "Google Finance",
-    "as_of": "2026-10-31T08:47:56+00:00"
+    "as_of": "2026-10-31T08:58:17+00:00"
    },
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 30480,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:56+00:00",
+   "last_checked": "2026-10-31T08:58:17+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 30480,
@@ -569,8 +605,12 @@
    "high": 30480,
    "avg": 30480,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     30480
+    ],
     [
      "2026-10-31",
      30480
@@ -611,7 +651,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 7800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:57+00:00",
+   "last_checked": "2026-10-31T08:58:17+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 7800,
@@ -619,8 +659,12 @@
    "high": 7800,
    "avg": 7800,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     7800
+    ],
     [
      "2026-10-31",
      7800
@@ -661,7 +705,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 19800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:57+00:00",
+   "last_checked": "2026-10-31T08:58:18+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 19800,
@@ -669,8 +713,12 @@
    "high": 19800,
    "avg": 19800,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     19800
+    ],
     [
      "2026-10-31",
      19800
@@ -711,7 +759,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 6999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:57+00:00",
+   "last_checked": "2026-10-31T08:58:18+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 6999,
@@ -719,8 +767,12 @@
    "high": 6999,
    "avg": 6999,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     6999
+    ],
     [
      "2026-10-31",
      6999
@@ -761,7 +813,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 2999,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:58+00:00",
+   "last_checked": "2026-10-31T08:58:19+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 2999,
@@ -769,8 +821,12 @@
    "high": 2999,
    "avg": 2999,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
+    [
+     "2026-10-31",
+     2999
+    ],
     [
      "2026-10-31",
      2999
@@ -811,7 +867,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-10-31T08:47:58+00:00",
+   "last_checked": "2026-10-31T08:58:19+00:00",
    "last_ok": false,
    "last_error": "no price found on the page",
    "low": null,
@@ -819,7 +875,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": []
   },
   {
@@ -840,7 +896,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 35000,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:47:59+00:00",
+   "last_checked": "2026-10-31T08:58:20+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 35000,
@@ -848,8 +904,12 @@
    "high": 35000,
    "avg": 35000,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": [
+    [
+     "2026-10-31",
+     35000
+    ],
     [
      "2026-10-31",
      35000
@@ -874,7 +934,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-10-31T08:47:59+00:00",
+   "last_checked": "2026-10-31T08:58:20+00:00",
    "last_ok": false,
    "last_error": "no price found on the page",
    "low": null,
@@ -882,7 +942,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": []
   },
   {
@@ -901,7 +961,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-10-31T08:48:00+00:00",
+   "last_checked": "2026-10-31T08:58:20+00:00",
    "last_ok": false,
    "last_error": "blocked by the shop (bot protection)",
    "low": null,
@@ -909,7 +969,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": []
   },
   {
@@ -930,7 +990,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 14800,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:48:00+00:00",
+   "last_checked": "2026-10-31T08:58:21+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 14800,
@@ -938,8 +998,12 @@
    "high": 14800,
    "avg": 14800,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": [
+    [
+     "2026-10-31",
+     14800
+    ],
     [
      "2026-10-31",
      14800
@@ -964,7 +1028,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 7990,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:48:01+00:00",
+   "last_checked": "2026-10-31T08:58:22+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 7990,
@@ -972,8 +1036,12 @@
    "high": 7990,
    "avg": 7990,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": [
+    [
+     "2026-10-31",
+     7990
+    ],
     [
      "2026-10-31",
      7990
@@ -998,7 +1066,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 61500,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:48:02+00:00",
+   "last_checked": "2026-10-31T08:58:23+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 61500,
@@ -1006,8 +1074,12 @@
    "high": 61500,
    "avg": 61500,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": [
+    [
+     "2026-10-31",
+     61500
+    ],
     [
      "2026-10-31",
      61500
@@ -1032,7 +1104,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 39500,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:48:03+00:00",
+   "last_checked": "2026-10-31T08:58:24+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 39500,
@@ -1040,8 +1112,12 @@
    "high": 39500,
    "avg": 39500,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": [
+    [
+     "2026-10-31",
+     39500
+    ],
     [
      "2026-10-31",
      39500
@@ -1066,7 +1142,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-10-31T08:48:03+00:00",
+   "last_checked": "2026-10-31T08:58:25+00:00",
    "last_ok": false,
    "last_error": "blocked by the shop (bot protection)",
    "low": null,
@@ -1074,7 +1150,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": []
   },
   {
@@ -1093,7 +1169,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 4193,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:48:04+00:00",
+   "last_checked": "2026-10-31T08:58:25+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 4193,
@@ -1101,8 +1177,12 @@
    "high": 4193,
    "avg": 4193,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": [
+    [
+     "2026-10-31",
+     4193
+    ],
     [
      "2026-10-31",
      4193
@@ -1125,7 +1205,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 11990,
    "availability": "in_stock",
-   "last_checked": "2026-10-31T08:48:04+00:00",
+   "last_checked": "2026-10-31T08:58:26+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 11990,
@@ -1133,8 +1213,12 @@
    "high": 11990,
    "avg": 11990,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": [
+    [
+     "2026-10-31",
+     11990
+    ],
     [
      "2026-10-31",
      11990
@@ -1159,7 +1243,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-10-31T08:48:05+00:00",
+   "last_checked": "2026-10-31T08:58:27+00:00",
    "last_ok": false,
    "last_error": "no price found on the page",
    "low": null,
@@ -1167,8 +1251,246 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 1,
+   "checks": 2,
    "spark": []
+  },
+  {
+   "id": 28,
+   "url": "https://www.ayeshaccessories.com/en-us/products/minimalistic-swan-silver-choker",
+   "retailer": "ayeshaccessories.com",
+   "title": "Minimalistic Swan Silver Choker",
+   "image": "http://www.ayeshaccessories.com/cdn/shop/products/FK015a.jpg?v=1658579244",
+   "currency": "USD",
+   "tags": [
+    "jewelry"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:58:08+00:00",
+   "price": 880000,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:58:28+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 880000,
+   "low_at": "2026-10-31T08:58:28+00:00",
+   "high": 880000,
+   "avg": 880000,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     880000
+    ]
+   ]
+  },
+  {
+   "id": 29,
+   "url": "https://www.ayeshaccessories.com/en-us/products/silver-plated-choker-2",
+   "retailer": "ayeshaccessories.com",
+   "title": "Silver Plated Choker",
+   "image": "http://www.ayeshaccessories.com/cdn/shop/files/L154.jpg?v=1703679926",
+   "currency": "USD",
+   "tags": [
+    "jewelry"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:58:08+00:00",
+   "price": 1100000,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:58:29+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 1100000,
+   "low_at": "2026-10-31T08:58:29+00:00",
+   "high": 1100000,
+   "avg": 1100000,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     1100000
+    ]
+   ]
+  },
+  {
+   "id": 30,
+   "url": "https://www.ayeshaccessories.com/en-us/products/silver-plated-minimalistic-choker-1",
+   "retailer": "ayeshaccessories.com",
+   "title": "Silver Plated Minimalistic Choker",
+   "image": "http://www.ayeshaccessories.com/cdn/shop/files/D65875E8-0EC4-4235-805E-85CDBC8E504A.jpg?v=1769582722",
+   "currency": "USD",
+   "tags": [
+    "jewelry"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:58:08+00:00",
+   "price": 1100000,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:58:30+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 1100000,
+   "low_at": "2026-10-31T08:58:30+00:00",
+   "high": 1100000,
+   "avg": 1100000,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     1100000
+    ]
+   ]
+  },
+  {
+   "id": 31,
+   "url": "https://noyz.com/products/lost-found-solid-fragrance",
+   "retailer": "noyz.com",
+   "title": "THE SOLID FRAGRANCE LOST+FOUND",
+   "image": "http://noyz.com/cdn/shop/files/PDP_Lost_20Found_Solid_1.png?v=1790390630",
+   "currency": "USD",
+   "tags": [
+    "perfumes"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:58:08+00:00",
+   "price": 4200,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:58:31+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 4200,
+   "low_at": "2026-10-31T08:58:31+00:00",
+   "high": 4200,
+   "avg": 4200,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     4200
+    ]
+   ]
+  },
+  {
+   "id": 32,
+   "url": "https://us.parfums-de-marly.com/products/feminine-discovery-selection",
+   "retailer": "us.parfums-de-marly.com",
+   "title": "Feminine Discovery Selection",
+   "image": "http://us.parfums-de-marly.com/cdn/shop/files/3x5ml_withkeychain_1x1_2026_Topshot_View_MIDDLECENTERED_WITHSHADOW.png?v=1779105116",
+   "currency": "USD",
+   "tags": [
+    "perfumes"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:58:08+00:00",
+   "price": 7500,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:58:32+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 7500,
+   "low_at": "2026-10-31T08:58:32+00:00",
+   "high": 7500,
+   "avg": 7500,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     7500
+    ]
+   ]
+  },
+  {
+   "id": 33,
+   "url": "https://www.kindredblack.com/products/orange-blossom-salve",
+   "retailer": "kindredblack.com",
+   "title": "Orange Blossom Salve",
+   "image": "https://www.kindredblack.com/cdn/shop/files/kindred-black-orange-blossom-salve-2025-ed2_c659546f-e38a-4716-a188-d940ca8a260d_grande.jpg?v=1764344219",
+   "currency": "USD",
+   "tags": [
+    "perfumes"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:58:08+00:00",
+   "price": 14500,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:58:32+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 14500,
+   "low_at": "2026-10-31T08:58:32+00:00",
+   "high": 14500,
+   "avg": 14500,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     14500
+    ]
+   ]
+  },
+  {
+   "id": 34,
+   "url": "https://www.kindredblack.com/products/rose-oil",
+   "retailer": "kindredblack.com",
+   "title": "Rose Oil",
+   "image": "https://www.kindredblack.com/cdn/shop/products/kindred-black-slowbeauty-rose-oil_grande.jpg?v=1665350626",
+   "currency": "USD",
+   "tags": [
+    "perfumes"
+   ],
+   "note": "",
+   "local_currency": null,
+   "local_price": null,
+   "fx": null,
+   "target": null,
+   "added_at": "2026-10-31T08:58:08+00:00",
+   "price": 19500,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:58:33+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 19500,
+   "low_at": "2026-10-31T08:58:33+00:00",
+   "high": 19500,
+   "avg": 19500,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     19500
+    ]
+   ]
   }
  ]
 }
