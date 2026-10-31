@@ -104,6 +104,20 @@ def latest(db, cur, max_age=None):
     return {"rate": row["rate_to_usd"], "source": row["source"] + " (saved)", "as_of": row["fetched_at"]}
 
 
+def debug_google(cur, near):
+    """Prints the page markup around numbers close to the expected rate (to update the parser)."""
+    _, _, text, _ = spike.fetch(GOOGLE_URL.format(cur=cur))
+    print(f"--- {cur}: data-last-price={'data-last-price' in text} YMlKec={text.count('YMlKec')}")
+    lead = f"{near:.6f}"[:5]      # e.g. 0.010 for 0.010532
+    for i, m in enumerate(re.finditer(re.escape(lead) + r"\d*", text)):
+        if i >= 8:
+            break
+        print("   ...", text[max(0, m.start() - 160):m.end() + 60].replace("\n", " "), "...")
+
+
 if __name__ == "__main__":  # diagnostics: python fx.py INR SEK
     for c in sys.argv[1:] or ["INR"]:
-        print(c, "google:", from_google(c), "ecb:", from_ecb(c))
+        g, e = from_google(c), from_ecb(c)
+        print(c, "google:", g, "ecb:", e)
+        if g is None and e:
+            debug_google(c, e)
