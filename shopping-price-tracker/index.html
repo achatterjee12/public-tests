@@ -79,6 +79,21 @@
   th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
   th { color: var(--muted); font-weight: 600; }
   .tablewrap { max-height: 260px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; }
+  .add { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 0 0 22px; }
+  .add label.h { display: block; font-weight: 600; margin-bottom: 6px; }
+  .add textarea { width: 100%; min-height: 84px; resize: vertical; font: inherit; font-size: .9rem; padding: 8px 10px;
+                  border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--text); }
+  .add textarea:focus, .add input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .add .tagpick { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 10px 0; font-size: .88rem; color: var(--muted); }
+  .add .tagpick .chip { font-size: .8rem; padding: 2px 10px; }
+  .add input { font: inherit; font-size: .85rem; padding: 3px 8px; border-radius: 8px; border: 1px solid var(--line);
+               background: var(--bg); color: var(--text); width: 170px; }
+  .add .go { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  @media (prefers-color-scheme: dark) { .btn.primary { color: #0f1218; } }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .add .status { color: var(--muted); font-size: .85rem; }
+  .add .hint { color: var(--muted); font-size: .8rem; margin: 8px 0 0; }
   .home { font-size: .9rem; color: var(--muted); text-decoration: none; }
 </style>
 </head>
@@ -87,6 +102,20 @@
   <a class="home" href="../">← public-tests</a>
   <h1>Price tracker</h1>
   <p class="sub" id="sub">Loading…</p>
+
+  <section class="add" aria-labelledby="addh">
+    <label class="h" id="addh" for="addlinks">Add items</label>
+    <textarea id="addlinks" placeholder="Paste product links, one per line&#10;https://shop.com/products/…&#10;https://another-shop.com/item/…" spellcheck="false"></textarea>
+    <div class="tagpick" id="addtags"><span>Tags for these links:</span></div>
+    <div class="go">
+      <button class="btn primary" id="addgo" disabled>Add items</button>
+      <button class="btn" id="addclear">Clear</button>
+      <span class="status" id="addstatus" aria-live="polite"></span>
+    </div>
+    <p class="hint">Opens a GitHub issue with your links filled in. Press <b>Submit</b> there (signed in as the repo owner).
+      The links are added and checked straight away, and appear here in a minute or two.
+      Different tags per link: add <code>| tags: bags</code> after that link.</p>
+  </section>
 
   <div class="bar" id="tagbar" aria-label="Filter by tag"></div>
   <div class="controls">
@@ -339,10 +368,65 @@ $("csv").addEventListener("click", () => {
   a.click(); URL.revokeObjectURL(a.href);
 });
 
+// ---------- add items ----------
+const REPO = (() => {
+  const owner = location.hostname.endsWith(".github.io") ? location.hostname.split(".")[0] : "achatterjee12";
+  const repo = location.hostname.endsWith(".github.io") ? location.pathname.split("/")[1] || "public-tests" : "public-tests";
+  return `${owner}/${repo}`;
+})();
+const addTags = new Set();
+const normUrl = u => { try { const p = new URL(u); return p.hostname.replace(/^www\./, "") + p.pathname.replace(/\/$/, ""); } catch { return u; } };
+
+function addState() {
+  const lines = $("addlinks").value.split("\n").map(l => l.trim()).filter(Boolean);
+  const links = lines.map(l => (l.match(/https?:\/\/[^\s|<>"']+/) || [])[0]).filter(Boolean);
+  const tracked = new Set((state.data?.items || []).map(it => normUrl(it.url)));
+  const already = links.filter(u => tracked.has(normUrl(u))).length;
+  const social = links.filter(u => /instagram\.com|tiktok\.com/.test(u)).length;
+  const fresh = links.length - already - social;
+  return { lines, links, already, social, fresh };
+}
+
+function updateAdd() {
+  const s = addState(), bits = [];
+  if (s.fresh) bits.push(`${s.fresh} new link${s.fresh > 1 ? "s" : ""}`);
+  if (s.already) bits.push(`${s.already} already tracked`);
+  if (s.social) bits.push(`${s.social} social post${s.social > 1 ? "s" : ""} (not a shop page, will be skipped)`);
+  const junk = s.lines.length - s.links.length;
+  if (junk > 0) bits.push(`${junk} line${junk > 1 ? "s" : ""} without a link`);
+  $("addstatus").textContent = bits.join(" · ");
+  $("addgo").disabled = !s.fresh;
+  $("addgo").textContent = s.fresh ? `Add ${s.fresh} item${s.fresh > 1 ? "s" : ""}` : "Add items";
+}
+
+function renderAddTags() {
+  const chips = state.data.tags.map(t => `<button class="chip" type="button" style="--c:${esc(t.color)}" data-tag="${esc(t.name)}"
+    aria-pressed="${addTags.has(t.name)}"><span class="dot"></span>${esc(t.name)}</button>`).join("");
+  $("addtags").innerHTML = `<span>Tags for these links:</span>${chips}<input id="addnew" placeholder="new tag, another…" aria-label="New tags, comma separated">`;
+}
+
+$("addtags").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const t = b.dataset.tag; addTags.has(t) ? addTags.delete(t) : addTags.add(t);
+  b.setAttribute("aria-pressed", addTags.has(t));
+});
+$("addlinks").addEventListener("input", updateAdd);
+$("addclear").addEventListener("click", () => { $("addlinks").value = ""; updateAdd(); $("addlinks").focus(); });
+$("addgo").addEventListener("click", () => {
+  const s = addState();
+  const extra = ($("addnew")?.value || "").split(",").map(t => t.trim().toLowerCase()).filter(Boolean);
+  const tags = [...addTags, ...extra];
+  const body = s.lines.filter(l => /https?:\/\//.test(l)).join("\n") + (tags.length ? `\ntags: ${tags.join(", ")}` : "");
+  const url = `https://github.com/${REPO}/issues/new?` + new URLSearchParams({ title: `Track items (${s.fresh})`, body });
+  if (url.length > 7500) { $("addstatus").textContent = "Too many links for one go: split them into two batches."; return; }
+  window.open(url, "_blank", "noopener");
+  $("addstatus").textContent = "Opened GitHub. Press Submit there, then come back in a minute or two. (Clear this box once submitted.)";
+});
+
 fetch("items.json", { cache: "no-cache" }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
   state.data = d;
   $("sub").textContent = `${d.items.length} items tracked, checked daily · updated ${when(d.generated_at)}`;
-  renderTags(); render();
+  renderTags(); render(); renderAddTags(); updateAdd();
 }).catch(() => {
   $("sub").textContent = "No data yet — the first price check hasn't run.";
 });

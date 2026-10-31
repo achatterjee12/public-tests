@@ -1,0 +1,70 @@
+name: Price tracker - add items
+
+# The "Add items" box on the price tracker page opens a GitHub issue titled "Track items"
+# with one link per line. This adds the links to items.txt, checks their prices right away,
+# replies on the issue with what it found, and closes it.
+# Only issues opened by the repository owner are processed: the repo is public, so anyone
+# could open an issue, and it must not let strangers add items.
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write           # to commit items.txt and the price data
+  issues: write             # to reply and close
+
+concurrency:
+  group: price-tracker      # shared with the daily run, so they never commit at the same time
+  cancel-in-progress: false
+
+jobs:
+  add:
+    if: >-
+      startsWith(github.event.issue.title, 'Track items') &&
+      github.event.issue.user.login == github.repository_owner
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: shopping-price-tracker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install curl_cffi==0.7.4
+      - name: Unit tests
+        run: python -m unittest test_spike test_tracker test_add_items
+      # The issue body is untrusted text: it is read from the event file by Python and
+      # never pasted into a shell command.
+      - name: Add links and check them
+        id: add
+        run: |
+          python -c "import json, os; print(json.load(open(os.environ['GITHUB_EVENT_PATH']))['issue']['body'] or '')" > "$RUNNER_TEMP/body.txt"
+          echo "added=$(python add_items.py "$RUNNER_TEMP/body.txt" "$RUNNER_TEMP/reply.md" | tail -n 1)" >> "$GITHUB_OUTPUT"
+      - name: Save
+        if: steps.add.outputs.added != '0'
+        env:
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          git config user.name "price-tracker"
+          git config user.email "price-tracker@users.noreply.github.com"
+          git add items.txt
+          git add -f prices.db items.json history
+          git commit -m "Price tracker: add items from issue #$ISSUE"
+          for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 5; done
+          exit 1
+      - name: Reply and close
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+          OUTCOME: ${{ steps.add.outcome }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ "$OUTCOME" = "success" ] && [ -s "$RUNNER_TEMP/reply.md" ] && [ "${{ job.status }}" = "success" ]; then
+            gh issue comment "$ISSUE" --body-file "$RUNNER_TEMP/reply.md"
+            gh issue close "$ISSUE" --reason completed
+          else
+            gh issue comment "$ISSUE" --body "Something went wrong adding these items, so nothing was saved. Details: $RUN_URL"
+          fi

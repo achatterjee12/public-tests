@@ -154,7 +154,14 @@ keep in the repo indefinitely.
 
 ## 4. Sending links to the app
 
-Recommended, in the order we'd build them:
+**Built:** an "Add items" box at the top of the tracker page. Paste links (one per line),
+optionally pick tags, press Add: it opens a pre-filled GitHub issue titled "Track items";
+after you press Submit, `.github/workflows/price-tracker-add.yml` (only for issues opened
+by the repo owner) strips tracking parameters, skips duplicates and social-media posts,
+appends the links to `items.txt`, checks the new items right away, replies on the issue
+with prices, and closes it. Code: `add_items.py`.
+
+Original options, in the order we'd build them:
 
 1. **`items.txt` in the repo** — one line per item:
    `URL | tags: bags, baby stuff | target: 99.99 | note: for the baby shower`

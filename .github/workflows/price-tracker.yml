@@ -36,7 +36,7 @@ jobs:
           python-version: "3.12"
       - run: pip install curl_cffi==0.7.4
       - name: Unit tests
-        run: python -m unittest test_spike test_tracker
+        run: python -m unittest test_spike test_tracker test_add_items
       - name: Check prices
         run: python tracker.py
       - name: Save price history

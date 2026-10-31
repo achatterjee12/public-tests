@@ -222,28 +222,37 @@ def export(db, json_path=JSON_PATH, history_dir=HISTORY_DIR):
     return data
 
 
-def main():
+def run(only_urls=None):
+    """Check every item, or only those whose URL is in only_urls. Returns {url: result}."""
     db = connect()
     items = spike.parse_items(ITEMS_PATH)
     ids = sync(db, items, parse_tags(TAGS_PATH))
     lines = ["| Item | Result |", "|---|---|"]
-    failed = 0
+    results = {}
     for it, iid in zip(items, ids):
+        if only_urls is not None and it["url"] not in only_urls:
+            continue
         res = check_item(it["url"])
         record(db, iid, res)
+        results[it["url"]] = res
         if res["ok"]:
             lines.append(f"| {res['title'] or it['url']} | {res['price']:.2f} {res['currency'] or ''}"
                          f" / {res['availability']} ({res['method']}) |")
         else:
-            failed += 1
             lines.append(f"| {it['url']} | failed: {res['error']} |")
     export(db)
+    ok = sum(1 for r in results.values() if r["ok"])
     summary = "\n".join(["## Price check", "", *lines, "",
-                         f"{len(items) - failed} of {len(items)} items checked successfully."])
+                         f"{ok} of {len(results)} items checked successfully."])
     print(summary)
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
             f.write(summary + "\n")
+    return results
+
+
+def main():
+    run()
 
 
 if __name__ == "__main__":
