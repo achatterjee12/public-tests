@@ -1,0 +1,38 @@
+name: Price tracker spike
+
+# Phase 0 experiment: from GitHub's servers (where the real tracker will run), check which
+# extraction methods can read price + availability for each link in items.txt.
+# Read-only: saves nothing to the repo. Results are in the run summary and the artifact.
+on:
+  push:
+    paths:
+      - "shopping-price-tracker/items.txt"
+      - "shopping-price-tracker/spike.py"
+      - ".github/workflows/price-tracker-spike.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  spike:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: shopping-price-tracker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install curl_cffi==0.7.4
+      - name: Unit tests
+        run: python -m unittest test_spike -v
+      - name: Run spike
+        run: python spike.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: spike-results
+          path: shopping-price-tracker/spike_results.json

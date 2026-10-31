@@ -1,0 +1,18 @@
+# Items to track. One per line:
+#   URL | tags: tag1, tag2 | target: 99.99 | note: free text
+# Everything after the URL is optional. Tags are listed in tags.txt (new ones are created
+# automatically). Tracking/ad parameters (utm_*, gclid, ...) have been stripped from URLs;
+# parameters that pick the product (Walmart selectedSellerId, Shopify variant) are kept.
+
+https://www.walmart.com/ip/4-Pack-Overnight-Oats-Containers-Lids-Spoons-20-oz-Glass-Jars-Dual-Layer-Yogurt-Dry-Wet-Separation-Mason-Jars-Oatmeal-Salad-Meal-Prep/20227520315?selectedSellerId=103054767 | tags: home stuff
+https://luckyfours.com/products/kera
+https://luckyfours.com/products/humir
+https://www.us.maguireshoes.com/products/alpi-bordeaux-gloves
+https://demellierlondon.com/products/the-midi-stockholm-black-fine-grain | tags: bags
+
+# Not trackable yet: Instagram reels are videos, not shop pages, so they have no price or
+# stock to read (and Instagram blocks automated access). Replace each with the link to the
+# product shown in the reel.
+#   https://www.instagram.com/reel/DeIP0XUO0A1/
+#   https://www.instagram.com/reel/Dc4ReFYpbPz/
+#   https://www.instagram.com/reel/DcrTqwYvzLw/
