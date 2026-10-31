@@ -40,53 +40,54 @@ flowchart LR
 
 **a) Fetching the page.** Many large retailers (Amazon, Walmart, Target, Best Buy) block
 automated requests, especially from cloud IPs like GitHub Actions: you get a CAPTCHA,
-a 403/503, or a stripped page. **An AI model does not fix this** — if we can't download
-the real page, there is nothing for the AI to read. Options, cheapest first:
+a 403/503, or a stripped page. Decision: **free methods only, no paid scraping service.**
+Options:
 
 | Fetch method | Cost | Notes |
 |---|---|---|
 | Plain HTTP with browser-like headers (`curl_cffi`, which impersonates Chrome's TLS fingerprint) | free | Works for most small/medium shops and Shopify stores |
 | Headless browser (Playwright/Chromium) | free, slower | For pages that only show the price after JavaScript runs |
-| Claude's server-side `web_fetch` tool | API cost | Fetched from Anthropic's side; worth testing on blocked sites in the spike |
-| Scraping API (ScraperAPI, ZenRows, Zyte, etc.) | paid, per request | Residential proxies + CAPTCHA handling; only for the sites that need it |
 | Run the job on a home machine (e.g. Raspberry Pi) | free | Home IP is rarely blocked; GitHub Actions still serves the page |
-| Retailer APIs (Amazon PA-API, Best Buy API, Keepa for Amazon history) | free–paid, needs keys | Most reliable where available, but per-retailer work |
+| Free retailer APIs (e.g. Best Buy developer API) | free, needs a key | Only if a shop you use offers one and its page is blocked |
 
-**b) Reading price + availability from the page.** This is where we have choices besides AI:
+If a shop turns out to be blocked from GitHub Actions and none of the free options work,
+it is listed as unsupported rather than paid around.
 
-### 2.2 Extraction ladder (cheap and exact first, AI last)
+**b) Reading price + availability from the page.** Decision: **no AI for now.** We use
+the structured data shops already publish, plus small per-site code where needed.
+
+### 2.2 Extraction ladder (no AI)
 
 Each check tries these in order and stops at the first confident answer. The method used
 is recorded with every check, so we can see what's actually working.
 
-1. **Structured data (schema.org JSON-LD / microdata).** Most shops put a machine-readable
-   `Product` → `Offer` block in the page for Google Shopping: `price`, `priceCurrency`,
-   `availability` (`https://schema.org/InStock`, `OutOfStock`, `PreOrder`…). Free, exact,
-   and covers a large share of shops (all Shopify stores, many others).
+1. **Structured data — the "Google Shopping" method (primary).** To appear in Google
+   Shopping and rich search results, shops embed a machine-readable schema.org `Product`
+   → `Offer` block in the page (JSON-LD `<script type="application/ld+json">`, or
+   microdata attributes): `price`, `priceCurrency`, `availability`
+   (`https://schema.org/InStock`, `OutOfStock`, `PreOrder`, `LimitedAvailability`…), plus
+   `name`, `image`, and sometimes `priceSpecification` / list price. Free, exact, and covers
+   a large share of shops (all Shopify stores, most WooCommerce and BigCommerce stores, many
+   big retailers). The parser handles the common real-world variations: `@graph` wrappers,
+   lists of offers (`AggregateOffer` with `lowPrice`), variant offers matched by SKU / URL,
+   prices given as strings with currency symbols, and multiple `Product` blocks on one page.
 2. **Meta tags.** OpenGraph / Facebook product tags: `product:price:amount`,
    `og:price:amount`, `product:availability`.
 3. **Site adapters** for important shops that need special handling, e.g. Shopify's
    `/products/<handle>.js` JSON endpoint, Next.js `__NEXT_DATA__` blobs (Walmart, Target),
    Amazon's `#corePrice` / `#availability` elements. Small, tested functions per site.
-4. **Learned recipe.** When step 5 succeeds, the AI also returns *where* on the page the
-   price and stock text were found (CSS selectors). We save that recipe per item and try it
-   first next time — free and deterministic. If the recipe stops matching (site redesign),
-   we fall back to step 5 and learn a new one. This means the AI is called roughly once per
-   item, not once per day.
-5. **AI extraction (Claude API).** Strip the page to its visible text plus relevant
-   attributes (drop scripts, styles, nav, footer; keep roughly the main content, a few
-   thousand tokens), send it with a strict JSON schema via structured outputs:
-   ```json
-   {"title": "...", "price": 129.99, "currency": "USD", "list_price": 159.99,
-    "availability": "in_stock|out_of_stock|preorder|limited|unknown",
-    "price_text": "$129.99", "price_selector": "...", "availability_selector": "...",
-    "confidence": "high|medium|low"}
-   ```
+4. **Manual selectors (last resort, per item).** For an odd page none of the above
+   handles, an item can carry hand-written CSS selectors for the price and stock text
+   (e.g. in `items.txt`: `price_sel: .product-price`). Free and deterministic; if the
+   selector stops matching, the check fails visibly instead of guessing.
+
+If nothing finds a price, the check is saved as failed with the reason. AI extraction is
+kept as a possible later add-on (it would slot in as a final step) but is out of scope now.
 
 ### 2.3 Validation (so we never notify on a wrong number)
 
-- The AI's `price_text` must appear **verbatim** in the page text, or the answer is rejected
-  (stops hallucinated prices).
+- Structured data and the visible page should agree: if the page also shows a price, a
+  large mismatch with the JSON-LD price is flagged (catches stale or variant-default data).
 - Prices are stored as integer cents plus a currency code.
 - Big jumps (e.g. drop over 60% or rise over 3×) are treated as suspicious: re-check with a
   different method before saving as real or notifying.
@@ -108,7 +109,7 @@ items
   image_url        TEXT
   currency         TEXT
   target_price_cents INTEGER NULL   -- optional "tell me below this"
-  recipe_json      TEXT NULL        -- learned selectors (2.2 step 4)
+  selectors_json   TEXT NULL        -- optional manual selectors (2.2 step 4)
   active           INTEGER          -- 0 = paused/removed, history kept
   added_at, notes
 
@@ -131,8 +132,8 @@ checks                               -- one row per item per run: THE PRICE HIST
   price_cents      INTEGER NULL
   list_price_cents INTEGER NULL      -- "was" price, if shown
   availability     TEXT              -- in_stock | out_of_stock | preorder | limited | unknown
-  method           TEXT              -- jsonld | meta | adapter:<name> | recipe | llm
-  fetch_method     TEXT              -- http | browser | web_fetch | scraper_api
+  method           TEXT              -- jsonld | microdata | meta | adapter:<name> | selector
+  fetch_method     TEXT              -- http | browser
   http_status, error TEXT NULL
 
 events                               -- what we notified about (dedupe + history)
@@ -226,8 +227,7 @@ shopping-price-tracker/
   extract/
     structured.py      JSON-LD, microdata, meta tags
     adapters.py        per-site handlers (shopify, next_data, amazon, ...)
-    recipe.py          apply / learn CSS-selector recipes
-    llm.py             Claude structured-output extraction + verbatim check
+    selectors.py       manual per-item CSS selectors
   validate.py          sanity rules from 2.3
   notify.sh            ntfy (phase 4)
   tags.txt             optional: predefined tags and colours
@@ -247,23 +247,22 @@ shopping-price-tracker/
 - `spike.py` runs every fetch method × every extraction method on each link, from GitHub
   Actions (cloud IP) and from this dev container, and prints a table: blocked? which method
   found the price? did it match the real price?
-- **Decision output:** which shops work for free, which need the AI step, which need a
-  browser or a paid fetch service. This decides how much of phases 2/5 we need.
+- **Decision output:** which shops work with structured data alone, which need a site
+  adapter or the browser, and which are blocked (unsupported, or try the home-machine runner).
 
-### Phase 1 — MVP tracker (no AI)
+### Phase 1 — MVP tracker
 - SQLite schema (items, tags, item_tags, append-only checks), `items.txt` intake with tags,
   URL canonicalisation and dedupe.
 - Fetch with `curl_cffi`, Playwright fallback.
-- Structured data + meta tag extraction, a couple of adapters for shops from the spike.
+- Structured data (JSON-LD + microdata) + meta tag extraction, manual selectors.
 - Validation rules, failed checks recorded properly.
 - Daily GitHub Actions workflow that commits `prices.db`, `items.json` and `history/`.
 - Tests with saved HTML fixtures.
 
-### Phase 2 — AI fallback + learned recipes
-- `llm.py`: page-to-text trimming, Claude call with structured outputs, verbatim price check.
-- Recipe learning and reuse; re-learn on breakage.
-- Per-run AI call cap and cost log in the run summary.
-- API key as a repository secret (`ANTHROPIC_API_KEY`); the AI step is skipped if unset.
+### Phase 2 — Site adapters
+- Adapters for the shops from your links that structured data doesn't cover well
+  (Shopify `.js` endpoint, `__NEXT_DATA__`, shop-specific HTML), each with saved-page tests.
+- Variant handling (match the offer to the variant/SKU in the URL).
 
 ### Phase 3 — Web page + easier intake
 - `index.html`: item cards (image, title, shop, tags, price, change vs. last week, lowest
@@ -278,26 +277,19 @@ shopping-price-tracker/
   failure alerts.
 
 ### Phase 5 — Hardening (only as needed after real use)
-- Paid fetch service or home-machine runner for blocked shops.
+- Home-machine runner for blocked shops, if any matter enough (no paid services).
 - More adapters for frequently used shops.
 - Currency handling if non-USD shops are added.
 
-## 10. AI cost estimate
+## 10. Decisions
 
-Default model per our Claude setup is Claude Opus 5.5 (`claude-opus-5-5`, $4 / $20 per
-million input/output tokens). A trimmed page of ~8,000 tokens in and ~300 out costs about
-**$0.04 per AI extraction**. Claude Haiku 5.5 (`claude-haiku-5-5`, $0.10 / $0.50) would be
-about **$0.001** — worth comparing in the spike, since this is a simple extraction task.
-Because of learned recipes and structured data, most daily checks use no AI at all; with
-30 items, expect a few AI calls a week (initial learning + site redesigns), i.e. cents per
-month. A hard daily cap keeps a bad day from costing more.
+Decided:
+- **No AI** for price/availability for now; structured data ("Google Shopping" schema.org
+  markup) is the primary method.
+- **Public repo** is fine (tracked links and prices are visible on GitHub and the page).
+- **No paid scraping service.**
 
-## 11. Things to decide
-
-1. **Which shops** you mainly buy from (decides adapters and whether blocking is a problem).
-2. **Public repo:** the tracked links and prices would be visible on GitHub and the page.
-   Fine for shopping, but a private repo is an option.
-3. **AI model:** Opus 5.5 (default) vs. Haiku 5.5 (much cheaper) — the spike can compare accuracy.
-4. **Paid fetching:** OK to use a scraping service for blocked shops if the spike shows it's needed?
-5. **Intake:** start with `items.txt` + issue form, or do you want the phone share-sheet from the start?
-6. **Tags:** any starting set of tags you already know you want (e.g. electronics, home, gifts, wishlist)?
+Still open:
+1. **Your links** (10–20 real product links) for the phase 0 spike — on their way.
+2. **Intake:** start with `items.txt` + issue form, or do you want the phone share-sheet from the start?
+3. **Tags:** any starting set of tags you already know you want (e.g. electronics, home, gifts, wishlist)?
