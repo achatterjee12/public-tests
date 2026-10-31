@@ -24,10 +24,21 @@ CREATE INDEX IF NOT EXISTS fx_currency_time ON fx_rates(currency, fetched_at);
 """
 
 
-def parse_google(html):
-    """The rate from a Google Finance currency quote page, or None."""
-    for pattern in (r'data-last-price="([0-9.eE+-]+)"',            # attribute on the quote block
-                    r'class="YMlKec fxKbKc"[^>]*>\s*([0-9][0-9.,]*)\s*<'):  # the big number shown
+def parse_google(html, cur=None):
+    """The rate from a Google Finance currency quote page, or None.
+
+    Tried in order (Google's markup changes now and then, so there are several):
+      1. the page's embedded data: ..."INR / USD",3,null,[0.01053602, ...]  (full precision)
+      2. older pages: data-last-price="0.0105" attribute
+      3. the number shown on screen: <span jsname="Pdsbrc"><span>0.0105</span>  (4 digits)
+      4. older pages: <div class="YMlKec fxKbKc">0.0105</div>
+    """
+    pair = re.escape(f"{cur} / USD") if cur else r"[A-Z]{3} / USD"
+    patterns = [rf'"{pair}",\d+,null,\[([0-9.eE+-]+),',
+                r'data-last-price="([0-9.eE+-]+)"',
+                r'jsname="Pdsbrc"[^>]*>\s*<span>\s*([0-9][0-9.,]*)\s*</span>',
+                r'class="YMlKec fxKbKc"[^>]*>\s*([0-9][0-9.,]*)\s*<']
+    for pattern in patterns:
         m = re.search(pattern, html)
         if m:
             try:
@@ -42,7 +53,7 @@ def parse_google(html):
 def from_google(cur):
     url = GOOGLE_URL.format(cur=cur)
     status, final_url, text, err = spike.fetch(url)
-    rate = parse_google(text) if status == 200 and not err else None
+    rate = parse_google(text, cur) if status == 200 and not err else None
     if rate is None:  # say why in the run log, so a Google page change is easy to spot
         title = re.search(r"<title>(.*?)</title>", text or "", re.S)
         print(f"Google Finance gave no {cur} rate: status={status} error={err} final={final_url} "
