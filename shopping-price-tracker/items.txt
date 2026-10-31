@@ -31,6 +31,13 @@ https://www.westelm.com/products/rue-rounded-tabletop-frames-t8088/ | tags: home
 https://shopakira.com/products/lets-talk-about-it-cowl-neck
 https://shopakira.com/products/lets-talk-about-it-balloon-pant
 https://www.ogaan.com/green-chandrama-jhumka | tags: jewelry
+https://www.ayeshaccessories.com/en-us/products/minimalistic-swan-silver-choker | tags: jewelry
+https://www.ayeshaccessories.com/en-us/products/silver-plated-choker-2 | tags: jewelry
+https://www.ayeshaccessories.com/en-us/products/silver-plated-minimalistic-choker-1 | tags: jewelry
+https://noyz.com/products/lost-found-solid-fragrance | tags: perfumes
+https://us.parfums-de-marly.com/products/feminine-discovery-selection | tags: perfumes
+https://www.kindredblack.com/products/orange-blossom-salve | tags: perfumes
+https://www.kindredblack.com/products/rose-oil | tags: perfumes
 
 # Not trackable yet: Instagram reels are videos, not shop pages, so they have no price or
 # stock to read (and Instagram blocks automated access). Replace each with the link to the
