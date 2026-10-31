@@ -1,0 +1,196 @@
+{
+ "generated_at": "2026-10-31T08:29:41+00:00",
+ "tags": [
+  {
+   "name": "jewelry",
+   "color": "#b45309",
+   "count": 0
+  },
+  {
+   "name": "bags",
+   "color": "#7c3aed",
+   "count": 1
+  },
+  {
+   "name": "hats",
+   "color": "#0e7490",
+   "count": 0
+  },
+  {
+   "name": "books",
+   "color": "#1d4ed8",
+   "count": 0
+  },
+  {
+   "name": "baby stuff",
+   "color": "#db2777",
+   "count": 0
+  },
+  {
+   "name": "perfumes",
+   "color": "#c026d3",
+   "count": 0
+  },
+  {
+   "name": "home stuff",
+   "color": "#15803d",
+   "count": 1
+  },
+  {
+   "name": "shoes",
+   "color": "#b91c1c",
+   "count": 0
+  },
+  {
+   "name": "knitting patterns",
+   "color": "#a16207",
+   "count": 0
+  }
+ ],
+ "items": [
+  {
+   "id": 1,
+   "url": "https://www.walmart.com/ip/4-Pack-Overnight-Oats-Containers-Lids-Spoons-20-oz-Glass-Jars-Dual-Layer-Yogurt-Dry-Wet-Separation-Mason-Jars-Oatmeal-Salad-Meal-Prep/20227520315?selectedSellerId=103054767",
+   "retailer": "walmart.com",
+   "title": "4 Pack Overnight Oats Containers Lids Spoons 20 oz Glass Jars Dual\u2026",
+   "image": null,
+   "currency": "USD",
+   "tags": [
+    "home stuff"
+   ],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:29:38+00:00",
+   "price": null,
+   "availability": null,
+   "last_checked": "2026-10-31T08:29:39+00:00",
+   "last_ok": false,
+   "last_error": "blocked by the shop (bot protection)",
+   "low": null,
+   "low_at": null,
+   "high": null,
+   "avg": null,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": []
+  },
+  {
+   "id": 2,
+   "url": "https://luckyfours.com/products/kera",
+   "retailer": "luckyfours.com",
+   "title": "Lucky Fours\u00ae Kera",
+   "image": "http://luckyfours.com/cdn/shop/files/5_5fc036f3-3d5b-49de-acbf-2b98a1f9df81.webp?v=1762198822",
+   "currency": "USD",
+   "tags": [],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:29:38+00:00",
+   "price": 8999,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:29:39+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 8999,
+   "low_at": "2026-10-31T08:29:39+00:00",
+   "high": 8999,
+   "avg": 8999,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     8999
+    ]
+   ]
+  },
+  {
+   "id": 3,
+   "url": "https://luckyfours.com/products/humir",
+   "retailer": "luckyfours.com",
+   "title": "Lucky Fours\u00ae Humir",
+   "image": "http://luckyfours.com/cdn/shop/files/5_5063d5aa-86d4-4b0c-a56d-42b45d743504.webp?v=1762198825",
+   "currency": "USD",
+   "tags": [],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:29:38+00:00",
+   "price": 14999,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:29:40+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 14999,
+   "low_at": "2026-10-31T08:29:40+00:00",
+   "high": 14999,
+   "avg": 14999,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     14999
+    ]
+   ]
+  },
+  {
+   "id": 4,
+   "url": "https://www.us.maguireshoes.com/products/alpi-bordeaux-gloves",
+   "retailer": "us.maguireshoes.com",
+   "title": "Alpi Plum Gloves",
+   "image": "http://www.us.maguireshoes.com/cdn/shop/files/Ecom_Alpi_Bordeaux_fdc4126e-4b30-4680-9e51-196f39c801da.jpg?v=1790352809",
+   "currency": "USD",
+   "tags": [],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:29:38+00:00",
+   "price": 10000,
+   "availability": "out_of_stock",
+   "last_checked": "2026-10-31T08:29:40+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 10000,
+   "low_at": "2026-10-31T08:29:40+00:00",
+   "high": 10000,
+   "avg": 10000,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     10000
+    ]
+   ]
+  },
+  {
+   "id": 5,
+   "url": "https://demellierlondon.com/products/the-midi-stockholm-black-fine-grain",
+   "retailer": "demellierlondon.com",
+   "title": "The Midi Stockholm",
+   "image": "http://demellierlondon.com/cdn/shop/files/N131THEMIDISTOCKHOLMFINEGRAINLEATHERBLACK_01_0525eb45-c2be-4296-8546-43b58020a72f.jpg?v=1770915869",
+   "currency": "USD",
+   "tags": [
+    "bags"
+   ],
+   "note": "",
+   "target": null,
+   "added_at": "2026-10-31T08:29:38+00:00",
+   "price": 61500,
+   "availability": "in_stock",
+   "last_checked": "2026-10-31T08:29:41+00:00",
+   "last_ok": true,
+   "last_error": null,
+   "low": 61500,
+   "low_at": "2026-10-31T08:29:41+00:00",
+   "high": 61500,
+   "avg": 61500,
+   "price_30d_ago": null,
+   "checks": 1,
+   "spark": [
+    [
+     "2026-10-31",
+     61500
+    ]
+   ]
+  }
+ ]
+}
