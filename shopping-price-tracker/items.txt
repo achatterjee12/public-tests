@@ -20,6 +20,17 @@ https://livecostabrazil.com/products/aroma-fragrance | tags: perfumes
 https://www.madewell.com/p/womens/accessories/bags/crossbody-bags/handwoven-fish-crossbody-bag/OA699/ | tags: bags
 https://www.madewell.com/p/womens/accessories/jewelry/bracelets/shell-wire-bangle/OA677/ | tags: jewelry
 https://www.zara.com/us/en/metallic-chain-crossbody-bag-p16085710.html | tags: bags
+https://www.dior.com/en_us/beauty/products/jasmin-des-anges-Y0742427.html | tags: perfumes
+https://www.massimodutti.com/us/soft-leather-mule-l11574850 | tags: shoes
+https://www.thereformation.com/products/clara-cashmere-crew-cardigan/1312652.html
+https://lonzashoes.com/products/gloss-block | tags: shoes
+https://www.dolcevita.com/products/nekki-flats-bone-leather | tags: shoes
+https://manuatelier.com/products/the-mini-fold-bag-black-soft | tags: bags
+https://hunting-season.com/products/the-small-soft-clutch-in-suede | tags: bags
+https://www.westelm.com/products/rue-rounded-tabletop-frames-t8088/ | tags: home stuff | note: Rounded Tabletop Frame, Dark Ash, 10x10
+https://shopakira.com/products/lets-talk-about-it-cowl-neck
+https://shopakira.com/products/lets-talk-about-it-balloon-pant
+https://www.ogaan.com/green-chandrama-jhumka | tags: jewelry
 
 # Not trackable yet: Instagram reels are videos, not shop pages, so they have no price or
 # stock to read (and Instagram blocks automated access). Replace each with the link to the
