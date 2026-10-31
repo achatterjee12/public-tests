@@ -1,0 +1,50 @@
+name: Price tracker
+
+# Checks every item in shopping-price-tracker/items.txt once a day and commits the updated
+# price history (prices.db) and page data (items.json, history/). Also runs right away when
+# items.txt or tags.txt change on main, so new links show up without waiting a day.
+on:
+  schedule:
+    - cron: "41 13 * * *"   # daily, 13:41 UTC
+  push:
+    branches: [main]
+    paths:
+      - "shopping-price-tracker/items.txt"
+      - "shopping-price-tracker/tags.txt"
+      - "shopping-price-tracker/tracker.py"
+      - "shopping-price-tracker/spike.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write           # to commit the updated database
+
+concurrency:
+  group: price-tracker
+  cancel-in-progress: false
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: shopping-price-tracker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install curl_cffi==0.7.4
+      - name: Unit tests
+        run: python -m unittest test_spike test_tracker
+      - name: Check prices
+        run: python tracker.py
+      - name: Save price history
+        run: |
+          git config user.name "price-tracker"
+          git config user.email "price-tracker@users.noreply.github.com"
+          git add -f prices.db items.json history
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Update price tracker data"
+          for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 5; done
+          exit 1

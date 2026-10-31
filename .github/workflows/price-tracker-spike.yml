@@ -5,6 +5,7 @@ name: Price tracker spike
 # Read-only: saves nothing to the repo. Results are in the run summary and the artifact.
 on:
   push:
+    branches-ignore: [main]   # the daily tracker covers main
     paths:
       - "shopping-price-tracker/items.txt"
       - "shopping-price-tracker/spike.py"

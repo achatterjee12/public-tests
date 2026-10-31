@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Price tracker</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #1b1f27; --muted: #667085;
+    --line: #e4e7ec; --accent: #1d4ed8; --hover: 0 6px 18px rgba(16, 24, 40, .10);
+    --good: #15803d; --good-bg: #dcfce7; --bad: #b91c1c; --bad-bg: #fee2e2;
+    --warn: #a16207; --warn-bg: #fef3c7; --shade: rgba(185, 28, 28, .08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1218; --card: #181c25; --text: #e8eaef; --muted: #98a1b3;
+      --line: #2a3040; --accent: #7aa2ff; --hover: 0 6px 18px rgba(0, 0, 0, .45);
+      --good: #4ade80; --good-bg: #12301f; --bad: #f87171; --bad-bg: #3a1717;
+      --warn: #facc15; --warn-bg: #3a3012; --shade: rgba(248, 113, 113, .10);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1060px; margin: 0 auto; padding: 32px 16px 56px; }
+  a { color: var(--accent); }
+  h1 { font-size: 1.7rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; font-size: .95rem; }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .chip { border: 1px solid var(--line); background: var(--card); color: var(--text);
+          border-radius: 999px; padding: 4px 12px; font: inherit; font-size: .88rem; cursor: pointer;
+          display: inline-flex; align-items: center; gap: 6px; }
+  .chip .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--muted)); }
+  .chip[aria-pressed="true"] { border-color: var(--c, var(--accent)); box-shadow: inset 0 0 0 1px var(--c, var(--accent)); font-weight: 600; }
+  .chip .n { color: var(--muted); font-size: .8rem; }
+  select, .btn { font: inherit; font-size: .9rem; padding: 5px 10px; border-radius: 8px;
+                 border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 4px 0 22px; color: var(--muted); font-size: .9rem; }
+  .controls label { display: inline-flex; gap: 6px; align-items: center; }
+  h2.group { font-size: 1.1rem; margin: 26px 0 12px; display: flex; align-items: center; gap: 8px; }
+  h2.group .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--c, var(--muted)); }
+  h2.group .n { color: var(--muted); font-weight: 400; font-size: .9rem; }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+          cursor: pointer; display: flex; flex-direction: column; transition: box-shadow .15s, transform .15s, border-color .15s; }
+  .card:hover, .card:focus-visible { box-shadow: var(--hover); transform: translateY(-2px); border-color: var(--accent); outline: none; }
+  .img { aspect-ratio: 4 / 3; background: var(--bg) center / contain no-repeat; border-bottom: 1px solid var(--line); }
+  .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .shop { color: var(--muted); font-size: .8rem; text-transform: lowercase; }
+  .title { font-weight: 600; line-height: 1.3; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tag { font-size: .75rem; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--c, var(--line)); color: var(--text); }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-top: auto; }
+  .price { font-size: 1.35rem; font-weight: 700; }
+  .delta { font-size: .8rem; font-weight: 600; }
+  .delta.down { color: var(--good); } .delta.up { color: var(--bad); }
+  .badge { font-size: .75rem; font-weight: 600; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+  .in_stock { color: var(--good); background: var(--good-bg); }
+  .out_of_stock { color: var(--bad); background: var(--bad-bg); }
+  .preorder, .limited, .unknown, .failed { color: var(--warn); background: var(--warn-bg); }
+  .meta { color: var(--muted); font-size: .8rem; }
+  svg.spark { width: 100%; height: 34px; display: block; }
+  .empty { color: var(--muted); padding: 30px 0; }
+  dialog { border: 1px solid var(--line); border-radius: 14px; background: var(--card); color: var(--text);
+           width: min(900px, calc(100vw - 24px)); max-height: calc(100vh - 24px); padding: 0; }
+  dialog::backdrop { background: rgba(0, 0, 0, .45); }
+  .dhead { display: flex; gap: 14px; padding: 18px 20px 8px; align-items: flex-start; }
+  .dhead .thumb { width: 72px; height: 72px; border-radius: 8px; background: var(--bg) center / contain no-repeat; flex: none; }
+  .dhead h3 { margin: 0 0 4px; font-size: 1.15rem; line-height: 1.3; }
+  .close { margin-left: auto; font-size: 1.4rem; line-height: 1; background: none; border: 0; color: var(--muted); cursor: pointer; }
+  .dbody { padding: 4px 20px 20px; }
+  .ranges { display: flex; gap: 6px; margin: 8px 0; flex-wrap: wrap; }
+  .ranges .btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .chartbox { position: relative; height: 280px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 14px 0; }
+  .stat { border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
+  .stat .k { color: var(--muted); font-size: .78rem; } .stat .v { font-weight: 700; }
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; }
+  .tablewrap { max-height: 260px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; }
+  .home { font-size: .9rem; color: var(--muted); text-decoration: none; }
+</style>
+</head>
+<body>
+<main>
+  <a class="home" href="../">← public-tests</a>
+  <h1>Price tracker</h1>
+  <p class="sub" id="sub">Loading…</p>
+
+  <div class="bar" id="tagbar" aria-label="Filter by tag"></div>
+  <div class="controls">
+    <label>Sort
+      <select id="sort">
+        <option value="added">Recently added</option>
+        <option value="price-asc">Price: low to high</option>
+        <option value="price-desc">Price: high to low</option>
+        <option value="drop">Biggest drop (30 days)</option>
+        <option value="title">Name</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="group"> Group by tag</label>
+    <label><input type="checkbox" id="instock"> In stock only</label>
+  </div>
+  <div id="list"></div>
+</main>
+
+<dialog id="detail" aria-labelledby="dtitle">
+  <div class="dhead">
+    <div class="thumb" id="dthumb"></div>
+    <div>
+      <div class="shop" id="dshop"></div>
+      <h3 id="dtitle"></h3>
+      <div class="tags" id="dtags"></div>
+    </div>
+    <button class="close" id="dclose" aria-label="Close">×</button>
+  </div>
+  <div class="dbody">
+    <div class="ranges" id="ranges"></div>
+    <div class="chartbox" id="chartbox"><canvas id="chart" aria-label="Price history chart"></canvas></div>
+    <p class="empty" id="nochart" hidden></p>
+    <div class="stats" id="dstats"></div>
+    <div class="bar" style="justify-content: space-between">
+      <a id="dlink" href="#" target="_blank" rel="noopener">Open in shop ↗</a>
+      <button class="btn" id="csv">Download CSV</button>
+    </div>
+    <div class="tablewrap"><table><thead><tr><th>Checked</th><th>Price</th><th>Availability</th><th>Note</th></tr></thead>
+      <tbody id="dtable"></tbody></table></div>
+  </div>
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const AVAIL = { in_stock: "In stock", out_of_stock: "Out of stock", preorder: "Pre-order",
+                limited: "Limited", unknown: "Stock unknown" };
+const state = { data: null, tags: new Set(), chart: null, item: null, hist: [], range: "all" };
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const money = (cents, cur) => cents == null ? "—" :
+  new Intl.NumberFormat(undefined, { style: "currency", currency: cur || "USD" }).format(cents / 100);
+const day = iso => iso ? new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) : "never";
+const when = iso => iso ? new Date(iso).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) : "";
+const tagColor = name => (state.data.tags.find(t => t.name === name) || {}).color || "";
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+function spark(points) {
+  if (points.length < 2) return "";
+  const ys = points.map(p => p[1]), lo = Math.min(...ys), hi = Math.max(...ys), span = hi - lo || 1;
+  const pts = ys.map((y, i) => `${(i / (ys.length - 1) * 100).toFixed(2)},${(30 - (y - lo) / span * 26 + 2).toFixed(2)}`).join(" ");
+  return `<svg class="spark" viewBox="0 0 100 34" preserveAspectRatio="none" aria-hidden="true">
+    <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>`;
+}
+
+function badge(it) {
+  if (!it.last_checked) return `<span class="badge unknown">Not checked yet</span>`;
+  if (!it.last_ok) return `<span class="badge failed" title="${esc(it.last_error)}">Check failed</span>`;
+  return `<span class="badge ${esc(it.availability)}">${AVAIL[it.availability] || "Stock unknown"}</span>`;
+}
+
+function card(it) {
+  const tags = it.tags.map(t => `<span class="tag" style="--c:${esc(tagColor(t))}">${esc(t)}</span>`).join("");
+  let delta = "";
+  if (it.price != null && it.price_30d_ago) {
+    const d = (it.price - it.price_30d_ago) / it.price_30d_ago * 100;
+    if (Math.abs(d) >= 0.5) delta = `<span class="delta ${d < 0 ? "down" : "up"}">${d < 0 ? "▼" : "▲"} ${Math.abs(d).toFixed(0)}% / 30d</span>`;
+  }
+  const low = it.low != null && it.checks > 1 ? `Lowest ${money(it.low, it.currency)} · ` : "";
+  return `<article class="card" tabindex="0" data-id="${it.id}" aria-label="${esc(it.title)}">
+    <div class="img" style="${it.image ? `background-image:url('${esc(it.image)}')` : ""}"></div>
+    <div class="body">
+      <div class="shop">${esc(it.retailer)}</div>
+      <div class="title">${esc(it.title)}</div>
+      ${tags ? `<div class="tags">${tags}</div>` : ""}
+      ${spark(it.spark)}
+      <div class="row"><span class="price">${money(it.price, it.currency)}</span>${badge(it)}</div>
+      ${delta}
+      <div class="meta">${low}Checked ${day(it.last_checked)}</div>
+    </div></article>`;
+}
+
+function render() {
+  const d = state.data;
+  let items = d.items.filter(it => !state.tags.size || it.tags.some(t => state.tags.has(t)));
+  if ($("instock").checked) items = items.filter(it => it.last_ok && it.availability === "in_stock");
+  const s = $("sort").value, big = Number.MAX_SAFE_INTEGER;
+  const drop = it => it.price != null && it.price_30d_ago ? (it.price - it.price_30d_ago) / it.price_30d_ago : 0;
+  items.sort({
+    "added": (a, b) => b.id - a.id,
+    "price-asc": (a, b) => (a.price ?? big) - (b.price ?? big),
+    "price-desc": (a, b) => (b.price ?? -1) - (a.price ?? -1),
+    "drop": (a, b) => drop(a) - drop(b),
+    "title": (a, b) => a.title.localeCompare(b.title),
+  }[s]);
+  const grid = list => `<div class="grid">${list.map(card).join("")}</div>`;
+  let html;
+  if (!items.length) html = `<p class="empty">No items match.</p>`;
+  else if ($("group").checked) {
+    const groups = d.tags.map(t => [t.name, t.color, items.filter(it => it.tags.includes(t.name))])
+      .filter(g => g[2].length && (!state.tags.size || state.tags.has(g[0])));
+    const untagged = items.filter(it => !it.tags.length);
+    if (untagged.length) groups.push(["untagged", "", untagged]);
+    html = groups.map(([name, color, list]) => {
+      const total = list.reduce((s, it) => s + (it.price || 0), 0);
+      return `<h2 class="group" style="--c:${esc(color)}"><span class="dot"></span>${esc(name)}
+        <span class="n">${list.length} item${list.length > 1 ? "s" : ""} · ${money(total, list[0].currency)}</span></h2>${grid(list)}`;
+    }).join("");
+  } else html = grid(items);
+  $("list").innerHTML = html;
+}
+
+function renderTags() {
+  const d = state.data;
+  $("tagbar").innerHTML = `<button class="chip" data-tag="" aria-pressed="${!state.tags.size}">All <span class="n">${d.items.length}</span></button>` +
+    d.tags.map(t => `<button class="chip" style="--c:${esc(t.color)}" data-tag="${esc(t.name)}" aria-pressed="${state.tags.has(t.name)}">
+      <span class="dot"></span>${esc(t.name)} <span class="n">${t.count}</span></button>`).join("");
+}
+
+$("tagbar").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const t = b.dataset.tag;
+  if (!t) state.tags.clear(); else state.tags.has(t) ? state.tags.delete(t) : state.tags.add(t);
+  renderTags(); render();
+});
+["sort", "group", "instock"].forEach(id => $(id).addEventListener("change", render));
+$("list").addEventListener("click", e => { const c = e.target.closest(".card"); if (c) openItem(+c.dataset.id); });
+$("list").addEventListener("keydown", e => {
+  const c = e.target.closest(".card"); if (c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openItem(+c.dataset.id); }
+});
+
+// ---------- detail view ----------
+const RANGES = [["1M", 30], ["3M", 90], ["6M", 182], ["1Y", 365], ["All", "all"]];
+$("ranges").innerHTML = RANGES.map(([l, v]) => `<button class="btn" data-r="${v}">${l}</button>`).join("");
+$("ranges").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { state.range = b.dataset.r; drawChart(); } });
+$("dclose").addEventListener("click", () => $("detail").close());
+$("detail").addEventListener("click", e => { if (e.target === $("detail")) $("detail").close(); });
+
+async function openItem(id) {
+  const it = state.data.items.find(x => x.id === id); state.item = it;
+  $("dthumb").style.backgroundImage = it.image ? `url('${it.image.replace(/'/g, "%27")}')` : "";
+  $("dshop").textContent = it.retailer; $("dtitle").textContent = it.title;
+  $("dtags").innerHTML = it.tags.map(t => `<span class="tag" style="--c:${esc(tagColor(t))}">${esc(t)}</span>`).join("");
+  $("dlink").href = it.url;
+  $("detail").showModal();
+  try { state.hist = await (await fetch(`history/${id}.json`, { cache: "no-cache" })).json(); }
+  catch { state.hist = []; }
+  drawStats(); drawTable(); drawChart();
+}
+
+function drawStats() {
+  const it = state.item, c = it.currency;
+  const change = it.price != null && it.price_30d_ago ? `${((it.price - it.price_30d_ago) / it.price_30d_ago * 100).toFixed(1)}%` : "—";
+  const stats = [["Current", money(it.price, c)], ["Lowest", it.low != null ? `${money(it.low, c)} · ${day(it.low_at)}` : "—"],
+    ["Highest", money(it.high, c)], ["Average", money(it.avg, c)], ["vs. 30 days ago", change],
+    ["Checks", `${it.checks} since ${day(it.added_at)}`]];
+  if (it.target != null) stats.splice(1, 0, ["Target", money(it.target, c)]);
+  $("dstats").innerHTML = stats.map(([k, v]) => `<div class="stat"><div class="k">${k}</div><div class="v">${esc(v)}</div></div>`).join("");
+}
+
+function drawTable() {
+  const c = state.item.currency;
+  $("dtable").innerHTML = state.hist.slice().reverse().map(h => `<tr><td>${esc(when(h.t))}</td>
+    <td>${h.ok ? money(h.price, c) : "—"}</td><td>${h.ok ? esc(AVAIL[h.availability] || h.availability || "") : "—"}</td>
+    <td>${h.ok ? "" : esc("Check failed: " + (h.error || ""))}</td></tr>`).join("") ||
+    `<tr><td colspan="4">No checks yet — the first one runs within a day.</td></tr>`;
+}
+
+// Shades out-of-stock periods behind the line.
+const shadePlugin = {
+  id: "shade",
+  beforeDatasetsDraw(chart) {
+    const spans = chart.options.plugins.shade.spans || [];
+    const { ctx, chartArea: a, scales: { x } } = chart;
+    ctx.save(); ctx.fillStyle = css("--shade");
+    for (const [s, e] of spans) {
+      const x0 = Math.max(x.getPixelForValue(s), a.left), x1 = Math.min(x.getPixelForValue(e), a.right);
+      if (x1 > x0) ctx.fillRect(x0, a.top, x1 - x0, a.bottom - a.top);
+    }
+    ctx.restore();
+  },
+};
+
+function drawChart() {
+  [...$("ranges").children].forEach(b => b.setAttribute("aria-pressed", b.dataset.r === String(state.range)));
+  const it = state.item, cur = it.currency;
+  const from = state.range === "all" ? 0 : Date.now() - state.range * 864e5;
+  const hist = state.hist.filter(h => Date.parse(h.t) >= from);
+  const anyPrice = state.hist.some(h => h.ok);
+  $("chartbox").hidden = $("ranges").hidden = !anyPrice;
+  $("nochart").hidden = anyPrice;
+  $("nochart").textContent = state.hist.length
+    ? "No price recorded yet: every check so far has failed (see the table below)."
+    : "No checks yet: the first one runs within a day.";
+  if (!anyPrice) { if (state.chart) { state.chart.destroy(); state.chart = null; } return; }
+  const pts = hist.map(h => ({ x: Date.parse(h.t), y: h.ok ? h.price / 100 : null, a: h.availability, ok: h.ok }));
+  const spans = []; let start = null;
+  pts.forEach((p, i) => {
+    const out = p.ok && p.a === "out_of_stock";
+    if (out && start == null) start = p.x;
+    if ((!out || i === pts.length - 1) && start != null) { spans.push([start, out ? Math.max(p.x, start + 864e5 / 2) : p.x]); start = null; }
+  });
+  const xs = pts.map(p => p.x), xmin = Math.min(...xs, Date.now() - 864e5), xmax = Math.max(...xs, Date.now());
+  const ref = (y, label, color) => y == null ? null : { label, data: [{ x: xmin, y: y / 100 }, { x: xmax, y: y / 100 }],
+    borderColor: color, borderDash: [5, 4], borderWidth: 1.2, pointRadius: 0, fill: false };
+  const datasets = [{ label: "Price", data: pts, stepped: "after", spanGaps: false, borderColor: css("--accent"),
+    backgroundColor: css("--accent"), borderWidth: 2, pointRadius: pts.length > 60 ? 0 : 3, pointHoverRadius: 5 },
+    ref(it.low, "Lowest", css("--good")), ref(it.target, "Target", css("--warn"))].filter(Boolean);
+  if (state.chart) state.chart.destroy();
+  const grid = css("--line"), text = css("--muted");
+  state.chart = new Chart($("chart"), {
+    type: "line", data: { datasets }, plugins: [shadePlugin],
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: false, parsing: true,
+      interaction: { mode: "nearest", intersect: false },
+      scales: {
+        x: { type: "linear", min: xmin, max: xmax, grid: { color: grid }, ticks: { color: text, maxTicksLimit: 6,
+             callback: v => new Date(v).toLocaleDateString(undefined, { month: "short", day: "numeric" }) } },
+        y: { grid: { color: grid }, ticks: { color: text, callback: v => money(Math.round(v * 100), cur) }, grace: "10%" },
+      },
+      plugins: {
+        shade: { spans },
+        legend: { labels: { color: text, boxHeight: 2 } },
+        tooltip: { callbacks: {
+          title: c => when(new Date(c[0].parsed.x).toISOString()),
+          label: c => c.dataset.label === "Price"
+            ? `${money(Math.round(c.parsed.y * 100), cur)} · ${AVAIL[c.raw.a] || ""}` : `${c.dataset.label}: ${money(Math.round(c.parsed.y * 100), cur)}`,
+        } },
+      },
+    },
+  });
+}
+
+$("csv").addEventListener("click", () => {
+  const rows = [["checked_at", "ok", "price", "currency", "availability", "error"],
+    ...state.hist.map(h => [h.t, h.ok, h.price != null ? (h.price / 100).toFixed(2) : "", state.item.currency, h.availability || "", h.error || ""])];
+  const blob = new Blob([rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n")], { type: "text/csv" });
+  const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: `price-history-${state.item.id}.csv` });
+  a.click(); URL.revokeObjectURL(a.href);
+});
+
+fetch("items.json", { cache: "no-cache" }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
+  state.data = d;
+  $("sub").textContent = `${d.items.length} items tracked, checked daily · updated ${when(d.generated_at)}`;
+  renderTags(); render();
+}).catch(() => {
+  $("sub").textContent = "No data yet — the first price check hasn't run.";
+});
+</script>
+</body>
+</html>
