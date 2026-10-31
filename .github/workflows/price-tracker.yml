@@ -13,6 +13,7 @@ on:
       - "shopping-price-tracker/tags.txt"
       - "shopping-price-tracker/tracker.py"
       - "shopping-price-tracker/spike.py"
+      - "shopping-price-tracker/fx.py"
   workflow_dispatch:
 
 permissions:
@@ -36,7 +37,7 @@ jobs:
           python-version: "3.12"
       - run: pip install curl_cffi==0.7.4
       - name: Unit tests
-        run: python -m unittest test_spike test_tracker test_add_items
+        run: python -m unittest test_spike test_tracker test_add_items test_fx
       - name: Check prices
         run: python tracker.py
       - name: Save price history

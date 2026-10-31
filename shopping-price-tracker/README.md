@@ -295,6 +295,10 @@ Decided:
   markup) is the primary method.
 - **Public repo** is fine (tracked links and prices are visible on GitHub and the page).
 - **No paid scraping service.**
+- **Currency:** prices not in US dollars are converted at each check using the latest
+  Google Finance rate (read from its public quote page, `fx.py`); if Google can't be read,
+  the European Central Bank daily rate is used. The shop's own price, the rate and its
+  source are saved with every check, and the page shows USD with the shop price beside it.
 - **Starting tags** (in `tags.txt`): jewelry, bags, hats, books, baby stuff, perfumes,
   home stuff, shoes, knitting patterns. More can be added any time.
 

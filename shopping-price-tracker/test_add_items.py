@@ -65,6 +65,12 @@ https://c.com/products/three."""
         self.assertIn("check failed: blocked", text)
         self.assertIn("Already tracked", text)
 
+    def test_reply_converted(self):
+        added = [{"url": "https://a.com/p", "tags": []}]
+        results = {"https://a.com/p": {"ok": True, "price": 29990.0, "currency": "INR", "usd": 359.88,
+                                       "availability": "in_stock", "title": "Ash Bag"}}
+        self.assertIn("| 359.88 USD (29,990.00 INR) |", add_items.reply(added, [], [], results, "p"))
+
 
 if __name__ == "__main__":
     unittest.main()

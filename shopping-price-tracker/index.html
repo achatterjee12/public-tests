@@ -59,6 +59,8 @@
   .out_of_stock { color: var(--bad); background: var(--bad-bg); }
   .preorder, .limited, .unknown, .failed { color: var(--warn); background: var(--warn-bg); }
   .meta { color: var(--muted); font-size: .8rem; }
+  .local { color: var(--muted); font-size: .8rem; margin-top: -4px; }
+  .fxnote { color: var(--muted); font-size: .8rem; margin: -4px 0 10px; }
   svg.spark { width: 100%; height: 34px; display: block; }
   .empty { color: var(--muted); padding: 30px 0; }
   dialog { border: 1px solid var(--line); border-radius: 14px; background: var(--card); color: var(--text);
@@ -149,6 +151,7 @@
     <div class="chartbox" id="chartbox"><canvas id="chart" aria-label="Price history chart"></canvas></div>
     <p class="empty" id="nochart" hidden></p>
     <div class="stats" id="dstats"></div>
+    <p class="fxnote" id="dfx" hidden></p>
     <div class="bar" style="justify-content: space-between">
       <a id="dlink" href="#" target="_blank" rel="noopener">Open in shop ↗</a>
       <button class="btn" id="csv">Download CSV</button>
@@ -186,6 +189,14 @@ function badge(it) {
   return `<span class="badge ${esc(it.availability)}">${AVAIL[it.availability] || "Stock unknown"}</span>`;
 }
 
+// Non-USD items: the page shows US dollars; this line shows the shop's own price and the rate used.
+function localLine(it) {
+  if (!it.local_currency || it.local_price == null) return "";
+  if (it.currency !== "USD") return `<div class="local">No exchange rate yet: shown in ${esc(it.local_currency)}</div>`;
+  return `<div class="local" title="${esc(fxText(it))}">${money(it.local_price, it.local_currency)} in shop</div>`;
+}
+const fxText = it => it.fx ? `1 ${it.local_currency} = ${(+it.fx.rate).toPrecision(4)} USD · ${it.fx.source} · ${day(it.fx.as_of)}` : "";
+
 function card(it) {
   const tags = it.tags.map(t => `<span class="tag" style="--c:${esc(tagColor(t))}">${esc(t)}</span>`).join("");
   let delta = "";
@@ -202,6 +213,7 @@ function card(it) {
       ${tags ? `<div class="tags">${tags}</div>` : ""}
       ${spark(it.spark)}
       <div class="row"><span class="price">${money(it.price, it.currency)}</span>${badge(it)}</div>
+      ${localLine(it)}
       ${delta}
       <div class="meta">${low}Checked ${day(it.last_checked)}</div>
     </div></article>`;
@@ -284,13 +296,18 @@ function drawStats() {
     ["Highest", money(it.high, c)], ["Average", money(it.avg, c)], ["vs. 30 days ago", change],
     ["Checks", `${it.checks} since ${day(it.added_at)}`]];
   if (it.target != null) stats.splice(1, 0, ["Target", money(it.target, c)]);
+  if (it.local_currency && it.local_price != null && it.currency === "USD") {
+    stats.splice(1, 0, ["Shop price", money(it.local_price, it.local_currency)]);
+    $("dfx").textContent = `Converted to US dollars at each check's exchange rate. Latest: ${fxText(it)}.`;
+    $("dfx").hidden = false;
+  } else $("dfx").hidden = true;
   $("dstats").innerHTML = stats.map(([k, v]) => `<div class="stat"><div class="k">${k}</div><div class="v">${esc(v)}</div></div>`).join("");
 }
 
 function drawTable() {
   const c = state.item.currency;
   $("dtable").innerHTML = state.hist.slice().reverse().map(h => `<tr><td>${esc(when(h.t))}</td>
-    <td>${h.ok ? money(h.price, c) : "—"}</td><td>${h.ok ? esc(AVAIL[h.availability] || h.availability || "") : "—"}</td>
+    <td>${h.ok ? money(h.price, c) + (h.local != null && c === "USD" ? ` <span class="meta">(${money(h.local, h.currency)})</span>` : "") : "—"}</td><td>${h.ok ? esc(AVAIL[h.availability] || h.availability || "") : "—"}</td>
     <td>${h.ok ? "" : esc("Check failed: " + (h.error || ""))}</td></tr>`).join("") ||
     `<tr><td colspan="4">No checks yet — the first one runs within a day.</td></tr>`;
 }
@@ -322,7 +339,7 @@ function drawChart() {
     ? "No price recorded yet: every check so far has failed (see the table below)."
     : "No checks yet: the first one runs within a day.";
   if (!anyPrice) { if (state.chart) { state.chart.destroy(); state.chart = null; } return; }
-  const pts = hist.map(h => ({ x: Date.parse(h.t), y: h.ok ? h.price / 100 : null, a: h.availability, ok: h.ok }));
+  const pts = hist.map(h => ({ x: Date.parse(h.t), y: h.ok ? h.price / 100 : null, a: h.availability, ok: h.ok, l: h.local, lc: h.currency }));
   const spans = []; let start = null;
   pts.forEach((p, i) => {
     const out = p.ok && p.a === "out_of_stock";
@@ -353,7 +370,7 @@ function drawChart() {
         tooltip: { callbacks: {
           title: c => when(new Date(c[0].parsed.x).toISOString()),
           label: c => c.dataset.label === "Price"
-            ? `${money(Math.round(c.parsed.y * 100), cur)} · ${AVAIL[c.raw.a] || ""}` : `${c.dataset.label}: ${money(Math.round(c.parsed.y * 100), cur)}`,
+            ? `${money(Math.round(c.parsed.y * 100), cur)}${c.raw.l != null && cur === "USD" ? ` (${money(c.raw.l, c.raw.lc)})` : ""} · ${AVAIL[c.raw.a] || ""}` : `${c.dataset.label}: ${money(Math.round(c.parsed.y * 100), cur)}`,
         } },
       },
     },
@@ -361,8 +378,10 @@ function drawChart() {
 }
 
 $("csv").addEventListener("click", () => {
-  const rows = [["checked_at", "ok", "price", "currency", "availability", "error"],
-    ...state.hist.map(h => [h.t, h.ok, h.price != null ? (h.price / 100).toFixed(2) : "", state.item.currency, h.availability || "", h.error || ""])];
+  const rows = [["checked_at", "ok", "price", "currency", "shop_price", "shop_currency", "fx_rate", "fx_source", "availability", "error"],
+    ...state.hist.map(h => [h.t, h.ok, h.price != null ? (h.price / 100).toFixed(2) : "", state.item.currency,
+      h.local != null ? (h.local / 100).toFixed(2) : "", h.local != null ? h.currency : "", h.fx_rate ?? "", h.fx_source || "",
+      h.availability || "", h.error || ""])];
   const blob = new Blob([rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n")], { type: "text/csv" });
   const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: `price-history-${state.item.id}.csv` });
   a.click(); URL.revokeObjectURL(a.href);

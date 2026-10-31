@@ -34,7 +34,7 @@ jobs:
           python-version: "3.12"
       - run: pip install curl_cffi==0.7.4
       - name: Unit tests
-        run: python -m unittest test_spike test_tracker test_add_items
+        run: python -m unittest test_spike test_tracker test_add_items test_fx
       # The issue body is untrusted text: it is read from the event file by Python and
       # never pasted into a shell command.
       - name: Add links and check them

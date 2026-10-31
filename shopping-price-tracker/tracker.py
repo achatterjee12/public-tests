@@ -15,6 +15,7 @@ import sqlite3
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urlparse
 
+import fx
 import spike
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -51,6 +52,11 @@ def connect(path=DB_PATH):
     db = sqlite3.connect(path)
     db.row_factory = sqlite3.Row
     db.executescript(SCHEMA)
+    db.executescript(fx.SCHEMA)
+    cols = {r[1] for r in db.execute("PRAGMA table_info(checks)")}
+    for col, typ in (("usd_cents", "INTEGER"), ("fx_rate", "REAL"), ("fx_source", "TEXT")):
+        if col not in cols:  # databases created before currency conversion
+            db.execute(f"ALTER TABLE checks ADD COLUMN {col} {typ}")
     return db
 
 
@@ -144,13 +150,18 @@ def check_item(url):
     return out
 
 
-def record(db, iid, res):
+def record(db, iid, res, rate=None):
+    """Saves one check. rate: {"rate", "source"} converting res's currency to USD, if known."""
     when = now_iso()
     cents = round(res["price"] * 100) if res["ok"] else None
+    usd = round(cents * rate["rate"]) if cents is not None and rate else None
     db.execute("""INSERT INTO checks(item_id, checked_at, ok, price_cents, currency, availability,
-                  method, fetch_method, http_status, error) VALUES (?,?,?,?,?,?,?,?,?,?)""",
+                  method, fetch_method, http_status, error, usd_cents, fx_rate, fx_source)
+                  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                (iid, when, int(res["ok"]), cents, res["currency"], res["availability"],
-                res["method"], "http", res["status"], res["error"]))
+                res["method"], "http", res["status"], res["error"], usd,
+                rate["rate"] if rate and rate["source"] else None, rate["source"] if rate else None))
+    res["usd"] = usd / 100 if usd is not None else None
     for col in ("title", "currency"):
         if res.get(col):
             db.execute(f"UPDATE items SET {col}=? WHERE id=?", (res[col], iid))
@@ -182,10 +193,19 @@ def export(db, json_path=JSON_PATH, history_dir=HISTORY_DIR):
     for it in db.execute("SELECT * FROM items WHERE active=1 ORDER BY id"):
         checks = db.execute("SELECT * FROM checks WHERE item_id=? ORDER BY checked_at",
                             (it["id"],)).fetchall()
-        good = [c for c in checks if c["ok"]]
+        # Everything on the page is in US dollars. A non-USD price uses the rate saved with
+        # its check; if no rate was ever available, the item stays in its own currency.
+        local_cur = it["currency"] or "USD"
+        converted = local_cur == "USD" or any(c["usd_cents"] is not None for c in checks)
+
+        def val(c):
+            if not converted:
+                return c["price_cents"]
+            return c["price_cents"] if (c["currency"] or "USD") == "USD" else c["usd_cents"]
+        good = [c for c in checks if c["ok"] and val(c) is not None]
         last, last_ok = (checks[-1] if checks else None), (good[-1] if good else None)
-        prices = [c["price_cents"] for c in good]
-        low = min(good, key=lambda c: (c["price_cents"], c["checked_at"])) if good else None
+        prices = [val(c) for c in good]
+        low = min(good, key=lambda c: (val(c), c["checked_at"])) if good else None
         tags = [r["name"] for r in db.execute(
             """SELECT t.name FROM item_tags it JOIN tags t ON t.id=it.tag_id
                WHERE it.item_id=? ORDER BY t.id""", (it["id"],))]
@@ -194,23 +214,31 @@ def export(db, json_path=JSON_PATH, history_dir=HISTORY_DIR):
         out_items.append({
             "id": it["id"], "url": it["url"], "retailer": it["retailer"],
             "title": it["title"] or title_from_url(it["url"]), "image": it["image_url"],
-            "currency": it["currency"] or "USD", "tags": tags, "note": it["note"],
+            "currency": "USD" if converted else local_cur, "tags": tags, "note": it["note"],
+            "local_currency": local_cur if local_cur != "USD" else None,
+            "local_price": last_ok["price_cents"] if last_ok and local_cur != "USD" else None,
+            "fx": ({"rate": last_ok["fx_rate"], "source": last_ok["fx_source"], "as_of": last_ok["checked_at"]}
+                   if last_ok and local_cur != "USD" and last_ok["fx_rate"] else None),
             "target": it["target_price_cents"], "added_at": it["added_at"],
-            "price": last_ok["price_cents"] if last_ok else None,
+            "price": val(last_ok) if last_ok else None,
             "availability": last_ok["availability"] if last_ok else None,
             "last_checked": last["checked_at"] if last else None,
             "last_ok": bool(last and last["ok"]),
             "last_error": last["error"] if last and not last["ok"] else None,
-            "low": low["price_cents"] if low else None,
+            "low": val(low) if low else None,
             "low_at": low["checked_at"] if low else None,
             "high": max(prices) if prices else None,
             "avg": round(sum(prices) / len(prices)) if prices else None,
-            "price_30d_ago": before[-1]["price_cents"] if before else None,
+            "price_30d_ago": val(before[-1]) if before else None,
             "checks": len(checks),
-            "spark": [[c["checked_at"][:10], c["price_cents"]] for c in good if c["checked_at"] >= cutoff],
+            "spark": [[c["checked_at"][:10], val(c)] for c in good if c["checked_at"] >= cutoff],
         })
-        hist = [{"t": c["checked_at"], "ok": bool(c["ok"]), "price": c["price_cents"],
-                 "availability": c["availability"], "method": c["method"], "error": c["error"]}
+        hist = [{"t": c["checked_at"], "ok": bool(c["ok"]) and (not c["ok"] or val(c) is not None),
+                 "price": val(c) if c["ok"] else None,
+                 "local": c["price_cents"] if c["ok"] and (c["currency"] or "USD") != "USD" else None,
+                 "currency": c["currency"], "fx_rate": c["fx_rate"], "fx_source": c["fx_source"],
+                 "availability": c["availability"], "method": c["method"],
+                 "error": c["error"] if not c["ok"] else (None if val(c) is not None else "no exchange rate")}
                 for c in checks]
         with open(os.path.join(history_dir, f"{it['id']}.json"), "w", encoding="utf-8") as f:
             json.dump(hist, f, separators=(",", ":"))
@@ -222,6 +250,18 @@ def export(db, json_path=JSON_PATH, history_dir=HISTORY_DIR):
     return data
 
 
+def backfill(db, rates):
+    """Gives older non-USD checks (from before conversion existed) today's rate, once."""
+    for (cur,) in db.execute("""SELECT DISTINCT currency FROM checks WHERE ok=1 AND usd_cents IS NULL
+                                AND currency IS NOT NULL AND currency != 'USD'""").fetchall():
+        rate = rates.get(cur)
+        if rate and rate["source"]:
+            db.execute("""UPDATE checks SET usd_cents=CAST(ROUND(price_cents * ?) AS INTEGER), fx_rate=?,
+                          fx_source=? WHERE ok=1 AND usd_cents IS NULL AND currency=?""",
+                       (rate["rate"], rate["rate"], rate["source"] + " (applied later)", cur))
+    db.commit()
+
+
 def run(only_urls=None):
     """Check every item, or only those whose URL is in only_urls. Returns {url: result}."""
     db = connect()
@@ -229,17 +269,21 @@ def run(only_urls=None):
     ids = sync(db, items, parse_tags(TAGS_PATH))
     lines = ["| Item | Result |", "|---|---|"]
     results = {}
+    rates = fx.Rates(db)
     for it, iid in zip(items, ids):
         if only_urls is not None and it["url"] not in only_urls:
             continue
         res = check_item(it["url"])
-        record(db, iid, res)
+        rate = rates.get(res["currency"]) if res["ok"] else None
+        record(db, iid, res, rate)
         results[it["url"]] = res
         if res["ok"]:
-            lines.append(f"| {res['title'] or it['url']} | {res['price']:.2f} {res['currency'] or ''}"
+            usd = f" = {res['usd']:.2f} USD ({rate['source']})" if rate and rate["source"] and res.get("usd") else ""
+            lines.append(f"| {res['title'] or it['url']} | {res['price']:.2f} {res['currency'] or ''}{usd}"
                          f" / {res['availability']} ({res['method']}) |")
         else:
             lines.append(f"| {it['url']} | failed: {res['error']} |")
+    backfill(db, rates)
     export(db)
     ok = sum(1 for r in results.values() if r["ok"])
     summary = "\n".join(["## Price check", "", *lines, "",

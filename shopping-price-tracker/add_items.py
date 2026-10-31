@@ -114,7 +114,10 @@ def reply(added, dupes, invalid, results, page_url):
             r = results.get(a["url"], {})
             name = (r.get("title") or tracker.title_from_url(a["url"])).replace("|", "/")
             if r.get("ok"):
-                price, stock = money(r["price"], r.get("currency")), (r.get("availability") or "unknown").replace("_", " ")
+                price = money(r["price"], r.get("currency"))
+                if (r.get("currency") or "USD") != "USD" and r.get("usd") is not None:
+                    price = f"{money(r['usd'], 'USD')} ({price})"
+                stock = (r.get("availability") or "unknown").replace("_", " ")
             else:
                 price, stock = "—", f"check failed: {r.get('error') or 'not checked'}"
             out.append(f"| [{name}]({a['url']}) | {price} | {stock} | {', '.join(a['tags']) or '—'} |")
