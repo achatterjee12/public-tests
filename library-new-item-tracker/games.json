@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-10-31T14:49:13.503193+00:00",
- "total": 1030,
+ "generated_at": "2026-11-01T14:55:10.429045+00:00",
+ "total": 1033,
  "libraries": [
   {
    "key": "mvpl",
    "name": "Mountain View",
-   "total": 259,
+   "total": 262,
    "since": "2026-10-20T19:49:06.659805+00:00"
   },
   {
@@ -39,6 +39,33 @@
  ],
  "items": [
   {
+   "library": "mvpl",
+   "id": "44890a0f-ee5f-4cb8-890a-0fee5f7cb823",
+   "title": "Call of duty. Modern warfare 4",
+   "url": "https://librarycatalog.mountainview.gov/search/card?id=44890a0f-ee5f-4cb8-890a-0fee5f7cb823",
+   "added": "2026-11-01T14:55:10.422395+00:00",
+   "baseline": false,
+   "branches": []
+  },
+  {
+   "library": "mvpl",
+   "id": "eec7dd0f-da38-4f63-87dd-0fda389f63a3",
+   "title": "College football 27",
+   "url": "https://librarycatalog.mountainview.gov/search/card?id=eec7dd0f-da38-4f63-87dd-0fda389f63a3",
+   "added": "2026-11-01T14:55:10.422395+00:00",
+   "baseline": false,
+   "branches": []
+  },
+  {
+   "library": "mvpl",
+   "id": "30c73dd0-93e9-47e3-873d-d093e927e378",
+   "title": "Final fantasy resonance",
+   "url": "https://librarycatalog.mountainview.gov/search/card?id=30c73dd0-93e9-47e3-873d-d093e927e378",
+   "added": "2026-11-01T14:55:10.422395+00:00",
+   "baseline": false,
+   "branches": []
+  },
+  {
    "library": "sclibrary",
    "id": "S146C2550270",
    "title": "Assassin's Creed: Black Flag Resynced",
@@ -46,7 +73,9 @@
    "added": "2026-10-29T15:08:39.158375+00:00",
    "baseline": false,
    "branches": [
-    "Central Park"
+    "Central Park",
+    "Mission Branch",
+    "Northside Branch"
    ]
   },
   {
@@ -246,7 +275,9 @@
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
    "branches": [
-    "Central Park"
+    "Central Park",
+    "Mission Branch",
+    "Northside Branch"
    ]
   },
   {
