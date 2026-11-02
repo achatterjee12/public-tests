@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-01T14:15:01+00:00",
+ "generated_at": "2026-11-02T14:34:57+00:00",
  "tags": [
   {
    "name": "jewelry",
@@ -66,7 +66,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-11-01T14:14:37+00:00",
+   "last_checked": "2026-11-02T14:34:35+00:00",
    "last_ok": false,
    "last_error": "blocked by the shop (bot protection)",
    "low": null,
@@ -74,7 +74,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 10,
+   "checks": 11,
    "spark": []
   },
   {
@@ -93,7 +93,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 8999,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:37+00:00",
+   "last_checked": "2026-11-02T14:34:36+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 8999,
@@ -101,7 +101,7 @@
    "high": 8999,
    "avg": 8999,
    "price_30d_ago": null,
-   "checks": 10,
+   "checks": 11,
    "spark": [
     [
      "2026-10-31",
@@ -141,6 +141,10 @@
     ],
     [
      "2026-11-01",
+     8999
+    ],
+    [
+     "2026-11-02",
      8999
     ]
    ]
@@ -161,7 +165,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 14999,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:38+00:00",
+   "last_checked": "2026-11-02T14:34:36+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 14999,
@@ -169,7 +173,7 @@
    "high": 14999,
    "avg": 14999,
    "price_30d_ago": null,
-   "checks": 10,
+   "checks": 11,
    "spark": [
     [
      "2026-10-31",
@@ -209,6 +213,10 @@
     ],
     [
      "2026-11-01",
+     14999
+    ],
+    [
+     "2026-11-02",
      14999
     ]
    ]
@@ -229,7 +237,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 10000,
    "availability": "out_of_stock",
-   "last_checked": "2026-11-01T14:14:38+00:00",
+   "last_checked": "2026-11-02T14:34:37+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 10000,
@@ -237,7 +245,7 @@
    "high": 10000,
    "avg": 10000,
    "price_30d_ago": null,
-   "checks": 10,
+   "checks": 11,
    "spark": [
     [
      "2026-10-31",
@@ -277,6 +285,10 @@
     ],
     [
      "2026-11-01",
+     10000
+    ],
+    [
+     "2026-11-02",
      10000
     ]
    ]
@@ -299,7 +311,7 @@
    "added_at": "2026-10-31T08:29:38+00:00",
    "price": 61500,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:39+00:00",
+   "last_checked": "2026-11-02T14:34:37+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 61500,
@@ -307,7 +319,7 @@
    "high": 61500,
    "avg": 61500,
    "price_30d_ago": null,
-   "checks": 10,
+   "checks": 11,
    "spark": [
     [
      "2026-10-31",
@@ -347,6 +359,10 @@
     ],
     [
      "2026-11-01",
+     61500
+    ],
+    [
+     "2026-11-02",
      61500
     ]
    ]
@@ -369,7 +385,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 10999,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:39+00:00",
+   "last_checked": "2026-11-02T14:34:38+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 10999,
@@ -377,7 +393,7 @@
    "high": 10999,
    "avg": 10999,
    "price_30d_ago": null,
-   "checks": 9,
+   "checks": 10,
    "spark": [
     [
      "2026-10-31",
@@ -413,6 +429,10 @@
     ],
     [
      "2026-11-01",
+     10999
+    ],
+    [
+     "2026-11-02",
      10999
     ]
    ]
@@ -431,23 +451,23 @@
    "local_currency": "INR",
    "local_price": 2999000,
    "fx": {
-    "rate": 0.01053602,
+    "rate": 0.01055363,
     "source": "Google Finance",
-    "as_of": "2026-11-01T14:14:40+00:00"
+    "as_of": "2026-11-02T14:34:39+00:00"
    },
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
-   "price": 31598,
+   "price": 31650,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:40+00:00",
+   "last_checked": "2026-11-02T14:34:39+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 31585,
    "low_at": "2026-10-31T08:32:21+00:00",
-   "high": 31598,
-   "avg": 31594,
+   "high": 31650,
+   "avg": 31599,
    "price_30d_ago": null,
-   "checks": 9,
+   "checks": 10,
    "spark": [
     [
      "2026-10-31",
@@ -484,6 +504,10 @@
     [
      "2026-11-01",
      31598
+    ],
+    [
+     "2026-11-02",
+     31650
     ]
    ]
   },
@@ -503,7 +527,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 4200,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:41+00:00",
+   "last_checked": "2026-11-02T14:34:39+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 4200,
@@ -511,7 +535,7 @@
    "high": 4200,
    "avg": 4200,
    "price_30d_ago": null,
-   "checks": 9,
+   "checks": 10,
    "spark": [
     [
      "2026-10-31",
@@ -547,6 +571,10 @@
     ],
     [
      "2026-11-01",
+     4200
+    ],
+    [
+     "2026-11-02",
      4200
     ]
    ]
@@ -569,7 +597,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 36800,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:42+00:00",
+   "last_checked": "2026-11-02T14:34:40+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 36800,
@@ -577,7 +605,7 @@
    "high": 36800,
    "avg": 36800,
    "price_30d_ago": null,
-   "checks": 9,
+   "checks": 10,
    "spark": [
     [
      "2026-10-31",
@@ -613,6 +641,10 @@
     ],
     [
      "2026-11-01",
+     36800
+    ],
+    [
+     "2026-11-02",
      36800
     ]
    ]
@@ -635,7 +667,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 49800,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:42+00:00",
+   "last_checked": "2026-11-02T14:34:40+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 49800,
@@ -643,7 +675,7 @@
    "high": 49800,
    "avg": 49800,
    "price_30d_ago": null,
-   "checks": 9,
+   "checks": 10,
    "spark": [
     [
      "2026-10-31",
@@ -679,6 +711,10 @@
     ],
     [
      "2026-11-01",
+     49800
+    ],
+    [
+     "2026-11-02",
      49800
     ]
    ]
@@ -697,23 +733,23 @@
    "local_currency": "SEK",
    "local_price": 299500,
    "fx": {
-    "rate": 0.101768741,
+    "rate": 0.102406397,
     "source": "Google Finance",
-    "as_of": "2026-11-01T14:14:43+00:00"
+    "as_of": "2026-11-02T14:34:42+00:00"
    },
    "target": null,
    "added_at": "2026-10-31T08:32:17+00:00",
-   "price": 30480,
+   "price": 30671,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:43+00:00",
+   "last_checked": "2026-11-02T14:34:42+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 30480,
    "low_at": "2026-10-31T08:32:24+00:00",
-   "high": 30480,
-   "avg": 30480,
+   "high": 30671,
+   "avg": 30499,
    "price_30d_ago": null,
-   "checks": 9,
+   "checks": 10,
    "spark": [
     [
      "2026-10-31",
@@ -750,6 +786,10 @@
     [
      "2026-11-01",
      30480
+    ],
+    [
+     "2026-11-02",
+     30671
     ]
    ]
   },
@@ -771,7 +811,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 7800,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:44+00:00",
+   "last_checked": "2026-11-02T14:34:42+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 7800,
@@ -779,7 +819,7 @@
    "high": 7800,
    "avg": 7800,
    "price_30d_ago": null,
-   "checks": 9,
+   "checks": 10,
    "spark": [
     [
      "2026-10-31",
@@ -815,6 +855,10 @@
     ],
     [
      "2026-11-01",
+     7800
+    ],
+    [
+     "2026-11-02",
      7800
     ]
    ]
@@ -837,7 +881,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 19800,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:45+00:00",
+   "last_checked": "2026-11-02T14:34:43+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 19800,
@@ -845,7 +889,7 @@
    "high": 19800,
    "avg": 19800,
    "price_30d_ago": null,
-   "checks": 9,
+   "checks": 10,
    "spark": [
     [
      "2026-10-31",
@@ -881,6 +925,10 @@
     ],
     [
      "2026-11-01",
+     19800
+    ],
+    [
+     "2026-11-02",
      19800
     ]
    ]
@@ -903,7 +951,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 6999,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:46+00:00",
+   "last_checked": "2026-11-02T14:34:43+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 6999,
@@ -911,7 +959,7 @@
    "high": 6999,
    "avg": 6999,
    "price_30d_ago": null,
-   "checks": 9,
+   "checks": 10,
    "spark": [
     [
      "2026-10-31",
@@ -947,6 +995,10 @@
     ],
     [
      "2026-11-01",
+     6999
+    ],
+    [
+     "2026-11-02",
      6999
     ]
    ]
@@ -969,7 +1021,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": 2999,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:47+00:00",
+   "last_checked": "2026-11-02T14:34:44+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 2999,
@@ -977,7 +1029,7 @@
    "high": 2999,
    "avg": 2999,
    "price_30d_ago": null,
-   "checks": 9,
+   "checks": 10,
    "spark": [
     [
      "2026-10-31",
@@ -1013,6 +1065,10 @@
     ],
     [
      "2026-11-01",
+     2999
+    ],
+    [
+     "2026-11-02",
      2999
     ]
    ]
@@ -1035,7 +1091,7 @@
    "added_at": "2026-10-31T08:32:17+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-11-01T14:14:47+00:00",
+   "last_checked": "2026-11-02T14:34:44+00:00",
    "last_ok": false,
    "last_error": "no price found on the page",
    "low": null,
@@ -1043,7 +1099,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 9,
+   "checks": 10,
    "spark": []
   },
   {
@@ -1062,17 +1118,17 @@
    "fx": null,
    "target": null,
    "added_at": "2026-10-31T08:47:51+00:00",
-   "price": 35000,
+   "price": 23100,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:49+00:00",
+   "last_checked": "2026-11-02T14:34:45+00:00",
    "last_ok": true,
    "last_error": null,
-   "low": 35000,
-   "low_at": "2026-10-31T08:47:59+00:00",
+   "low": 23100,
+   "low_at": "2026-11-02T14:34:45+00:00",
    "high": 35000,
-   "avg": 35000,
+   "avg": 33017,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
     [
      "2026-10-31",
@@ -1093,6 +1149,10 @@
     [
      "2026-11-01",
      35000
+    ],
+    [
+     "2026-11-02",
+     23100
     ]
    ]
   },
@@ -1114,7 +1174,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-11-01T14:14:49+00:00",
+   "last_checked": "2026-11-02T14:34:45+00:00",
    "last_ok": false,
    "last_error": "no price found on the page",
    "low": null,
@@ -1122,7 +1182,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": []
   },
   {
@@ -1141,7 +1201,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-11-01T14:14:49+00:00",
+   "last_checked": "2026-11-02T14:34:46+00:00",
    "last_ok": false,
    "last_error": "blocked by the shop (bot protection)",
    "low": null,
@@ -1149,7 +1209,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": []
   },
   {
@@ -1170,7 +1230,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 14800,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:50+00:00",
+   "last_checked": "2026-11-02T14:34:47+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 14800,
@@ -1178,7 +1238,7 @@
    "high": 14800,
    "avg": 14800,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
     [
      "2026-10-31",
@@ -1198,6 +1258,10 @@
     ],
     [
      "2026-11-01",
+     14800
+    ],
+    [
+     "2026-11-02",
      14800
     ]
    ]
@@ -1220,7 +1284,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 7990,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:51+00:00",
+   "last_checked": "2026-11-02T14:34:48+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 7990,
@@ -1228,7 +1292,7 @@
    "high": 7990,
    "avg": 7990,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
     [
      "2026-10-31",
@@ -1248,6 +1312,10 @@
     ],
     [
      "2026-11-01",
+     7990
+    ],
+    [
+     "2026-11-02",
      7990
     ]
    ]
@@ -1270,7 +1338,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 61500,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:52+00:00",
+   "last_checked": "2026-11-02T14:34:49+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 61500,
@@ -1278,7 +1346,7 @@
    "high": 61500,
    "avg": 61500,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
     [
      "2026-10-31",
@@ -1298,6 +1366,10 @@
     ],
     [
      "2026-11-01",
+     61500
+    ],
+    [
+     "2026-11-02",
      61500
     ]
    ]
@@ -1320,7 +1392,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 39500,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:52+00:00",
+   "last_checked": "2026-11-02T14:34:49+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 39500,
@@ -1328,7 +1400,7 @@
    "high": 39500,
    "avg": 39500,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
     [
      "2026-10-31",
@@ -1348,6 +1420,10 @@
     ],
     [
      "2026-11-01",
+     39500
+    ],
+    [
+     "2026-11-02",
      39500
     ]
    ]
@@ -1370,7 +1446,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-11-01T14:14:52+00:00",
+   "last_checked": "2026-11-02T14:34:49+00:00",
    "last_ok": false,
    "last_error": "blocked by the shop (bot protection)",
    "low": null,
@@ -1378,7 +1454,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": []
   },
   {
@@ -1397,7 +1473,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 4193,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:53+00:00",
+   "last_checked": "2026-11-02T14:34:50+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 4193,
@@ -1405,7 +1481,7 @@
    "high": 4193,
    "avg": 4193,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
     [
      "2026-10-31",
@@ -1425,6 +1501,10 @@
     ],
     [
      "2026-11-01",
+     4193
+    ],
+    [
+     "2026-11-02",
      4193
     ]
    ]
@@ -1445,7 +1525,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": 11990,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:54+00:00",
+   "last_checked": "2026-11-02T14:34:51+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 11990,
@@ -1453,7 +1533,7 @@
    "high": 11990,
    "avg": 11990,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": [
     [
      "2026-10-31",
@@ -1473,6 +1553,10 @@
     ],
     [
      "2026-11-01",
+     11990
+    ],
+    [
+     "2026-11-02",
      11990
     ]
    ]
@@ -1495,7 +1579,7 @@
    "added_at": "2026-10-31T08:47:51+00:00",
    "price": null,
    "availability": null,
-   "last_checked": "2026-11-01T14:14:56+00:00",
+   "last_checked": "2026-11-02T14:34:53+00:00",
    "last_ok": false,
    "last_error": "no price found on the page",
    "low": null,
@@ -1503,7 +1587,7 @@
    "high": null,
    "avg": null,
    "price_30d_ago": null,
-   "checks": 5,
+   "checks": 6,
    "spark": []
   },
   {
@@ -1524,7 +1608,7 @@
    "added_at": "2026-10-31T08:58:08+00:00",
    "price": 5400,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:57+00:00",
+   "last_checked": "2026-11-02T14:34:54+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 5400,
@@ -1532,7 +1616,7 @@
    "high": 5400,
    "avg": 5400,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
     [
      "2026-10-31",
@@ -1544,6 +1628,10 @@
     ],
     [
      "2026-11-01",
+     5400
+    ],
+    [
+     "2026-11-02",
      5400
     ]
    ]
@@ -1566,7 +1654,7 @@
    "added_at": "2026-10-31T08:58:08+00:00",
    "price": 6700,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:58+00:00",
+   "last_checked": "2026-11-02T14:34:54+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 6700,
@@ -1574,7 +1662,7 @@
    "high": 6700,
    "avg": 6700,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
     [
      "2026-10-31",
@@ -1586,6 +1674,10 @@
     ],
     [
      "2026-11-01",
+     6700
+    ],
+    [
+     "2026-11-02",
      6700
     ]
    ]
@@ -1608,7 +1700,7 @@
    "added_at": "2026-10-31T08:58:08+00:00",
    "price": 6700,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:58+00:00",
+   "last_checked": "2026-11-02T14:34:55+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 6700,
@@ -1616,7 +1708,7 @@
    "high": 6700,
    "avg": 6700,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
     [
      "2026-10-31",
@@ -1628,6 +1720,10 @@
     ],
     [
      "2026-11-01",
+     6700
+    ],
+    [
+     "2026-11-02",
      6700
     ]
    ]
@@ -1650,7 +1746,7 @@
    "added_at": "2026-10-31T08:58:08+00:00",
    "price": 4200,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:14:59+00:00",
+   "last_checked": "2026-11-02T14:34:55+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 4200,
@@ -1658,7 +1754,7 @@
    "high": 4200,
    "avg": 4200,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
     [
      "2026-10-31",
@@ -1674,6 +1770,10 @@
     ],
     [
      "2026-11-01",
+     4200
+    ],
+    [
+     "2026-11-02",
      4200
     ]
    ]
@@ -1696,7 +1796,7 @@
    "added_at": "2026-10-31T08:58:08+00:00",
    "price": 7500,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:15:00+00:00",
+   "last_checked": "2026-11-02T14:34:56+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 7500,
@@ -1704,7 +1804,7 @@
    "high": 7500,
    "avg": 7500,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
     [
      "2026-10-31",
@@ -1720,6 +1820,10 @@
     ],
     [
      "2026-11-01",
+     7500
+    ],
+    [
+     "2026-11-02",
      7500
     ]
    ]
@@ -1742,7 +1846,7 @@
    "added_at": "2026-10-31T08:58:08+00:00",
    "price": 14500,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:15:00+00:00",
+   "last_checked": "2026-11-02T14:34:57+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 14500,
@@ -1750,7 +1854,7 @@
    "high": 14500,
    "avg": 14500,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
     [
      "2026-10-31",
@@ -1766,6 +1870,10 @@
     ],
     [
      "2026-11-01",
+     14500
+    ],
+    [
+     "2026-11-02",
      14500
     ]
    ]
@@ -1788,7 +1896,7 @@
    "added_at": "2026-10-31T08:58:08+00:00",
    "price": 19500,
    "availability": "in_stock",
-   "last_checked": "2026-11-01T14:15:01+00:00",
+   "last_checked": "2026-11-02T14:34:57+00:00",
    "last_ok": true,
    "last_error": null,
    "low": 19500,
@@ -1796,7 +1904,7 @@
    "high": 19500,
    "avg": 19500,
    "price_30d_ago": null,
-   "checks": 4,
+   "checks": 5,
    "spark": [
     [
      "2026-10-31",
@@ -1812,6 +1920,10 @@
     ],
     [
      "2026-11-01",
+     19500
+    ],
+    [
+     "2026-11-02",
      19500
     ]
    ]
