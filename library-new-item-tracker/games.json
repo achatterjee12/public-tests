@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-02T15:07:44.794116+00:00",
- "total": 1033,
+ "generated_at": "2026-11-03T15:02:35.240683+00:00",
+ "total": 1034,
  "libraries": [
   {
    "key": "mvpl",
@@ -23,7 +23,7 @@
   {
    "key": "sccl",
    "name": "Santa Clara County",
-   "total": 686,
+   "total": 687,
    "since": "2026-10-22T03:44:38.397760+00:00"
   }
  ],
@@ -38,6 +38,20 @@
   }
  ],
  "items": [
+  {
+   "library": "sccl",
+   "id": "S118C1378081",
+   "title": "Starsand Island",
+   "url": "https://sccl.bibliocommons.com/v2/record/S118C1378081",
+   "added": "2026-11-03T15:02:35.170593+00:00",
+   "baseline": false,
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Milpitas",
+    "Saratoga"
+   ]
+  },
   {
    "library": "mvpl",
    "id": "44890a0f-ee5f-4cb8-890a-0fee5f7cb823",
