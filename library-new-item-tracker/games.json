@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-03T15:02:35.240683+00:00",
- "total": 1034,
+ "generated_at": "2026-11-04T15:03:12.433264+00:00",
+ "total": 1035,
  "libraries": [
   {
    "key": "mvpl",
@@ -17,7 +17,7 @@
   {
    "key": "sclibrary",
    "name": "Santa Clara City",
-   "total": 85,
+   "total": 86,
    "since": "2026-10-22T03:44:38.397760+00:00"
   },
   {
@@ -38,6 +38,18 @@
   }
  ],
  "items": [
+  {
+   "library": "sclibrary",
+   "id": "S146C2550677",
+   "title": "Halo: Campaign Evolved",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550677",
+   "added": "2026-11-04T15:03:12.424594+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park",
+    "Northside Branch"
+   ]
+  },
   {
    "library": "sccl",
    "id": "S118C1378081",
