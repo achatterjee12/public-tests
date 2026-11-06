@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-05T21:07:16.327556+00:00",
- "total": 1035,
+ "generated_at": "2026-11-06T20:28:37.163138+00:00",
+ "total": 1036,
  "libraries": [
   {
    "key": "mvpl",
@@ -17,7 +17,7 @@
   {
    "key": "sclibrary",
    "name": "Santa Clara City",
-   "total": 86,
+   "total": 87,
    "since": "2026-10-22T03:44:38.397760+00:00"
   },
   {
@@ -38,6 +38,17 @@
   }
  ],
  "items": [
+  {
+   "library": "sclibrary",
+   "id": "S146C2550808",
+   "title": "Onimusha: Way of the Sword",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550808",
+   "added": "2026-11-06T20:28:37.155511+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
   {
    "library": "sclibrary",
    "id": "S146C2550677",
@@ -225,7 +236,8 @@
    "added": "2026-10-29T15:08:39.158375+00:00",
    "baseline": false,
    "branches": [
-    "Central Park"
+    "Central Park",
+    "Northside Branch"
    ]
   },
   {
@@ -7140,8 +7152,7 @@
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
    "branches": [
-    "Milpitas",
-    "Saratoga"
+    "Milpitas"
    ]
   },
   {
@@ -7651,8 +7662,7 @@
     "Los Altos",
     "Milpitas",
     "Saratoga",
-    "Services & Support Center",
-    "Woodland"
+    "Services & Support Center"
    ]
   },
   {
