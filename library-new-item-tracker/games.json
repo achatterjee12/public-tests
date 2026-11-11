@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-10T20:51:38.761783+00:00",
- "total": 1037,
+ "generated_at": "2026-11-11T21:27:40.742277+00:00",
+ "total": 1038,
  "libraries": [
   {
    "key": "mvpl",
@@ -17,7 +17,7 @@
   {
    "key": "sclibrary",
    "name": "Santa Clara City",
-   "total": 87,
+   "total": 88,
    "since": "2026-10-22T03:44:38.397760+00:00"
   },
   {
@@ -38,6 +38,17 @@
   }
  ],
  "items": [
+  {
+   "library": "sclibrary",
+   "id": "S146C2550810",
+   "title": "The Blood of Dawnwalker",
+   "url": "https://sclibrary.bibliocommons.com/v2/record/S146C2550810",
+   "added": "2026-11-11T21:27:40.735072+00:00",
+   "baseline": false,
+   "branches": [
+    "Central Park"
+   ]
+  },
   {
    "library": "sccl",
    "id": "S118C1368843",
@@ -4313,7 +4324,6 @@
    "branches": [
     "Campbell",
     "Cupertino",
-    "Los Altos",
     "Saratoga"
    ]
   },
