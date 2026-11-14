@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-11-13T20:55:45.714607+00:00",
- "total": 1038,
+ "generated_at": "2026-11-14T19:12:51.275972+00:00",
+ "total": 1042,
  "libraries": [
   {
    "key": "mvpl",
    "name": "Mountain View",
-   "total": 262,
+   "total": 264,
    "since": "2026-10-20T19:49:06.659805+00:00"
   },
   {
@@ -23,7 +23,7 @@
   {
    "key": "sccl",
    "name": "Santa Clara County",
-   "total": 688,
+   "total": 690,
    "since": "2026-10-22T03:44:38.397760+00:00"
   }
  ],
@@ -38,6 +38,54 @@
   }
  ],
  "items": [
+  {
+   "library": "mvpl",
+   "id": "56f1db97-751d-4bc6-b1db-97751debc614",
+   "title": "Aaero2 : Black Razor edition",
+   "url": "https://librarycatalog.mountainview.gov/search/card?id=56f1db97-751d-4bc6-b1db-97751debc614",
+   "added": "2026-11-14T19:12:51.270737+00:00",
+   "baseline": false,
+   "branches": []
+  },
+  {
+   "library": "sccl",
+   "id": "S118C1381303",
+   "title": "Forza Horizon 6",
+   "url": "https://sccl.bibliocommons.com/v2/record/S118C1381303",
+   "added": "2026-11-14T19:12:51.270737+00:00",
+   "baseline": false,
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
+  },
+  {
+   "library": "mvpl",
+   "id": "25a3b360-8115-4760-a3b3-6081150760a2",
+   "title": "Harvest moon : echoes of Teradea",
+   "url": "https://librarycatalog.mountainview.gov/search/card?id=25a3b360-8115-4760-a3b3-6081150760a2",
+   "added": "2026-11-14T19:12:51.270737+00:00",
+   "baseline": false,
+   "branches": []
+  },
+  {
+   "library": "sccl",
+   "id": "S118C1381294",
+   "title": "Stranger Than Heaven",
+   "url": "https://sccl.bibliocommons.com/v2/record/S118C1381294",
+   "added": "2026-11-14T19:12:51.270737+00:00",
+   "baseline": false,
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
+  },
   {
    "library": "sclibrary",
    "id": "S146C2550810",
