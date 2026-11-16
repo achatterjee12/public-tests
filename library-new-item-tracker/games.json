@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-15T19:48:56.108220+00:00",
- "total": 1042,
+ "generated_at": "2026-11-16T23:27:40.923757+00:00",
+ "total": 1043,
  "libraries": [
   {
    "key": "mvpl",
@@ -23,7 +23,7 @@
   {
    "key": "sccl",
    "name": "Santa Clara County",
-   "total": 690,
+   "total": 691,
    "since": "2026-10-22T03:44:38.397760+00:00"
   }
  ],
@@ -38,6 +38,21 @@
   }
  ],
  "items": [
+  {
+   "library": "sccl",
+   "id": "S118C1381550",
+   "title": "Edge Of Memories",
+   "url": "https://sccl.bibliocommons.com/v2/record/S118C1381550",
+   "added": "2026-11-16T23:27:40.915583+00:00",
+   "baseline": false,
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
+  },
   {
    "library": "mvpl",
    "id": "56f1db97-751d-4bc6-b1db-97751debc614",
