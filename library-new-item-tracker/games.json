@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-16T23:27:40.923757+00:00",
- "total": 1043,
+ "generated_at": "2026-11-17T22:27:21.539402+00:00",
+ "total": 1047,
  "libraries": [
   {
    "key": "mvpl",
@@ -23,7 +23,7 @@
   {
    "key": "sccl",
    "name": "Santa Clara County",
-   "total": 691,
+   "total": 695,
    "since": "2026-10-22T03:44:38.397760+00:00"
   }
  ],
@@ -38,6 +38,66 @@
   }
  ],
  "items": [
+  {
+   "library": "sccl",
+   "id": "S118C1381583",
+   "title": "Armatus",
+   "url": "https://sccl.bibliocommons.com/v2/record/S118C1381583",
+   "added": "2026-11-17T22:27:21.533953+00:00",
+   "baseline": false,
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
+  },
+  {
+   "library": "sccl",
+   "id": "S118C1381602",
+   "title": "Hela: Harmony Edition",
+   "url": "https://sccl.bibliocommons.com/v2/record/S118C1381602",
+   "added": "2026-11-17T22:27:21.533953+00:00",
+   "baseline": false,
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
+  },
+  {
+   "library": "sccl",
+   "id": "S118C1381542",
+   "title": "Mago: Hyperdelicious Edition",
+   "url": "https://sccl.bibliocommons.com/v2/record/S118C1381542",
+   "added": "2026-11-17T22:27:21.533953+00:00",
+   "baseline": false,
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
+  },
+  {
+   "library": "sccl",
+   "id": "S118C1381605",
+   "title": "PEAK",
+   "url": "https://sccl.bibliocommons.com/v2/record/S118C1381605",
+   "added": "2026-11-17T22:27:21.533953+00:00",
+   "baseline": false,
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
+  },
   {
    "library": "sccl",
    "id": "S118C1381550",
@@ -7120,7 +7180,6 @@
    "added": "2026-10-22T03:44:38.397760+00:00",
    "baseline": true,
    "branches": [
-    "Central Park",
     "Northside Branch"
    ]
   },
