@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-18T21:59:47.054458+00:00",
- "total": 1048,
+ "generated_at": "2026-11-19T22:11:56.311557+00:00",
+ "total": 1049,
  "libraries": [
   {
    "key": "mvpl",
@@ -23,7 +23,7 @@
   {
    "key": "sccl",
    "name": "Santa Clara County",
-   "total": 696,
+   "total": 697,
    "since": "2026-10-22T03:44:38.397760+00:00"
   }
  ],
@@ -38,6 +38,18 @@
   }
  ],
  "items": [
+  {
+   "library": "sccl",
+   "id": "S118C1366475",
+   "title": "Coffee Talk Tokyo",
+   "url": "https://sccl.bibliocommons.com/v2/record/S118C1366475",
+   "added": "2026-11-19T22:11:56.303232+00:00",
+   "baseline": false,
+   "branches": [
+    "Campbell",
+    "Milpitas"
+   ]
+  },
   {
    "library": "sccl",
    "id": "S118C1374296",
