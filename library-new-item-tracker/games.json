@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-19T22:11:56.311557+00:00",
- "total": 1049,
+ "generated_at": "2026-11-20T21:51:07.017322+00:00",
+ "total": 1050,
  "libraries": [
   {
    "key": "mvpl",
@@ -23,7 +23,7 @@
   {
    "key": "sccl",
    "name": "Santa Clara County",
-   "total": 697,
+   "total": 698,
    "since": "2026-10-22T03:44:38.397760+00:00"
   }
  ],
@@ -38,6 +38,20 @@
   }
  ],
  "items": [
+  {
+   "library": "sccl",
+   "id": "S118C1381776",
+   "title": "Grim Trials",
+   "url": "https://sccl.bibliocommons.com/v2/record/S118C1381776",
+   "added": "2026-11-20T21:51:07.008195+00:00",
+   "baseline": false,
+   "branches": [
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
+  },
   {
    "library": "sccl",
    "id": "S118C1366475",
