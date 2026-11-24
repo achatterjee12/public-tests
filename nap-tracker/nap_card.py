@@ -391,7 +391,10 @@ def render(start, end, out, name=None, day=None, win_start=12, win_end=17):
         sparkle(d, C[0] + s(dx), s(1250), s(9), (255, 214, 120))
 
     final = add_grain(img.resize((W, H), Image.LANCZOS), amount=3.5)
-    final.save(out, "JPEG", quality=95, subsampling=0)
+    if str(out).lower().endswith(".png"):
+        final.save(out, "PNG", optimize=True)
+    else:
+        final.save(out, "JPEG", quality=95, subsampling=0)
     print(f"Saved {out}  ({fmt_clock(start)[0]} → {fmt_clock(end)[0]}, {total} min)")
 
 
@@ -399,7 +402,7 @@ def main():
     p = argparse.ArgumentParser(description="Make a pastel nap poster.")
     p.add_argument("start", type=parse_time, help="when the nap started, e.g. 12:45")
     p.add_argument("end", type=parse_time, help="when the nap ended, e.g. 2:10")
-    p.add_argument("-o", "--out", default="nap.jpg", help="output JPEG path")
+    p.add_argument("-o", "--out", default="nap.jpg", help="output path (.jpg or .png)")
     p.add_argument("--name", help="baby's name for the title (optional)")
     p.add_argument("--date", type=lambda v: datetime.strptime(v, "%Y-%m-%d").date(),
                    help="date as YYYY-MM-DD (default: today)")
