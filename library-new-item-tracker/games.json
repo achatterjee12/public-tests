@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-11-25T23:08:36.611035+00:00",
- "total": 1050,
+ "generated_at": "2026-11-26T23:00:57.735628+00:00",
+ "total": 1052,
  "libraries": [
   {
    "key": "mvpl",
    "name": "Mountain View",
-   "total": 264,
+   "total": 265,
    "since": "2026-10-20T19:49:06.659805+00:00"
   },
   {
@@ -23,7 +23,7 @@
   {
    "key": "sccl",
    "name": "Santa Clara County",
-   "total": 698,
+   "total": 699,
    "since": "2026-10-22T03:44:38.397760+00:00"
   }
  ],
@@ -38,6 +38,30 @@
   }
  ],
  "items": [
+  {
+   "library": "sccl",
+   "id": "S118C1382220",
+   "title": "DISPATCH - DELUXE EDITION",
+   "url": "https://sccl.bibliocommons.com/v2/record/S118C1382220",
+   "added": "2026-11-26T23:00:57.731455+00:00",
+   "baseline": false,
+   "branches": [
+    "Campbell",
+    "Cupertino",
+    "Los Altos",
+    "Milpitas",
+    "Saratoga"
+   ]
+  },
+  {
+   "library": "mvpl",
+   "id": "b20855fa-0deb-4e4b-8855-fa0deb0e4baf",
+   "title": "Xeno crisis",
+   "url": "https://librarycatalog.mountainview.gov/search/card?id=b20855fa-0deb-4e4b-8855-fa0deb0e4baf",
+   "added": "2026-11-26T23:00:57.731455+00:00",
+   "baseline": false,
+   "branches": []
+  },
   {
    "library": "sccl",
    "id": "S118C1381776",
